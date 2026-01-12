@@ -46,7 +46,7 @@
 #include <cstring>
 #include <csignal>
 
-using namespace std;
+//using namespace std;
 
 #include "EST.h"
 #include "EST_unix.h"

@@ -93,7 +93,7 @@ int festival_start_server(int port)
     else if (llog_file == siod_get_lval("t",NULL))
 	cslog = &std::cout;
     else 
-	cslog = new std::ofstream(get_c_string(llog_file),ios::app);
+	cslog = new std::ofstream(get_c_string(llog_file),std::ios::app);
     
     if (!socket_initialise())
     {

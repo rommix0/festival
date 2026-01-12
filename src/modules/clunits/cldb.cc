@@ -115,7 +115,7 @@ static void cl_load_catalogue(CLDB *cldb,EST_String &indexfile)
     bool ascii;
     EST_read_status r;
     
-    if (((indexfile == "-") ? ts.open(cin) : ts.open(indexfile)) != 0)
+    if (((indexfile == "-") ? ts.open(std::cin) : ts.open(indexfile)) != 0)
     {
 	std::cerr << "CLUNITS: Can't open catalogue file " << indexfile << std::endl;
 	festival_error();

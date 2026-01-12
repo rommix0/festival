@@ -287,7 +287,7 @@ static LISP lisp_debug_output(LISP arg)
 {
     // switch debug output stream
 
-    if (cdebug != &cerr)
+    if (cdebug != &std::cerr)
 	delete cdebug;
     if (stddebug != stderr)
 	fclose(stddebug);
@@ -304,7 +304,7 @@ static LISP lisp_debug_output(LISP arg)
     }
     else
     {
-	cdebug = &cerr;
+	cdebug = &std::cerr;
 	stddebug = stderr;
     }
 

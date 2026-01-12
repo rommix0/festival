@@ -40,7 +40,7 @@
 
 #include <cstdio>
 
-using namespace std;
+//using namespace std;
 
 #include "EST_unix.h"
 #include "festival.h"

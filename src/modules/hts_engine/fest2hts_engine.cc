@@ -54,7 +54,7 @@
 #include "HTS_engine.h"
 #include "HTS_hidden.h"
 
-using namespace std;
+//using namespace std;
 
 /* Getfp: wrapper for fopen */
 static FILE *Getfp(const char *name, const char *opt) {

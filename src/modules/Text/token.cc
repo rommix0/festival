@@ -46,7 +46,7 @@
 /*=======================================================================*/
 #include <cstdio>
 
-using namespace std;
+//using namespace std;
 
 #include "festival.h"
 #include "lexicon.h"

@@ -37,7 +37,7 @@
 #include <cstdio>
 #include <iostream>
 
-using namespace std;
+//using namespace std;
 
 #include "EST_String.h"
 
