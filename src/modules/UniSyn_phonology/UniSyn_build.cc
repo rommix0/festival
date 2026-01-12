@@ -157,7 +157,7 @@ void add_trans_intonation(EST_Utterance &utt, const EST_String &i_name,
     utt.relation(i_name)->f.set("intonation_style", "tilt");
 
     utt.create_relation(is_name);
-    cout << "created : " << is_name << endl;
+    std::cout << "created : " << is_name << std::endl;
 
     // optional feature to add intonation events to words rather than syllables
     if (add_words)
@@ -180,8 +180,8 @@ void add_trans_intonation(EST_Utterance &utt, const EST_String &i_name,
 		    }
 		    if (w == 0)
 			{
-			    cerr << "Error: couldn't find word ref " << endl;
-			    cerr << "For intonation event " << *t << endl;
+			    std::cerr << "Error: couldn't find word ref " << std::endl;
+			    std::cerr << "For intonation event " << *t << std::endl;
 			    festival_error();
 			}
 		    if (add_words)
@@ -193,18 +193,18 @@ void add_trans_intonation(EST_Utterance &utt, const EST_String &i_name,
 			b->append_daughter(t);
 		    }
 
-		    //	cout << "matching word: " << w->name() << endl;
+		    //	std::cout << "matching word: " << w->name() << std::endl;
 		    if ((b = w->as_relation("WordStructure")) == 0)
 			EST_error("Item is not in WordStructure\n");
 		    if ((s = nth_leaf(b, s_num)) == 0)
 		    {
-			cerr << "Intonation element " << *t << 
+			std::cerr << "Intonation element " << *t << 
 			    "\nis linked to syllable " << s_num  <<
 			    " but word \"" << w->S("name") << "\""
 			    " has only " << num_leaves(b) << " syllables\n";
 		    }
-		    //	cout << "here is s\n";
-		    //	cout << "matching syllable: " << *s << endl;
+		    //	std::cout << "here is s\n";
+		    //	std::cout << "matching syllable: " << *s << std::endl;
 
 		    if (!s->in_relation(is_name))
 			a = utt.relation(is_name)->append(s);
@@ -212,14 +212,14 @@ void add_trans_intonation(EST_Utterance &utt, const EST_String &i_name,
 			a = s->as_relation(is_name);
 		    a->append_daughter(t);
 
-//		    cout << "s1: " << s->S("id", "XX") << endl;
+//		    std::cout << "s1: " << s->S("id", "XX") << std::endl;
 		    s = s->as_relation(s_name);
 		    if (s == 0)
-			cerr << "Syllable with id " << nth_leaf(b, s_num)->S("id") << "exists "
+			std::cerr << "Syllable with id " << nth_leaf(b, s_num)->S("id") << "exists "
 			    "but is not in syllable relation. Suspect corrupted "
 			    "lexical conversion\n";
 
-//		    cout << "s2: " << s->S("id", "XX") << endl;
+//		    std::cout << "s2: " << s->S("id", "XX") << std::endl;
 
 		    // change to relative positions if not already specified
 		    if (!t->f_present("rel_pos"))
@@ -228,7 +228,7 @@ void add_trans_intonation(EST_Utterance &utt, const EST_String &i_name,
 		    t->set("time_path", is_name);
 		    t->set_function("time", 
 				    "standard+unisyn_tilt_event_position");
-//		    cout << "end syl:" << endl;
+//		    std::cout << "end syl:" << std::endl;
 		    t->f_remove("word_ref");
 		    t->f_remove("syl_num");
 		}
@@ -251,8 +251,8 @@ void syl_to_word_intonation(EST_Utterance &utt)
 	
 	if (w == 0)
 	{
-	    cerr << "Error: couldn't find word ref " << endl;
-	    cerr << "For intonation event " << *t << endl;
+	    std::cerr << "Error: couldn't find word ref " << std::endl;
+	    std::cerr << "For intonation event " << *t << std::endl;
 	    festival_error();
 	}
 	if (!w->in_relation("IntonationWord"))
@@ -310,7 +310,7 @@ static void add_trans_phrase(EST_Utterance &utt, const EST_String &i_name,
 	    pos = t->F("time");
 	    max = 100000.0;
 
-	    cout << "here 1\n";
+	    std::cout << "here 1\n";
 
 	    for (p = utt.relation(s_name)->head(); p; p = inext(p))
 		{
@@ -435,10 +435,10 @@ LISP FT_add_coefs(LISP l_utt, LISP lf_coef)
     float prev_mid, next_mid;
     EST_FVector *frame;
 
-    cout << "loading\n";
+    std::cout << "loading\n";
     if (coef.load(coef_file) != format_ok)
 	EST_error("Couldn't load file %s\n", (const char *) coef_file);
-    cout << "done\n";
+    std::cout << "done\n";
 
     frame = new EST_FVector;
     frame->fill(0.0); // special case for first frame.
@@ -511,7 +511,7 @@ void fix_syllables(EST_Item *nw, EST_Utterance &word)
     if (word.relation("Syllable")->length() == word.relation("SurfaceSyllable")->length())
 	return;
     
-    cout << "Word \"" << word.relation("Word")->head()->name() << "\" has " 
+    std::cout << "Word \"" << word.relation("Word")->head()->name() << "\" has " 
 	<< word.relation("Syllable")->length() << 
 	    " lexical syllables and " <<
 		word.relation("SurfaceSyllable")->length() <<
@@ -610,7 +610,7 @@ static void add_silences(EST_Utterance &utt,EST_Item *w)
 	return;
     }
 
-    cout << "Looking at inserting\n";
+    std::cout << "Looking at inserting\n";
     // Intermeditate silences
     r = w->I("phon_ref");
     for (s=utt.relation("LabelSegment")->head(); s; s=inext(s))
@@ -619,7 +619,7 @@ static void add_silences(EST_Utterance &utt,EST_Item *w)
 	{
 	    if (inext(s)->name() == "pau")
 	    {
-		cout << "actually inserting\n";
+		std::cout << "actually inserting\n";
 		EST_Item *sil = utt.relation("Segment")->append();
 		sil->set("name","pau");
 		sil->set("start",s->F("end"));
@@ -661,9 +661,9 @@ void add_trans_seg(EST_Utterance &utt, const EST_String &segfile)
 	    EST_error("Phone %s is not defined in phone set\n", (const char *)
 		      s->S("name"));
 	n = utt.relation("LabelSegment")->append();
-//	cout << "append ls id " << n->S("id") << endl;
+//	std::cout << "append ls id " << n->S("id") << std::endl;
 	merge_features(n, s, 1);
-//	cout << "keep ls id " << n->S("id") << endl;
+//	std::cout << "keep ls id " << n->S("id") << std::endl;
 	n->set("start", phone_start);
 	phone_start = s->F("end");
     }
@@ -710,7 +710,7 @@ void add_trans_seg(EST_Utterance &utt, const EST_String &segfile)
     {
 	word.clear_relations();
 	word.f.set("max_id", 0);
-	cout << "word: " << *w << endl;
+	std::cout << "word: " << *w << std::endl;
 	lex_to_phones(w->f("name"), w->f("pos", ""), 
 		      *word.relation("Segment"));
 	trans_to_phones(w, *utt.relation("LabelSegment"), 
@@ -738,7 +738,7 @@ void add_trans_seg(EST_Utterance &utt, const EST_String &segfile)
 
 	subword_metrical_tree(nw, *word.relation("Syllable"), 
 			      *word.relation("WordStructure"));
-//	cout << "C2\n";
+//	std::cout << "C2\n";
 	
 	if (siod_get_lval("mettree_debug_word", NULL) != NIL)
 	    word.save("word_dp.utt", "est");
@@ -750,7 +750,7 @@ void add_trans_seg(EST_Utterance &utt, const EST_String &segfile)
 	word.remove_relation("SurfaceSylStructure");
 	word.remove_relation("SurfaceMetrcialTree");
 	word.remove_relation("SurfaceSyllable");
-	//cout << "32\n";
+	//std::cout << "32\n";
 	EST_String wid = w->S("id");
 	utterance_merge(utt, word, w, word.relation("Word")->head());
 	
@@ -758,7 +758,7 @@ void add_trans_seg(EST_Utterance &utt, const EST_String &segfile)
 
 	add_silences(utt,w);
     }
-    cout << "time2\n";
+    std::cout << "time2\n";
     
 //    utt.save("test.utt");
     
@@ -772,7 +772,7 @@ void add_trans_seg(EST_Utterance &utt, const EST_String &segfile)
 	      *utt.relation("Match"));
     
     //    utt.relation("Word")->f.set("timing_style", "segment");
-    //    cout << "here d\n";
+    //    std::cout << "here d\n";
     
 //    add_feature_function(*utt.relation("SurfacePhone"), "dur",
 //		 usf_duration);
@@ -799,7 +799,7 @@ void add_trans_seg(EST_Utterance &utt, const EST_String &segfile)
         utt.save("met_data.utt", "est");
     
     gc_unprotect(&lutt);
-     cout << "here c\n";
+     std::cout << "here c\n";
 }
 
 
@@ -873,12 +873,12 @@ void data_metrical_tree(LISP l, EST_Item *met_parent, EST_Relation &word)
     LISP a;
     EST_Item *m;
 
-    //cout << "full entry\n";
+    //std::cout << "full entry\n";
 //    lprint(l);
-    //cout << "now parsing\n";
+    //std::cout << "now parsing\n";
 
     mv = get_c_string(car(l));
-    //cout << "adding node strength: " << mv << endl;
+    //std::cout << "adding node strength: " << mv << std::endl;
     // root nodes are added in calling routine.
     if (mv != "r")
 	m = met_parent->append_daughter();
@@ -888,7 +888,7 @@ void data_metrical_tree(LISP l, EST_Item *met_parent, EST_Relation &word)
     
     if (siod_atomic_list(cdr(l)))
 	{
-	    // cout << "atomic cdr is: ";
+	    // std::cout << "atomic cdr is: ";
 //	    lprint(cdr(l));
 	    a = cdr(l);
 	    name = get_c_string(car(a));
@@ -899,25 +899,25 @@ void data_metrical_tree(LISP l, EST_Item *met_parent, EST_Relation &word)
 	    m->set("id", id);
 	    word.append(m);
 	    
-	    //cout << "adding " << name << " on id: " << id << endl;
+	    //std::cout << "adding " << name << " on id: " << id << std::endl;
 	    return;
 	}
-    //cout << "\ndoing left branch\n";
+    //std::cout << "\ndoing left branch\n";
     data_metrical_tree(car(cdr(l)), m, word);
-    //cout << "\ndoing right branch\n";
+    //std::cout << "\ndoing right branch\n";
     data_metrical_tree(car(cdr(cdr(l))), m, word);
 }
 */
 
-int lisp_tree_to_xml(ofstream &outf, LISP l)
+int lisp_tree_to_xml(std::ofstream &outf, LISP l)
 {
     int id;
     LISP a;
     EST_String mv;
 
-    //cout << "full entry\n";
+    //std::cout << "full entry\n";
 //    lprint(l);
-    //cout << "now parsing\n";
+    //std::cout << "now parsing\n";
 
     mv = get_c_string(car(l));
 
@@ -925,7 +925,7 @@ int lisp_tree_to_xml(ofstream &outf, LISP l)
     
     if (siod_atomic_list(cdr(l)))
 	{
-	    // cout << "atomic cdr is: ";
+	    // std::cout << "atomic cdr is: ";
 //	    lprint(cdr(l));
 	    a = cdr(l);
 	    id = get_c_int(car(cdr(cdr(a))));
@@ -958,7 +958,7 @@ LISP FT_add_trans_metrical_tree(LISP l_utt, LISP lf_input, LISP lf_output)
     lmet = vload(get_c_string(lf_input), 1);
 
 
-    ofstream outf;
+    std::ofstream outf;
     outf.open(get_c_string(lf_output));
 
     outf << "<?xml version='1.0'?>\n";
@@ -976,9 +976,9 @@ LISP FT_add_trans_metrical_tree(LISP l_utt, LISP lf_input, LISP lf_output)
     for (l = lmet; l ; l = cdr(l))
     {
 	m = utt->relation("MetricalTree")->append();
-//	    cout << "\nNew Tree\n";
+//	    std::cout << "\nNew Tree\n";
 	if (lisp_tree_to_xml(outf, car(l)))
-	    outf << "</elem>" << endl;
+	    outf << "</elem>" << std::endl;
 	}
 
     outf << "</relation>\n";

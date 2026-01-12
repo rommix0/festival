@@ -162,7 +162,7 @@ static int wagon_ask(EST_Item *s, LISP question,
 	    return FALSE;
     else 
     {
-	cerr << "Decision tree: unknown question operator: \"" << 
+	std::cerr << "Decision tree: unknown question operator: \"" << 
 	    str_oper << "\"\n";
 	festival_error();
     }

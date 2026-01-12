@@ -69,7 +69,7 @@ static EST_String log_time_stamp(int client);
 static void log_message(int client,const char *message);
 
 int ft_server_socket = -1;
-ostream *cslog = NULL;
+std::ostream *cslog = NULL;
 
 int festival_start_server(int port)
 {
@@ -91,9 +91,9 @@ int festival_start_server(int port)
     if (llog_file == NIL)
 	cslog = cdebug;
     else if (llog_file == siod_get_lval("t",NULL))
-	cslog = &cout;
+	cslog = &std::cout;
     else 
-	cslog = new ofstream(get_c_string(llog_file),ios::app);
+	cslog = new std::ofstream(get_c_string(llog_file),ios::app);
     
     if (!socket_initialise())
     {
@@ -105,7 +105,7 @@ int festival_start_server(int port)
    if (NOT_A_SOCKET(fd))
     {
       int n = socket_error();
-      cerr << "socket: socket failed (" << n << ")\n";
+      std::cerr << "socket: socket failed (" << n << ")\n";
 	
 	festival_error();
     }
@@ -113,7 +113,7 @@ int festival_start_server(int port)
 
    if (setsockopt(fd, SOL_SOCKET,SO_REUSEADDR,(char *)&one,sizeof(int)) < 0) 
      {
-       cerr << "socket: SO_REUSEADDR failed" << endl;
+       std::cerr << "socket: SO_REUSEADDR failed" << std::endl;
 	festival_error();
      }
 
@@ -124,13 +124,13 @@ int festival_start_server(int port)
 
     if (bind(fd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) != 0)
     {
-	cerr << "socket: bind failed" << endl;
+	std::cerr << "socket: bind failed" << std::endl;
 	festival_error();
     }
     
     if (listen(fd, 5) != 0)
     {
-	cerr << "socket: listen failed" << endl;
+	std::cerr << "socket: listen failed" << std::endl;
 	festival_error();
     }
 
@@ -150,7 +150,7 @@ int festival_start_server(int port)
     {
 	if((fd1 = accept(fd, 0, 0)) < 0)
 	{
-	    cerr << "socket: accept failed";
+	    std::cerr << "socket: accept failed";
 	    festival_error();
 	}
 
@@ -280,7 +280,7 @@ static void log_message(int client, const char *message)
 {
     // log the message in log file
     
-    *cslog << log_time_stamp(client) << message << endl;
+    *cslog << log_time_stamp(client) << message << std::endl;
 }
 
 static EST_String log_time_stamp(int client)

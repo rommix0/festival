@@ -240,8 +240,8 @@ EST_Item *add_word(EST_Utterance &u, LISP word)
 	}
 	if (!has_name)
 	{
-	    cerr << "add_word: word has description but no name" << endl;
-	    cerr << "  " << siod_sprint(word) << endl;
+	    std::cerr << "add_word: word has description but no name" << std::endl;
+	    std::cerr << "  " << siod_sprint(word) << std::endl;
 	    festival_error();
 	}
     }

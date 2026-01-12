@@ -213,7 +213,7 @@ int DiphoneBackoff::backoff(EST_Item *p1)
 }
 
 
-ostream& DiphoneBackoff::print(ostream &st) const
+std::ostream& DiphoneBackoff::print(std::ostream& st) const
 {
   EST_Litem *p;
 
@@ -222,7 +222,7 @@ ostream& DiphoneBackoff::print(ostream &st) const
   return st;
 }
 
-ostream& operator << (ostream &st, const DiphoneBackoff dbo)
+std::ostream& operator << (std::ostream& st, const DiphoneBackoff dbo)
 {
   dbo.print(st);
   return st;

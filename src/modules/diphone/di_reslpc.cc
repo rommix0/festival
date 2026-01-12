@@ -78,15 +78,15 @@ void reslpc_resynth(const EST_String &file,
     if (lpc_coeffs.load(EST_String(db->lpc_dir)+file+EST_String(db->lpc_ext))
 	!= format_ok)
     {
-	cerr << "Diphone: lpc resynthesis, failed to read lpc file" 
-	    << endl;
+	std::cerr << "Diphone: lpc resynthesis, failed to read lpc file" 
+	    << std::endl;
 	festival_error();
     }
     if (residual.load(EST_String(db->lpc_dir)+file+EST_String(db->lpc_res_ext)) !=
 	format_ok)
     {
-	cerr << "Diphone: lpc resynthesis, failed to read residual file" 
-	    << endl;
+	std::cerr << "Diphone: lpc resynthesis, failed to read residual file" 
+	    << std::endl;
 	festival_error();
     }
     if (db->lpc_pitch_synch)
@@ -337,7 +337,7 @@ static void lpc_resynth(EST_Track &lpc_coeffs,
 
 	if (zz+as->outwidth[i] >= output->o_max)
 	{
-	    cerr << "Diphone: output buffer overflow " << endl;
+	    std::cerr << "Diphone: output buffer overflow " << std::endl;
 	    break;
 	}
 	for(j=0 ;j < as->outwidth[i];j++,zz++,r++) 
@@ -400,7 +400,7 @@ static void lpc_resynth_fixp(EST_Track &lpc_coeffs,
 
 	if (zz+as->outwidth[i] >= output->o_max)
 	{
-	    cerr << "Diphone: output buffer overflow " << endl;
+	    std::cerr << "Diphone: output buffer overflow " << std::endl;
 	    break;
 	}
 	for(j=0 ;j < as->outwidth[i];j++,zz++,r++) 

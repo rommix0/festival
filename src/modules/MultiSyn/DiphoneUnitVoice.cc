@@ -501,7 +501,7 @@ void DiphoneUnitVoice::getUnitSequence( EST_Utterance  *utt )
 	  EST_Item *s1,*s2;
 	  EST_Item *w1=0,*w2=0;
 
-	  cerr << "Missing diphone: "<< diphone_name << endl;
+	  std::cerr << "Missing diphone: "<< diphone_name << std::endl;
 
 	  if((s1 = parent(it,"SylStructure")))
 	    w1= parent(s1,"SylStructure");
@@ -512,7 +512,7 @@ void DiphoneUnitVoice::getUnitSequence( EST_Utterance  *utt )
 	    {
 	      EST_Item *sil;
 
-	      cerr << " Interword so inserting silence.\n";
+	      std::cerr << " Interword so inserting silence.\n";
 
 	      sil = it->insert_after();
 	      sil->set("name",ph_silence());
@@ -532,13 +532,13 @@ void DiphoneUnitVoice::getUnitSequence( EST_Utterance  *utt )
 	    diphone_backoff_rules)
 	{
 
-	  cerr << " diphone still missing, backing off: " << diphone_name << endl;
+	  std::cerr << " diphone still missing, backing off: " << diphone_name << std::endl;
 	 
 	  diphone_name = diphone_backoff_rules->backoff(l,r);
 	  l = diphone_name.before("_");
 	  r = diphone_name.after("_");
 	  
-	  cerr << " backed off: " << orig << " -> " << diphone_name << endl;
+	  std::cerr << " backed off: " << orig << " -> " << diphone_name << std::endl;
 
 	  if( verbosity() > 0 ){
 	    EST_warning("Backing off requested diphone %s to %s", 
@@ -780,13 +780,13 @@ void DiphoneUnitVoice::getCopyUnitUtterance( const EST_String &utt_fname,
 
     EST_Utterance myUtt( *db_utt );
 
-    cerr << myUtt.relation_present( "Segment" ) << " "
-	 << myUtt.num_relations() <<endl;
+    std::cerr << myUtt.relation_present( "Segment" ) << " "
+	 << myUtt.num_relations() << std::endl;
     
 
-    cerr << db_utt->relation_present( "Segment" ) << " "
+    std::cerr << db_utt->relation_present( "Segment" ) << " "
 	 << (*utt_out)->relation_present( "Segment" ) << " "
-	 << (*utt_out)->num_relations() <<endl;
+	 << (*utt_out)->num_relations() << std::endl;
 
 
     EST_Relation *segs = (*utt_out)->relation( "Segment" );
@@ -892,7 +892,7 @@ void DiphoneUnitVoice::precomputeJoinCosts( const EST_StrList &phones, bool verb
     unsigned int n = getPhoneList( (*it), *l );
     
     if( verbose==true )
-      cerr << "phone " << (*it) << "  "  << n << " instances\n";
+      std::cerr << "phone " << (*it) << "  "  << n << " instances\n";
       
     if( n>0 ){
       jc->computeAndCache( *l, true ); //verbose=true

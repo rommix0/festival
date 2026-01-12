@@ -64,7 +64,7 @@ static FILE *Getfp(const char *name, const char *opt) {
   FILE *fp = fopen(name, opt);
 
   if (fp == NULL) {
-    cerr << "Getfp: Cannot open " << name << endl;
+    std::cerr << "Getfp: Cannot open " << name << std::endl;
     festival_error();
   }
 
@@ -74,8 +74,8 @@ static FILE *Getfp(const char *name, const char *opt) {
 static HTS_Engine *engine = NULL;
 static const char *cached_voice = NULL;
 
-/* HTS_Engine_save_label_ostream: save label with time */
-void HTS_Engine_save_label_ostream(HTS_Engine * engine, std::ostream &os)
+/* HTS_Engine_save_label_ostream *: save label with time */
+void HTS_Engine_save_label_ostream(HTS_Engine * engine, std::ostream& os)
 {
    size_t i, j;
    size_t frame, state, duration;
@@ -90,7 +90,7 @@ void HTS_Engine_save_label_ostream(HTS_Engine * engine, std::ostream &os)
          duration += HTS_SStreamSet_get_duration(sss, state++);
       os << (unsigned long) (frame * rate) << " "
          << (unsigned long) ((frame + duration) * rate) << " "
-         << HTS_Label_get_string(label, i) << endl;
+         << HTS_Label_get_string(label, i) << std::endl;
       frame += duration;
    }
 }
@@ -205,7 +205,7 @@ static LISP HTS_Synthesize_Utt(LISP utt) {
     } else if ( label_string_array != NULL ) {
       HTS_Engine_synthesize_from_strings(engine, label_string_array, numlabels);
     } else {
-      cerr << "No input label specified" << endl;
+      std::cerr << "No input label specified" << std::endl;
       HTS_Engine_refresh(engine);
       if (rawfp != NULL)
          fclose(rawfp);
@@ -258,7 +258,7 @@ static LISP HTS_Synthesize_Utt(LISP utt) {
     if (o->S("name").before("+").after("-").matches(s->S("name")))
       s->set("end", o->F("end"));
     else
-      cerr << "HTS_Synthesize_Utt: Output segment mismatch" << endl;
+      std::cerr << "HTS_Synthesize_Utt: Output segment mismatch" << std::endl;
   delete r;
   HTS_Engine_refresh(engine);
   ts_label.close();

@@ -67,8 +67,8 @@
 // 	            source_lab.tail()->F("end",0.0));
 //     }
 
-//     //cout << "Source_pm" << source_pm.equal_space() << endl << endl;
-//     //cout << "Target_pm" << target_pm.equal_space() << endl << endl;
+//     //std::cout << "Source_pm" << source_pm.equal_space() << std::endl << std::endl;
+//     //std::cout << "Target_pm" << target_pm.equal_space() << std::endl << std::endl;
 
 //     for (s = source_lab.head(); s; s = inext(s))
 //     {
@@ -286,7 +286,7 @@ void make_join_interpolate_mapping( const EST_Track &source_pm,
 
     EST_String join_phone_name = inext(item(diphone_left->f("ph1")))->S("name");
 
-    cerr << "phone contigous " << contiguous(diphone_left,diphone_right) << endl;
+    std::cerr << "phone contigous " << contiguous(diphone_left,diphone_right) << std::endl;
 
     ///////////DEBUG//////////////////////////////////////////////
     int voicing_val;
@@ -307,7 +307,7 @@ void make_join_interpolate_mapping( const EST_Track &source_pm,
 	ph_is_sonorant( join_phone_name ) && 
 	(!ph_is_silence( join_phone_name) )){
 
-      cerr << "smoothing phone " << join_phone_name << "\n";
+      std::cerr << "smoothing phone " << join_phone_name << "\n";
       
       printf( "** Calculating spaces **\n" );
       
@@ -373,14 +373,14 @@ void make_join_interpolate_mapping( const EST_Track &source_pm,
       }
     }
     else{
-      cerr << "no smoothing for " << join_phone_name << "\n";
+      std::cerr << "no smoothing for " << join_phone_name << "\n";
       for( int i=left_start_index; i<right_end_index; ++i ){
 	printf( "Using source pm %d for target pitchmark %d\n", i, i );
 	target_pm.t(i) = source_pm.t(i);
       }      
     }
 
-    cerr <<endl;
+    std::cerr << std::endl;
 
     // for the next iteration
     left_start_index = right_end_index; // +1 ???
@@ -403,11 +403,11 @@ void make_join_interpolate_mapping( const EST_Track &source_pm,
 		      0, target_pm_length-1, 
 		      (int)wav_srate );
   
-  ofstream outfile( "/home/korin/projects/smoothing_temp/f0/source_spacing.est" );
+  std::ofstream outfile( "/home/korin/projects/smoothing_temp/f0/source_spacing.est" );
   if( !outfile )
     EST_error( "Couldn't open source pitchmark spacing output file" );
   
-  outfile << source_spacing << endl;
+  outfile << source_spacing << std::endl;
   outfile.close();
   
   // target spacing
@@ -416,18 +416,18 @@ void make_join_interpolate_mapping( const EST_Track &source_pm,
 		      0, target_pm_length-1, 
 		      (int)wav_srate );
 
-  ofstream afterfile( "/home/korin/projects/smoothing_temp/f0/target_spacing.est" );
+  std::ofstream afterfile( "/home/korin/projects/smoothing_temp/f0/target_spacing.est" );
   if( !afterfile)
     EST_error( "Couldn't open target pitchmark spacing output file" );
 
-  afterfile << target_spacing << endl;
+  afterfile << target_spacing << std::endl;
   afterfile.close();
 
-  ofstream voicingfile( "/home/korin/projects/smoothing_temp/f0/voicing.est" );
+  std::ofstream voicingfile( "/home/korin/projects/smoothing_temp/f0/voicing.est" );
   if( !voicingfile)
     EST_error( "Couldn't open target pitchmark spacing output file" );
 
-  voicingfile << voicing << endl;
+  voicingfile << voicing << std::endl;
   voicingfile.close();
 }  
 
@@ -478,7 +478,7 @@ void make_join_interpolate_mapping2( const EST_Track &source_pm,
 
     EST_String join_phone_name = inext(item(diphone_left->f("ph1")))->S("name");
 
-    cerr << "phone contigous " << contiguous(diphone_left,diphone_right) << endl;
+    std::cerr << "phone contigous " << contiguous(diphone_left,diphone_right) << std::endl;
 
     ///////////DEBUG//////////////////////////////////////////////
     int voicing_val;
@@ -504,7 +504,7 @@ void make_join_interpolate_mapping2( const EST_Track &source_pm,
 //     if(	ph_is_sonorant( join_phone_name ) && 
 // 	(!ph_is_silence( join_phone_name) )){
       
-//       cerr << "smoothing phone " << join_phone_name << "\n";
+//       std::cerr << "smoothing phone " << join_phone_name << "\n";
       
 //       printf( "** Calculating spaces **\n" );
       
@@ -543,14 +543,14 @@ void make_join_interpolate_mapping2( const EST_Track &source_pm,
 // 	cs_index = 0;
 //       }
     
-    cerr << "no smoothing for " << join_phone_name << "\n";
+    std::cerr << "no smoothing for " << join_phone_name << "\n";
     for( int i=left_start_index; i<right_end_index; ++i ){
       printf( "Using source pm %d for target pitchmark %d\n", i, i );
       target_pm.t(i) = source_pm.t(i);
     }      
     
     
-    cerr <<endl;
+    std::cerr << std::endl;
     
     // for the next iteration
     left_start_index = right_end_index; // +1 ???
@@ -573,11 +573,11 @@ void make_join_interpolate_mapping2( const EST_Track &source_pm,
 		      0, target_pm_length-1, 
 		      (int)wav_srate );
   
-  ofstream outfile( "/home/korin/projects/smoothing_temp/f0/source_spacing.est" );
+  std::ofstream outfile( "/home/korin/projects/smoothing_temp/f0/source_spacing.est" );
   if( !outfile )
     EST_error( "Couldn't open source pitchmark spacing output file" );
   
-  outfile << source_spacing << endl;
+  outfile << source_spacing << std::endl;
   outfile.close();
   
   // target spacing
@@ -586,18 +586,18 @@ void make_join_interpolate_mapping2( const EST_Track &source_pm,
 		      0, target_pm_length-1, 
 		      (int)wav_srate );
 
-  ofstream afterfile( "/home/korin/projects/smoothing_temp/f0/target_spacing.est" );
+  std::ofstream afterfile( "/home/korin/projects/smoothing_temp/f0/target_spacing.est" );
   if( !afterfile)
     EST_error( "Couldn't open target pitchmark spacing output file" );
 
-  afterfile << target_spacing << endl;
+  afterfile << target_spacing << std::endl;
   afterfile.close();
 
-  ofstream voicingfile( "/home/korin/projects/smoothing_temp/f0/voicing.est" );
+  std::ofstream voicingfile( "/home/korin/projects/smoothing_temp/f0/voicing.est" );
   if( !voicingfile)
     EST_error( "Couldn't open target pitchmark spacing output file" );
 
-  voicingfile << voicing << endl;
+  voicingfile << voicing << std::endl;
   voicingfile.close();
 
   if( const_cast<EST_Track&>(source_pm).save( "/home/korin/projects/smoothing_temp/f0/sourceCoef.est" )
@@ -617,7 +617,7 @@ void us_mapping(EST_Utterance &utt, const EST_String &method)
 
     map = new EST_IVector;
     
-//    cout << "mapping method: " << method << endl;
+//    std::cout << "mapping method: " << method << std::endl;
 /*    if (method != "segment_single")
       source_lab = utt.relation("SourceSegments"); */
     target_lab = utt.relation("Segment", 1);
@@ -635,12 +635,12 @@ void us_mapping(EST_Utterance &utt, const EST_String &method)
 	make_segment_single_mapping(*target_lab, *source_coef,
 			     *target_coef, *map);
     else if (method == "interpolate_joins"){
-      cerr << "Doing interpolate_joins\n";
+      std::cerr << "Doing interpolate_joins\n";
       EST_Relation *units = utt.relation("Unit");
       make_join_interpolate_mapping(*source_coef, *target_coef, *units,*map);
     }
     else if (method == "interpolate_joins2"){
-      cerr << "Doing interpolate_joins2\n";
+      std::cerr << "Doing interpolate_joins2\n";
       EST_Relation *units = utt.relation("Unit");
       make_join_interpolate_mapping2(*source_coef, *target_coef, *units,*map);
     }
@@ -669,8 +669,8 @@ void map_to_relation(EST_IVector &map, EST_Relation &r,
     EST_Utterance *u = r.utt();
     int i;
 
-//    cout << "source: " << source_pm;
-//    cout << "target: " << target_pm;
+//    std::cout << "source: " << source_pm;
+//    std::cout << "target: " << target_pm;
 
     u->create_relation("smap");
     u->create_relation("tmap");
@@ -731,8 +731,8 @@ void make_segment_double_mapping(EST_Relation &source_lab,
 	 s = inext(s), t = inext(t))
     {
         if (s->S("name") != t->S("name"))
-	  cerr << "Warning: Source and Target segment names do not match: "
-	       << s->S("name") << " " << t->S("name") << endl;
+	  std::cerr << "Warning: Source and Target segment names do not match: "
+	       << s->S("name") << " " << t->S("name") << std::endl;
 
 	s_end = s->F("end");
 	t_end = t->F("end");
@@ -800,21 +800,21 @@ void make_dp_mapping(EST_Relation &source_lab, EST_Track &source_pm,
     {
 	s_start = s->F("start");
 
-	cout << "source: " << *s << endl;
+	std::cout << "source: " << *s << std::endl;
 
 	while (s && (!s->in_relation(match_name)))
 	    s = inext(s);
 
-	cout << "active source: " << *s << endl;
+	std::cout << "active source: " << *s << std::endl;
 
 	s_end = s->F("end");
 
-	cout << "daughter: " << daughter1(s->as_relation(match_name)) << endl;
-	cout << "parent: " << parent(s->as_relation(match_name)) << endl;
+	std::cout << "daughter: " << daughter1(s->as_relation(match_name)) << std::endl;
+	std::cout << "parent: " << parent(s->as_relation(match_name)) << std::endl;
 
 	t = parent(s->as_relation(match_name));
 
-	cout << "active target: " << *t << endl;
+	std::cout << "active target: " << *t << std::endl;
 
 	t_end = t->F("end");
 	t_start = t->F("start");
@@ -835,17 +835,17 @@ void make_dp_mapping(EST_Relation &source_lab, EST_Track &source_pm,
 	for (i = t_i_start, f = 0.0; i < t_i_end; ++i, ++f)
             map[i] = EST_NINT(f * m) + s_i_start;
 
-	cout << endl;
+	std::cout << std::endl;
 
     }
     
     for (i = 0, j = 0; i < target_pm.num_frames(); ++i)
     {
-	cout << map(i) << " ";
+	std::cout << map(i) << " ";
 	if (map(i) != -1)
 	{
 	    map[j] = map(i);
-	    cout << map(j) << " ";
+	    std::cout << map(j) << " ";
 	    target_pm.t(j++) = target_pm.t(i);
 	}
     }

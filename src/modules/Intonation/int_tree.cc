@@ -344,8 +344,8 @@ static void add_target_at(EST_Utterance &u, EST_Item *seg,
 
     if (seg == 0)
     {
-	cerr << "Int_Tree: failed to find seg related to syllable for target."
-	    << endl;
+	std::cerr << "Int_Tree: failed to find seg related to syllable for target."
+	    << std::endl;
 	return;
     }
   
@@ -367,7 +367,7 @@ static void add_target_at(EST_Utterance &u, EST_Item *seg,
     add_target(u,seg,seg->F("end"),val);
   else
     {
-	cerr << "add_target_at: unknown position type\n";
+	std::cerr << "add_target_at: unknown position type\n";
 	festival_error();
     }
 }

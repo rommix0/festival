@@ -68,7 +68,7 @@ int festival_socket_client(const char *host,int port)
     if (NOT_A_SOCKET(fd))
       {
 	int n = socket_error();
-	cerr << "socket: socket failed (" << n << ")\n";
+	std::cerr << "socket: socket failed (" << n << ")\n";
 	festival_error();
       }
     memset(&serv_addr, 0, sizeof(serv_addr));
@@ -80,7 +80,7 @@ int festival_socket_client(const char *host,int port)
 	serverhost = gethostbyname(host);
 	if (serverhost == (struct hostent *)0)
 	{
-	    cerr << "socket: gethostbyname failed" << endl;
+	    std::cerr << "socket: gethostbyname failed" << std::endl;
 	    festival_error();
 	}
 	memmove(&serv_addr.sin_addr,serverhost->h_addr, serverhost->h_length);
@@ -90,7 +90,7 @@ int festival_socket_client(const char *host,int port)
 
     if (connect(fd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) != 0)
     {
-	cerr << "socket: connect failed" << endl;
+	std::cerr << "socket: connect failed" << std::endl;
 	festival_error();
     }
 

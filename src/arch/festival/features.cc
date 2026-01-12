@@ -285,7 +285,7 @@ EST_Val ffeature(EST_Item *item,const EST_String &fname)
 	    return default_feature_value;
     }
 
-    cerr << "Invalid ffeature name: \"" << fname << "\"" << endl;
+    std::cerr << "Invalid ffeature name: \"" << fname << "\"" << std::endl;
     festival_error();
 
     return default_feature_value;
@@ -322,8 +322,8 @@ static LISP lisp_item_set_feat(LISP litem, LISP name, LISP value)
 
     if (fname.contains("R:"))
     {
-	cerr << "item.set_feat: cannot set feat name containing " <<
-	    "\"R:\"" << endl;
+	std::cerr << "item.set_feat: cannot set feat name containing " <<
+	    "\"R:\"" << std::endl;
 	festival_error();
     }
     s->set_val(fname,val_lisp(value));
@@ -407,8 +407,8 @@ static EST_Val ff_lisp_func(EST_Item *i,const EST_String &name)
     r = leval(l,NIL);
     if ((consp(r)) || (r == NIL))
     {
-	cerr << "FFeature Lisp function: " << lfunc_name << 
-	    " returned non-atomic value" << endl;
+	std::cerr << "FFeature Lisp function: " << lfunc_name << 
+	    " returned non-atomic value" << std::endl;
 	festival_error();
     }
     else if (numberp(r))

@@ -150,8 +150,8 @@ LISP LTS_Ruleset::normalize(LISP rules)
 	    }
 	    else
 	    {
-		cerr << "LTS_Rules:: misparsed a rule\n";
-		cerr << "LTS_Rules:: ";
+		std::cerr << "LTS_Rules:: misparsed a rule\n";
+		std::cerr << "LTS_Rules:: ";
 		pprint(car(r));
 		festival_error();
 	    }
@@ -160,8 +160,8 @@ LISP LTS_Ruleset::normalize(LISP rules)
 	if ((state != 3) ||
 	    (t == NIL))
 	{
-	    cerr << "LTS_Rules:: misparsed a rule\n";
-	    cerr << "LTS_Rules:: ";
+	    std::cerr << "LTS_Rules:: misparsed a rule\n";
+	    std::cerr << "LTS_Rules:: ";
 	    pprint(car(r));
 	    festival_error();
 	}
@@ -194,7 +194,7 @@ static LISP fix_postfix_ops(LISP l)
 	{
 	    if (cdr(p) == NIL)
 	    {
-		cerr << "LTS_Rules:: malformed left context\n";
+		std::cerr << "LTS_Rules:: malformed left context\n";
 		pprint(reverse(l));
 	    }
 	    q = car(p);
@@ -257,14 +257,14 @@ LISP LTS_Ruleset::rewrite(LISP lc, LISP remainder, LISP rules, LISP *rest)
 	if (match_rule(lc,remainder,car(r),rest) == TRUE)
 	    return LTS_RHS(car(r));
 
-    cerr << "LTS_Ruleset " << p_name << ": no rule matches: \n";
-    cerr << "LTS_Ruleset: "; 
+    std::cerr << "LTS_Ruleset " << p_name << ": no rule matches: \n";
+    std::cerr << "LTS_Ruleset: "; 
     for (t=reverse(lc); t != NIL; t = cdr(t))
-	cerr << get_c_string(car(t)) << " ";
-    cerr << "*here* ";
+	std::cerr << get_c_string(car(t)) << " ";
+    std::cerr << "*here* ";
     for (t=remainder; t != NIL; t = cdr(t))
-	cerr << get_c_string(car(t)) << " ";
-    cerr << endl;
+	std::cerr << get_c_string(car(t)) << " ";
+    std::cerr << std::endl;
     festival_error();
     return NIL;
 }    
@@ -371,7 +371,7 @@ LISP lts_def_ruleset(LISP args, LISP penv)
     }
     else
     {
-	cwarn << "LTS_Rules: " << get_c_string(name) << " recreated" << endl;
+	cwarn << "LTS_Rules: " << get_c_string(name) << " recreated" << std::endl;
 	setcar(cdr(lpair),siod(rs));
     }
 
@@ -387,7 +387,7 @@ LISP lts_in_alphabet(LISP word, LISP rulesetname)
     lpair = siod_assoc_str(get_c_string(rulesetname),lts_rules_list);
     if (lpair == NIL)
     {
-	cerr << "LTS_Rules: no rule set named \"" << 
+	std::cerr << "LTS_Rules: no rule set named \"" << 
 	    get_c_string(rulesetname) << "\"\n";
 	festival_error();
     }
@@ -420,7 +420,7 @@ LISP lts_apply_ruleset(LISP word, LISP rulesetname)
     lpair = siod_assoc_str(get_c_string(rulesetname),lts_rules_list);
     if (lpair == NIL)
     {
-	cerr << "LTS_Rule: no rule set named \"" << 
+	std::cerr << "LTS_Rule: no rule set named \"" << 
 	    get_c_string(rulesetname) << "\"\n";
 	festival_error();
     }

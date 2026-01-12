@@ -129,8 +129,8 @@ void di_general_parameters(DIPHONE_DATABASE *db,LISP params)
 	db->sig_access_type = di_ondemand;
     else
     {
-	cerr << "Diphone: unknown access method " << 
-	    db->sig_access_type_str << endl;
+	std::cerr << "Diphone: unknown access method " << 
+	    db->sig_access_type_str << std::endl;
 	festival_error();
     }
 
@@ -149,8 +149,8 @@ void di_fixed_parameters(DIPHONE_DATABASE *db,LISP params)
 	db->type = di_lpc;
     else
     {
-	cerr << "Diphone: unknown database type \"" <<
-	    db->type_str << "\"" << endl;
+	std::cerr << "Diphone: unknown database type \"" <<
+	    db->type_str << "\"" << std::endl;
 	festival_error();
     }
     db->signal_dir = wstrdup(get_param_str("signal_dir",params,"signal/"));
@@ -184,7 +184,7 @@ void di_fixed_parameters(DIPHONE_DATABASE *db,LISP params)
 	db->group_encoding = di_alaw;
     else
     {
-	cerr << "Diphone: unknown group encoding" << endl;
+	std::cerr << "Diphone: unknown group encoding" << std::endl;
 	festival_error();
     }
     db->phoneset = wstrdup(get_param_str("phoneset",params,"none"));
@@ -296,11 +296,11 @@ LISP FT_Diphone_Synthesize_Utt(LISP utt)
     DIPHONE_OUTPUT *output;
     EST_Item *item=0;
 
-    *cdebug << "Diphone module" << endl;
+    *cdebug << "Diphone module" << std::endl;
 
     if (di_db == 0)
     {
-	cerr << "Diphone: no diphone database loaded" << endl;
+	std::cerr << "Diphone: no diphone database loaded" << std::endl;
 	festival_error();
     }
 
@@ -329,7 +329,7 @@ LISP FT_Diphone_Synthesize_Utt(LISP utt)
 	    di_psola_tm(di_db,as,output);     // can't be distributed
 	else
 	{
-	    cerr << "Diphone: unsupported database form\n";
+	    std::cerr << "Diphone: unsupported database form\n";
 	    festival_error();
 	}
 	delete_as(as);
@@ -361,7 +361,7 @@ LISP FT_reslpc_resynth(LISP file)
 
     if (di_db == 0)
     {
-	cerr << "Diphone: no diphone database loaded" << endl;
+	std::cerr << "Diphone: no diphone database loaded" << std::endl;
 	festival_error();
     }
 
@@ -443,7 +443,7 @@ static void di_diphones(DIPHONE_SPN *ps, DIPHONE_DATABASE *database)
 	ps->ref[ph] = lookupd(database,ps->phons[ph],ps->phons[ph+1]);
 	*cdebug << ps->diphs[ph] << " " << 
 	    ((database->indx[ps->ref[ph]]->file == 0) ? "grouped" :
-	     database->indx[ps->ref[ph]]->file) << endl;
+	     database->indx[ps->ref[ph]]->file) << std::endl;
 	load_pitch_file(database,ps->ref[ph],di_direct); // ensure its loaded
     }
 }
@@ -471,7 +471,7 @@ static int lookupd(DIPHONE_DATABASE *database,char *p1, char *p2)
 	    if(!strcmp(database->indx[i]->diph,diphone)) 
 	    {
 		*cdebug << "Diphone alternate: " << diphone
-		    << " substituted for " << p1 << "-" << p2 << endl;
+		    << " substituted for " << p1 << "-" << p2 << std::endl;
 		return i;
 	    }
     }
@@ -483,7 +483,7 @@ static int lookupd(DIPHONE_DATABASE *database,char *p1, char *p2)
 	    if(!strcmp(database->indx[i]->diph,diphone)) 
 	    {
 		*cdebug << "Diphone alternate: " << diphone
-		    << " substituted for " << p1 << "-" << p2 << endl;
+		    << " substituted for " << p1 << "-" << p2 << std::endl;
 		return i;
 	    }
     }
@@ -497,7 +497,7 @@ static int lookupd(DIPHONE_DATABASE *database,char *p1, char *p2)
 	    if(!strcmp(database->indx[i]->diph,diphone)) 
 	    {
 		*cdebug << "Diphone alternate: " << diphone
-		    << " substituted for " << p1 << "-" << p2 << endl;
+		    << " substituted for " << p1 << "-" << p2 << std::endl;
 		return i;
 	    }
     }
@@ -522,7 +522,7 @@ static int lookupd(DIPHONE_DATABASE *database,char *p1, char *p2)
 	    if(!strcmp(database->indx[i]->diph,database->default_diphone)) 
 	    {
 		*cdebug << "Diphone alternate: " << diphone
-		    << " substituted for " << p1 << "-" << p2 << endl;
+		    << " substituted for " << p1 << "-" << p2 << std::endl;
 		return i;
 	    }
     }
@@ -738,8 +738,8 @@ void di_add_diphonedb(DIPHONE_DATABASE *db)
     }
     else
     {	// already one of this name, don't know howto free it
-	cerr << "Diphone: warning redefining diphone database "
-	    << db->name << endl;
+	std::cerr << "Diphone: warning redefining diphone database "
+	    << db->name << std::endl;
 	ddb = diphone_db(car(cdr(lpair)));
 	delete_diphone_db(ddb);
 	setcar(cdr(lpair),siod(db));
@@ -758,7 +758,7 @@ LISP FT_Diphone_select(LISP name)
     
     if (lpair == NIL)
     {
-	cerr << "Diphone: no diphone database named " << get_c_string(name)
+	std::cerr << "Diphone: no diphone database named " << get_c_string(name)
 	    << " defined\n";
 	festival_error();
     }

@@ -133,14 +133,14 @@ struct ModuleDescription {
   /// Create a module description, initialising it properly.
   static struct ModuleDescription *create();
   /// Print the description to the strream.
-  static ostream &print(ostream &s, const ModuleDescription &desc);
+  static std::ostream& print(std::ostream& s, const ModuleDescription &desc);
 
   static int print(FILE *s, const ModuleDescription &desc);
 
 };
 
 /// Output operator for descriptions.
-ostream &operator << (ostream &stream, const ModuleDescription &desc);
+std::ostream& operator << (std::ostream& stream, const ModuleDescription &desc);
 
 //VAL_REGISTER_CLASS_DCLS(moddesc,ModuleDescription) // clang/llvm complains about this (Rob)
 //SIOD_REGISTER_CLASS_DCLS(moddesc,ModuleDescription)

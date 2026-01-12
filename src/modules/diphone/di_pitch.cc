@@ -72,7 +72,7 @@ void di_calc_pitch(DIPHONE_DATABASE *db, DIPHONE_SPN *ps, DIPHONE_ACOUSTIC *as)
 	    l++;
 	    if (l == as->p_max)
 	    {
-		cerr << "Diphone: too many pitch marks\n";
+		std::cerr << "Diphone: too many pitch marks\n";
 		festival_error();
 	    }
 	    k_old = k_fine;

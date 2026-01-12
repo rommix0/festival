@@ -80,7 +80,7 @@ const char *festival_version =  STRINGIZE(FTVERSION) ":" STRINGIZE(FTSTATE) " " 
 #endif
 
 const char *festival_libdir = FTLIBDIR;
-ostream *cdebug;
+std::ostream *cdebug;
 static int festival_server_port = 1314;
 static EST_StrList sub_copyrights;
 
@@ -102,8 +102,13 @@ void festival_initialize(int load_init_files,int heap_size)
 	/* siod_fringe_init();	*/	// and for talking to fringe.
 	
 	siod_prog_name = "festival";
-	cdebug = new ofstream("/dev/null");  // This wont work on Win/NT
-	stddebug = fopen("/dev/null","w");
+	#ifdef SYSTEM_IS_WIN32
+		cdebug = new std::ofstream("NUL");
+		stddebug = fopen("NUL","w");
+	#else
+		cdebug = new std::ofstream("/dev/null");
+		stddebug = fopen("/dev/null","w");
+	#endif
 	
 	festival_lisp_vars();
 	festival_lisp_funcs();
@@ -113,7 +118,7 @@ void festival_initialize(int load_init_files,int heap_size)
     }
     else
     {
-	cerr << "festival_initialize() called more than once" << endl;
+	std::cerr << "festival_initialize() called more than once" << std::endl;
     }
 
     return;
@@ -214,17 +219,17 @@ void festival_banner(void)
     if (siod_get_lval("hush_startup",NULL) == NIL)
     {
 	EST_Litem *t;
-	cout << "\n" << STRINGIZE(FTNAME) << " " << 
-	    festival_version << endl;
-	cout << "Copyright (C) University of Edinburgh, 1996-2010. " <<
-	    "All rights reserved." << endl;
+	std::cout << "\n" << STRINGIZE(FTNAME) << " " << 
+	    festival_version << std::endl;
+	std::cout << "Copyright (C) University of Edinburgh, 1996-2010. " <<
+	    "All rights reserved." << std::endl;
 	if (sub_copyrights.length() > 0)
         {
-            cout << "\n";
+            std::cout << "\n";
 	    for (t = sub_copyrights.head(); t != 0; t = t->next())
-		cout << sub_copyrights.item(t);
+		std::cout << sub_copyrights.item(t);
         }
-	cout << "For details type `(festival_warranty)'" << endl;
+	std::cout << "For details type `(festival_warranty)'" << std::endl;
     }
 }
 
@@ -288,9 +293,14 @@ static LISP lisp_debug_output(LISP arg)
 	fclose(stddebug);
 
     if (arg == NIL)
-    {   // this might be a problem on non-Unix machines
-	cdebug = new ofstream("/dev/null");
-	stddebug = fopen("/dev/null","w");
+    {
+	#ifdef SYSTEM_IS_WIN32
+		cdebug = new std::ofstream("NUL");
+		stddebug = fopen("NUL","w");
+	#else
+		cdebug = new std::ofstream("/dev/null");
+		stddebug = fopen("/dev/null","w");
+	#endif
     }
     else
     {
@@ -313,7 +323,7 @@ void festival_load_default_files(void)
     if (access((const char *)initfile,R_OK) == 0)
 	vload(initfile,FALSE);
     else
-	cerr << "Initialization file " << initfile << " not found" << endl;
+	std::cerr << "Initialization file " << initfile << " not found" << std::endl;
 
 }
 
@@ -688,7 +698,7 @@ LISP ft_get_param(const EST_String &pname)
 
 void print_string(EST_String s)
 {
-    cout << s << endl;
+    std::cout << s << std::endl;
 }
 
 LISP map_pos(LISP posmap, LISP pos)

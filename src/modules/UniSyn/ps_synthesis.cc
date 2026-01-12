@@ -149,7 +149,7 @@ void td_synthesis(EST_WaveVector &frames,
 	  ((frame_num_samples - 1)/2);//window_signal guarantees odd
 	
 #if defined(EST_DEBUGGING)
-	cerr << t_start << " " 
+	std::cerr << t_start << " " 
 	     << (frame_num_samples-1)/2 + t_start << " "
 	     << frame_num_samples << "\n";
 #endif
@@ -176,10 +176,10 @@ void asymmetric_window_td_synthesis(EST_WaveVector &frames,
 
 
 #if defined(EST_DEBUGGING)
-  cerr << "(maplength framelength pm_indiceslength) "
+  std::cerr << "(maplength framelength pm_indiceslength) "
        << map_n << " "
        << frames.n() << " "
-       << frame_pm_indices.n() << endl;
+       << frame_pm_indices.n() << std::endl;
 #endif
 
 
@@ -201,7 +201,7 @@ void asymmetric_window_td_synthesis(EST_WaveVector &frames,
       
 
 #if defined(EST_DEBUGGING)
-      cerr << t_start << " " 
+      std::cerr << t_start << " " 
 	   << frame_pm_indices(source_index) << " " 
 	   << frame_pm_indices(source_index) + t_start << " "
 	   << frame_num_samples << "\n";
@@ -253,7 +253,7 @@ void td_synthesis2(EST_WaveVector &frames,
 
 	s_period = 
 	    (int)(get_frame_size(target_pm, i, (int)sr) * s_window_factor);
-//	cout << "period: " << s_period << endl;
+//	std::cout << "period: " << s_period << std::endl;
 
 	// start of window is mid point of analysis window
 	// minus local synth period

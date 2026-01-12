@@ -76,7 +76,7 @@ void tts_file_user_mode(LISP filename, LISP params)
 
     if (setjmp(*est_errjmp)) 
     {
-	cerr << "festival: text modes, caught error and tidying up\n";
+	std::cerr << "festival: text modes, caught error and tidying up\n";
 	if (siod_ctrl_c == TRUE)
 	{
 	    wfree(est_errjmp); 
@@ -122,8 +122,8 @@ void um_apply_filter(const EST_String &filtername,
 
     if (access(infile,R_OK) != 0)
     {
-	cerr << "TTS user mode: \"" << infile << "\" cannot be accessed" <<
-	    endl;
+	std::cerr << "TTS user mode: \"" << infile << "\" cannot be accessed" <<
+	    std::endl;
 	festival_error();
     }
 
@@ -134,14 +134,14 @@ void um_apply_filter(const EST_String &filtername,
 	int n;
 	if ((fdin = fopen(infile,"rb")) == NULL)
 	{
-	    cerr << "TTS user mode: \"" << infile << "\" cannot be read from" 
-		<< endl;
+	    std::cerr << "TTS user mode: \"" << infile << "\" cannot be read from" 
+		<< std::endl;
 	    festival_error();
 	}
 	if ((fdout = fopen(outfile,"wb")) == NULL)
 	{
-	    cerr << "TTS user mode: \"" << outfile << "\" cannot be written to"
-		<< endl;
+	    std::cerr << "TTS user mode: \"" << outfile << "\" cannot be written to"
+		<< std::endl;
 	    festival_error();
 	}
 
@@ -155,8 +155,8 @@ void um_apply_filter(const EST_String &filtername,
 	command = filtername + " '" + infile + "' > " + outfile;
 	if (system(command) != 0)
 	{
-	    cerr << "TTS user mode: \"" << outfile << "\" cannot be written to"
-		<< endl;
+	    std::cerr << "TTS user mode: \"" << outfile << "\" cannot be written to"
+		<< std::endl;
 	    festival_error();
 	}
     }

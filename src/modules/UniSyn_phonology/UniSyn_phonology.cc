@@ -123,7 +123,7 @@ LISP FT_focus_nth_item(LISP utt, LISP lrel, LISP w)
     EST_Item *n;
     int i;
 
-    cout << "Focusing item " << f << " in relation " << relname << endl;
+    std::cout << "Focusing item " << f << " in relation " << relname << std::endl;
 
     for (i = 1, n = u->relation(relname)->head(); n; n = inext(n), ++i)
 	if (i == f)
@@ -131,7 +131,7 @@ LISP FT_focus_nth_item(LISP utt, LISP lrel, LISP w)
 
     if (n == 0)
     {
-	cerr << "Error: Can't focus node " << f << 
+	std::cerr << "Error: Can't focus node " << f << 
 	    " in a relation with only " << i << " items\n";
 	return NIL;
     }
@@ -155,14 +155,14 @@ LISP FT_focus_nth_tree_item(LISP utt, LISP lrel, LISP w)
     for (l = w; (l != NIL) && (n); l = cdr(l))
     {
 	dir = get_c_string(car(l));
-	cout << "dir = " << dir << endl;
+	std::cout << "dir = " << dir << std::endl;
 	if (dir == "l")
 	    n = daughter1(n);
 	else
 	if (dir == "r")
 	    n = daughter2(n);
 	else
-	    cerr << "Bad instruction: " << dir << endl;
+	    std::cerr << "Bad instruction: " << dir << std::endl;
     }
 
     main_stress(n->as_relation("MetricalTree"));
@@ -181,7 +181,7 @@ LISP FT_foot_nth_item(LISP utt, LISP w)
     EST_Item *n;
     int i;
 
-    cout << "Footing item " << f << endl;
+    std::cout << "Footing item " << f << std::endl;
 
     for (i = 1, n = u->relation("Syllable")->head(); n; n = inext(n), ++i)
 	if (i == f)
@@ -189,7 +189,7 @@ LISP FT_foot_nth_item(LISP utt, LISP w)
 
     if (n == 0)
     {
-	cerr << "Error: Can't foot node " << f << 
+	std::cerr << "Error: Can't foot node " << f << 
 	    " in a relation with only " << i << " items\n";
 	return NIL;
     }
@@ -343,23 +343,23 @@ LISP FT_copy_sub_tree(LISP l_utt, LISP l_id, LISP l_relation)
 	 s->S("id") != first_leaf(n)->S("id"); s = m)
     {
 	m = inext(s);
-	cout << "deleting segment :" << s->S("name") << endl;
+	std::cout << "deleting segment :" << s->S("name") << std::endl;
 	s->unref_all();
     }
 
     for (s = inext(last_leaf(n)->as_relation("Segment")); s; s = m)
     {
 	m = inext(s);
-	cout << "deleting segment :" << s->S("name") << endl;
+	std::cout << "deleting segment :" << s->S("name") << std::endl;
 	s->unref_all();
     }
 */
 
-    cout << "h1\n";
+    std::cout << "h1\n";
     LISP n_utt;
-    cout << "h1\n";
+    std::cout << "h1\n";
     n_utt = siod(new_utt);
-    cout << "h1\n";
+    std::cout << "h1\n";
 
     return n_utt;
 }

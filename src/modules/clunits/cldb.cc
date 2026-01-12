@@ -69,7 +69,7 @@ static void cldb_add(const EST_String &name, CLDB *cldb)
     }
     else
     {
-	cwarn << "CLDB " << name << " recreated" << endl;
+	cwarn << "CLDB " << name << " recreated" << std::endl;
 	// old one will be garbage collected
 	setcar(cdr(lpair),siod(cldb));
     }
@@ -117,14 +117,14 @@ static void cl_load_catalogue(CLDB *cldb,EST_String &indexfile)
     
     if (((indexfile == "-") ? ts.open(cin) : ts.open(indexfile)) != 0)
     {
-	cerr << "CLUNITS: Can't open catalogue file " << indexfile << endl;
+	std::cerr << "CLUNITS: Can't open catalogue file " << indexfile << std::endl;
 	festival_error();
     }
 
     if (((r = read_est_header(ts, hinfo, ascii, t)) != format_ok) ||
 	(t != est_file_index))
     {
-	cerr << "CLUNITS: " << indexfile << " is not an indexfile" << endl;
+	std::cerr << "CLUNITS: " << indexfile << " is not an indexfile" << std::endl;
 	festival_error();
     }
 
@@ -155,7 +155,7 @@ CLDB *check_cldb()
 {
     if (current_cldb == 0)
     {
-	cerr << "CLDB: no database loaded\n";
+	std::cerr << "CLDB: no database loaded\n";
 	festival_error();
     }
     return current_cldb;
@@ -222,8 +222,8 @@ CLfile *CLDB::get_file_join_coefs(const EST_String &fileid)
 	if (join_coeffs->load(jc_filename) != format_ok)
 	{
 	    delete join_coeffs;
-	    cerr << "CLUNITS: failed to load join coeffs file " << 
-		jc_filename << endl;
+	    std::cerr << "CLUNITS: failed to load join coeffs file " << 
+		jc_filename << std::endl;
 	    festival_error();
 	} 
 //	cl_maybe_fix_pitch_c0(join_coeffs);
@@ -254,8 +254,8 @@ CLfile *CLDB::get_file_coefs_sig(const EST_String &fileid)
 	if (track->load(coef_filename) != format_ok)
 	{
 	    delete track;
-	    cerr << "CLUNITS: failed to load coeffs file " << 
-		coef_filename << endl;
+	    std::cerr << "CLUNITS: failed to load coeffs file " << 
+		coef_filename << std::endl;
 	    festival_error();
 	}
 	fileitem->coefs = track;
@@ -270,8 +270,8 @@ CLfile *CLDB::get_file_coefs_sig(const EST_String &fileid)
 	if (sig->load(sig_filename) != format_ok)
 	{
 	    delete sig;
-	    cerr << "CLUNITS: failed to load signal file " << 
-		sig_filename << endl;
+	    std::cerr << "CLUNITS: failed to load signal file " << 
+		sig_filename << std::endl;
 	    festival_error();
 	} 
 	fileitem->sig = sig;
@@ -408,7 +408,7 @@ LISP cldb_select(LISP dbname)
 
     if (lpair == NIL)
     {
-	cerr << "CLDB " << name << " not defined" << endl;
+	std::cerr << "CLDB " << name << " not defined" << std::endl;
 	festival_error();
     }
     else

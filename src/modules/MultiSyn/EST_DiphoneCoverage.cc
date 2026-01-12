@@ -99,12 +99,12 @@ void EST_DiphoneCoverage::add_stats(const EST_Utterance *utt)
 	
 void EST_DiphoneCoverage::print_stats(const EST_String filename)
 {
-    ostream *outf;
+    std::ostream *outf;
     
     if (filename == "-")
-        outf = &cout;
+        outf = &std::cout;
     else
-        outf = new ofstream(filename);
+        outf = new std::ofstream(filename);
     
     EST_THash<EST_String, int>::Entries them;
 
@@ -113,7 +113,7 @@ void EST_DiphoneCoverage::print_stats(const EST_String filename)
         *outf << them->k << " " << them->v << "\n";
     }
     
-    if (outf != &cout)
+    if (outf != &std::cout)
 	delete outf;
 }
 

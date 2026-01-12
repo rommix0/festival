@@ -116,7 +116,7 @@ float EST_HybridTargetCost::kl_features_cost() const
   int l2 = b->length();
 
   if (l1 != l2 ) {
-    cout << "kl_divergence vector length error: (" << l1 << " , " << l2 << " )" << endl;
+    std::cout << "kl_divergence vector length error: (" << l1 << " , " << l2 << " )" << std::endl;
     return 1.0; 
   }
 

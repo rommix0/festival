@@ -74,8 +74,8 @@ LISP acost_utt_load_coeffs(LISP utt, LISP params)
 
     if (track->load(coefffilename) != format_ok)
     {
-	cerr << "ACOST: failed to read track from \"" << 
-	    coefffilename << "\"" << endl;
+	std::cerr << "ACOST: failed to read track from \"" << 
+	    coefffilename << "\"" << std::endl;
 	festival_error();
     }
     cl_maybe_fix_pitch_c0(track);
@@ -96,8 +96,8 @@ LISP acost_utt_load_coeffs(LISP utt, LISP params)
 	int nframes = track->index(end)-startf;
 	if (startf >= track->num_frames())
 	{
-	    cerr << "ACOST: utterances longer than coeffs file \n  " <<
-		coefffilename << endl;
+	    std::cerr << "ACOST: utterances longer than coeffs file \n  " <<
+		coefffilename << std::endl;
 	    festival_error();
 	}
 	else if ((startf + nframes) > track->num_frames())
@@ -126,8 +126,8 @@ LISP make_unit_distance_tables(LISP unittypes, LISP params)
 	    EST_String(get_param_str("db_dir",params,"./"))+
 		get_param_str("disttabs_dir",params,"disttabs/")+
 		    unit_name+".disttab";
-	cout << "Making unit distance table for " << unit_name <<
-	    " (" << siod_llength(cdr(car(ut))) << ")" << endl;
+	std::cout << "Making unit distance table for " << unit_name <<
+	    " (" << siod_llength(cdr(car(ut))) << ")" << std::endl;
 	find_unit_distances(cdr(car(ut)),fname);
     }
 
@@ -141,15 +141,15 @@ LISP ac_distance_tracks(LISP filename1, LISP filename2, LISP lweights)
 
     if (a.load(get_c_string(filename1)) != format_ok)
     {
-	cerr << "CLUNITS: distance tracks: \"" << 
-	    get_c_string(filename1) << "\" unloadable." << endl;
+	std::cerr << "CLUNITS: distance tracks: \"" << 
+	    get_c_string(filename1) << "\" unloadable." << std::endl;
 	festival_error();
     }
     if (b.load(get_c_string(filename2)) != format_ok)
     {
-	cerr << "CLUNITS: distance tracks: \"" << 
+	std::cerr << "CLUNITS: distance tracks: \"" << 
 	    get_c_string(filename2) << "\" unloadable."
-	    << endl;
+	    << std::endl;
 	festival_error();
     }
 
@@ -211,7 +211,7 @@ static EST_Track *acost_get_coefficients(EST_Item *si)
 
     if (c == 0)
     {
-	cerr << "ACOST: failed to find coefficients on items\n";
+	std::cerr << "ACOST: failed to find coefficients on items\n";
 	festival_error();
     }
     return track(c);
@@ -235,9 +235,9 @@ static void find_unit_distances(LISP units, const EST_String &fname)
 	    EST_Track *a=acost_get_coefficients(si);
             if (a->num_channels() != weights.length())
             {
-                cerr << "ACOST: number of weights " <<
+                std::cerr << "ACOST: number of weights " <<
                     weights.length() << " does not match mcep param width "
-                     << a->num_channels() << endl;
+                     << a->num_channels() << std::endl;
                 festival_error();
             }
 	    cumulate_ss_frames(a,ss_frames);
@@ -265,8 +265,8 @@ static void find_unit_distances(LISP units, const EST_String &fname)
 
     if (dist.save(fname,"est_ascii") != write_ok)
     {
-	cerr << "ACOST: failed to save distance data in \"" <<
-	    fname << endl;
+	std::cerr << "ACOST: failed to save distance data in \"" <<
+	    fname << std::endl;
 	festival_error();
     }
 }
@@ -292,9 +292,9 @@ float ac_unit_distance(const EST_Track &unit1,
     if ((unit1.num_channels() != unit2.num_channels()) ||
 	(unit1.num_channels() != wghts.length()))
     {
-	cerr << "ac_unit_distance: unit1 (" << unit1.num_channels() << 
+	std::cerr << "ac_unit_distance: unit1 (" << unit1.num_channels() << 
 	    "), unit2 (" << unit2.num_channels() << ") and wghts (" <<
-		wghts.length() << ") are of different size" << endl;
+		wghts.length() << ") are of different size" << std::endl;
 	festival_error();
     }
 
@@ -344,8 +344,8 @@ float frame_distance(const EST_Track &a, int ai,
     if ((a.num_channels() != b.num_channels()) ||
 	(a.num_channels() != wghts.length()))
     {
-	cerr << "frame_distance: unit1, unit2 and wghts" <<
-	    " are of different size" << endl;
+	std::cerr << "frame_distance: unit1, unit2 and wghts" <<
+	    " are of different size" << std::endl;
 	festival_error();
     }
 	
@@ -354,7 +354,7 @@ float frame_distance(const EST_Track &a, int ai,
 	(bi < 0) ||
 	(bi >= b.num_frames()))
     {
-	cerr << "frame_distance: frames out of range" << endl;
+	std::cerr << "frame_distance: frames out of range" << std::endl;
 	festival_error();
     }
     

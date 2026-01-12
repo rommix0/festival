@@ -71,8 +71,8 @@ LISP FT_Classic_POS_Utt(LISP utt)
 
     if ((pos_ngram = get_ngram(get_c_string(pos_ngram_name))) == 0)
     {
-	cerr << "POS: no ngram called \"" <<
-	    get_c_string(pos_ngram_name) << "\" defined" << endl;
+	std::cerr << "POS: no ngram called \"" <<
+	    get_c_string(pos_ngram_name) << "\" defined" << std::endl;
 	festival_error();
     }
 

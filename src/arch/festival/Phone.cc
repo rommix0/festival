@@ -89,8 +89,8 @@ Phone * PhoneSet::member(const EST_String &ph) const
 	return phone(car(cdr(p)));
     else 
     {
-	cerr << "Phone \"" << ph << "\" not member of PhoneSet \"" << 
-	    psetname << "\"" << endl;
+	std::cerr << "Phone \"" << ph << "\" not member of PhoneSet \"" << 
+	    psetname << "\"" << std::endl;
 	return 0;
     }
 }
@@ -108,9 +108,9 @@ const char *PhoneSet::phnum(const int n) const
 	    return get_c_string(car(car(p)));
     }
 
-    cerr << "Phone (phnum) " << n << 
+    std::cerr << "Phone (phnum) " << n << 
 	" too large, not that many members in PhoneSet \"" << 
-	psetname << "\"" << endl;
+	psetname << "\"" << std::endl;
     festival_error();
     return NULL;
 }
@@ -143,8 +143,8 @@ void PhoneSet::set_feature(const EST_String &name, LISP vals)
 	feature_defs = cons(make_param_lisp(name,vals),feature_defs);
     else
     {
-	cerr << "PhoneSet: replacing feature definition of " <<
-	    name << " PhoneSet " << psetname << endl;
+	std::cerr << "PhoneSet: replacing feature definition of " <<
+	    name << " PhoneSet " << psetname << std::endl;
 	CAR(cdr(lpair)) = vals;
     }
 }
@@ -161,8 +161,8 @@ int PhoneSet::phnum(const char *phone) const
 	    return i;
     }
 
-    cerr << "Phone \"" << phone << "\" not member of PhoneSet \"" << 
-	psetname << "\"" << endl;
+    std::cerr << "Phone \"" << phone << "\" not member of PhoneSet \"" << 
+	psetname << "\"" << std::endl;
     festival_error();
 
     return -1;
@@ -182,7 +182,7 @@ Phone *PhoneSet::find_matched_phone(Phone *foreign)
 
     // could try harder 
 
-    cerr << "Cannot map phoneme " << *foreign << endl;
+    std::cerr << "Cannot map phoneme " << *foreign << std::endl;
     festival_error();
 
     return 0;
@@ -243,9 +243,9 @@ LISP make_phoneset(LISP args,LISP env)
     {
 	if (siod_llength(cdr(car(p))) != num_feats)
 	{
-	    cerr << "Wrong number of phone features for "
+	    std::cerr << "Wrong number of phone features for "
 		<< get_c_string(car(car(p))) << " in " <<
-		    get_c_string(name) << endl;
+		    get_c_string(name) << std::endl;
 	    festival_error();
 	}
 	phone = new Phone;
@@ -258,17 +258,17 @@ LISP make_phoneset(LISP args,LISP env)
 		phone->add_feat(feat,val);
 	    else
 	    {
-		cerr << "Phone " << phone->phone_name() << 
+		std::cerr << "Phone " << phone->phone_name() << 
 		    " has invalid value "
 		    << get_c_string(car(pv)) << " for feature "
-			<< feat << endl;
+			<< feat << std::endl;
 		festival_error();
 	    }
 	}
 	if (ps->add_phone(phone) == FALSE)
 	{
-	    cerr << "Phone " << phone->phone_name() << 
-		" multiply defined " << endl;
+	    std::cerr << "Phone " << phone->phone_name() << 
+		" multiply defined " << std::endl;
 	    festival_error();
 	}
     }
@@ -294,7 +294,7 @@ PhoneSet *phoneset_name_to_set(const EST_String &name)
 
     if (lpair == NIL)
     {
-	cerr << "Phoneset " << name << " not defined" << endl;
+	std::cerr << "Phoneset " << name << " not defined" << std::endl;
 	festival_error();
     }
     
@@ -312,7 +312,7 @@ static LISP lisp_select_phoneset(LISP pset)
 
     if (lpair == NIL)
     {
-	cerr << "Phoneset " << name << " not defined" << endl;
+	std::cerr << "Phoneset " << name << " not defined" << std::endl;
 	festival_error();
     }
     else
@@ -339,7 +339,7 @@ static void ps_add_def(const EST_String &name, PhoneSet *ps)
     }
     else
     {
-	cwarn << "Phoneset \"" << name << "\" redefined" << endl;
+	cwarn << "Phoneset \"" << name << "\" redefined" << std::endl;
 	setcar(cdr(lpair),siod(ps));
     }
 
@@ -352,7 +352,7 @@ static void check_phoneset(void)
     
     if (current_phoneset == NULL)
     {
-	cerr << "No phoneset currently selected";
+	std::cerr << "No phoneset currently selected";
 	festival_error();
     }
 }
@@ -367,7 +367,7 @@ static EST_Val ff_ph_feature(EST_Item *s,const EST_String &name)
 
     if (!name.contains("ph_",0))
     {
-	cerr << "Not a phone feature function " << name << endl;
+	std::cerr << "Not a phone feature function " << name << std::endl;
 	festival_error();
     }
 
@@ -377,16 +377,16 @@ static EST_Val ff_ph_feature(EST_Item *s,const EST_String &name)
     phone_def = current_phoneset->member(s->name());
     if (phone_def == 0)
     {
-	cerr << "Phone " << s->name() << " not in PhoneSet \"" <<
-	    current_phoneset->phone_set_name() << "\"" << endl;
+	std::cerr << "Phone " << s->name() << " not in PhoneSet \"" <<
+	    current_phoneset->phone_set_name() << "\"" << std::endl;
 	festival_error();
     }
 
     const EST_String &rrr = phone_def->val(fname,EST_String::Empty);
     if (rrr == EST_String::Empty) 
     {
-	cerr << "Phone " << s->name() << " does not have feature " <<
-	    fname << endl;
+	std::cerr << "Phone " << s->name() << " does not have feature " <<
+	    fname << std::endl;
 	festival_error();
     }
 
@@ -402,7 +402,7 @@ static PhoneSet *find_phoneset(EST_String name)
 
     if (lpair == NIL)
     {
-	cerr << "Phoneset \"" << name << "\" not defined" << endl;
+	std::cerr << "Phoneset \"" << name << "\" not defined" << std::endl;
 	festival_error();
     }
     return phoneset(car(cdr(lpair)));
@@ -445,8 +445,8 @@ EST_String ph_silence(void)
     
     if (current_phoneset->get_silences() == NIL)
     {
-	cerr << "No silences set for PhoneSet\"" << 
-	    current_phoneset->phone_set_name() << "\"" << endl;
+	std::cerr << "No silences set for PhoneSet\"" << 
+	    current_phoneset->phone_set_name() << "\"" << std::endl;
 	return "sil";
     }
     else
@@ -544,8 +544,8 @@ const EST_String &ph_feat(const EST_String &ph,const EST_String &feat)
     phone_def = current_phoneset->member(ph);
     if (phone_def == 0)
     {
-	cerr << "Phone " << ph << " not in phone set " <<
-	    current_phoneset->phone_set_name() << endl;
+	std::cerr << "Phone " << ph << " not in phone set " <<
+	    current_phoneset->phone_set_name() << std::endl;
 	festival_error();
     }
 

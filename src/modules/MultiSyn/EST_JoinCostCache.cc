@@ -119,7 +119,7 @@ bool EST_JoinCostCache::setval( unsigned int a, unsigned int b, unsigned char v 
 }
 
 
-ostream& EST_JoinCostCache::write( ostream &os ) const
+std::ostream& EST_JoinCostCache::write( std::ostream& os ) const
 {
   os << cachelen;
   //  os.write( cache, cachelen );

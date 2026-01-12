@@ -79,7 +79,7 @@ void rescoreCandidates( EST_VTCandidate *candidates, float beam_width, float mul
     }
   
     sort( scores );
-    //cerr << scores << endl;
+    //std::cerr << scores << std::endl;
   
     // calculate simple mean duration of some or all of candidates
     float meandur = 0.0;
@@ -108,13 +108,13 @@ void rescoreCandidates( EST_VTCandidate *candidates, float beam_width, float mul
     // then tweak the scores based on that
     for( EST_Litem *li = scores.head(); li != 0; li = li->next() ){
         float cand_dur = scores(li)._dur; 
-        //    cerr << scores(li)._cand->score << " ";
+        //    std::cerr << scores(li)._cand->score << " ";
         scores(li)._cand->score += (mult * abs( cand_dur - meandur ) );
-        //    cerr << scores(li)._cand->score << endl;
+        //    std::cerr << scores(li)._cand->score << std::endl;
     }
 }
 
-ostream& operator << ( ostream& out, const ScorePair &sp )
+std::ostream& operator << ( std::ostream& out, const ScorePair &sp )
 {
   out << sp._score << " " << sp._dur << "\n";
   return out;

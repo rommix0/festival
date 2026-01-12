@@ -134,7 +134,7 @@ LISP FT_met_dur_predict_1(LISP lutt, LISP lrel)
     for (p = utt->relation(rel)->head(); p ; p = inext(p))
 	p->set("dur", met_duration.val(p->f("name")).F("mean"));
 
-    cout << "dur end\n";
+    std::cout << "dur end\n";
 
     dur_to_end(*utt->relation(rel));
 

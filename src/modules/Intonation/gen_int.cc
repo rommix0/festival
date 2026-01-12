@@ -68,7 +68,7 @@ LISP FT_Int_Targets_General_Utt(LISP utt)
     tfunc = get_param_lisp("targ_func",gen_params,NIL);
     if (tfunc == NIL)
     {
-	cerr << "Int Target General: no target function specified" << endl;
+	std::cerr << "Int Target General: no target function specified" << std::endl;
 	festival_error();
     }
 
@@ -105,8 +105,8 @@ static EST_Item *find_nearest_seg(EST_Utterance *u,float pos)
 	    return seg;
     }
 
-    cerr << "Int Target General: target past end of segments at " <<
-	pos << endl;
+    std::cerr << "Int Target General: target past end of segments at " <<
+	pos << std::endl;
     festival_error();
     return NULL;
 }
@@ -121,7 +121,7 @@ static void check_targs(EST_Utterance *u)
     {
 	if (t->F("pos") < l)
 	{
-	    cerr << "Int Target General: targets out of order" << endl;
+	    std::cerr << "Int Target General: targets out of order" << std::endl;
 	    festival_error();
 	}
 	l = t->F("pos");

@@ -131,7 +131,7 @@ static float min_dur(EST_Item *seg)
     
     if (p == NIL)
     {
-	cerr << "Klatt_Duration: no minimum duration for \"" << seg->name()
+	std::cerr << "Klatt_Duration: no minimum duration for \"" << seg->name()
 	    << "\"\n";
 	festival_error();
     }
@@ -145,7 +145,7 @@ static float inher_dur(EST_Item *seg)
     
     if (p == NIL)
     {
-	cerr << "Klatt_Duration: no minimum duration for \"" << seg->name()
+	std::cerr << "Klatt_Duration: no minimum duration for \"" << seg->name()
 	    << "\"\n";
 	festival_error();
     }
@@ -412,15 +412,15 @@ static float rule10(EST_Item *seg)
 static void klatt_dur_debug(EST_Item *seg)
 {
     float f;
-    if ((f = rule2(seg))!= 1.0) cout << "Fired rule  2 " << f << endl; 
-    if ((f = rule3(seg))!= 1.0) cout << "Fired rule  3 " << f << endl;
-    if ((f = rule4(seg))!= 1.0) cout << "Fired rule  4 " << f << endl;
-    if ((f = rule5(seg))!= 1.0) cout << "Fired rule  5 " << f << endl;
-    if ((f = rule6(seg))!= 1.0) cout << "Fired rule  6 " << f << endl;
-    if ((f = rule7(seg))!= 1.0) cout << "Fired rule  7 " << f << endl;
-    if ((f = rule8(seg))!= 1.0) cout << "Fired rule  8 " << f << endl;
-    if ((f = rule9(seg))!= 1.0) cout << "Fired rule  9 " << f << endl;
-    if ((f = rule10(seg))!= 1.0) cout << "Fired rule 10" << f << endl;
+    if ((f = rule2(seg))!= 1.0) std::cout << "Fired rule  2 " << f << std::endl; 
+    if ((f = rule3(seg))!= 1.0) std::cout << "Fired rule  3 " << f << std::endl;
+    if ((f = rule4(seg))!= 1.0) std::cout << "Fired rule  4 " << f << std::endl;
+    if ((f = rule5(seg))!= 1.0) std::cout << "Fired rule  5 " << f << std::endl;
+    if ((f = rule6(seg))!= 1.0) std::cout << "Fired rule  6 " << f << std::endl;
+    if ((f = rule7(seg))!= 1.0) std::cout << "Fired rule  7 " << f << std::endl;
+    if ((f = rule8(seg))!= 1.0) std::cout << "Fired rule  8 " << f << std::endl;
+    if ((f = rule9(seg))!= 1.0) std::cout << "Fired rule  9 " << f << std::endl;
+    if ((f = rule10(seg))!= 1.0) std::cout << "Fired rule 10" << f << std::endl;
 
     return;
 }

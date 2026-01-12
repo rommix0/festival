@@ -68,48 +68,48 @@ void phones_in_word(EST_Item *w, const EST_String &met_name,
 {
     EST_Item *s, *t;
 
-    cout << "&word: " << w << endl;
-    cout << "in relation: " << w->in_relation(met_name) << endl;
+    std::cout << "&word: " << w << std::endl;
+    std::cout << "in relation: " << w->in_relation(met_name) << std::endl;
     w = w->as_relation(met_name);
-    cout << "&word: " << w << endl;
+    std::cout << "&word: " << w << std::endl;
     
     if (w == 0)
       EST_error("Word isn't in metrical tree\n");
 
-    cout << "word: " << *w << endl;
-    cout << "d1: " << daughter1(w) << endl;
+    std::cout << "word: " << *w << std::endl;
+    std::cout << "d1: " << daughter1(w) << std::endl;
     if (daughter1(w))
-	cout << "*d1: " << daughter1(w) << endl;
-    cout << "d2: " << daughter2(w) << endl;
+	std::cout << "*d1: " << daughter1(w) << std::endl;
+    std::cout << "d2: " << daughter2(w) << std::endl;
     if (daughter2(w))
-	cout << "*d2: " << daughter2(w) << endl;
+	std::cout << "*d2: " << daughter2(w) << std::endl;
     *first_p = 0;
 
     for (s = first_leaf_in_tree(w); s != next_leaf(last_leaf_in_tree(w));
 	 s = next_leaf(s))
     {
-	cout << "leaf: " << *s << endl;
-	cout << "in ss relation: " << s->in_relation(ss_name) << endl;
-//	cout << "relations: " << s->relations() << endl;
+	std::cout << "leaf: " << *s << std::endl;
+	std::cout << "in ss relation: " << s->in_relation(ss_name) << std::endl;
+//	std::cout << "relations: " << s->relations() << std::endl;
 
-	cout << "first leaf: " << *first_leaf_in_tree(s->as_relation(ss_name)) << endl;
-	cout << "last leaf: " << *last_leaf_in_tree(s->as_relation(ss_name)) 
-	    << endl;
+	std::cout << "first leaf: " << *first_leaf_in_tree(s->as_relation(ss_name)) << std::endl;
+	std::cout << "last leaf: " << *last_leaf_in_tree(s->as_relation(ss_name)) 
+	    << std::endl;
 	for (t = first_leaf_in_tree(s->as_relation(ss_name)); 
 	     t !=next_leaf(last_leaf_in_tree(s->as_relation(ss_name))); 
 	     t = next_leaf(t))
 	{
 	    *last_p = t->as_relation(seg_name);
-	    cout << "phone: " << *t << endl;
+	    std::cout << "phone: " << *t << std::endl;
 	    if (*first_p == 0)
 		*first_p = t->as_relation(seg_name);
 	}
     }
 
-    cout << "word: " << *w << endl;
-    cout << "first: " << **first_p << " last " << **last_p << endl;
+    std::cout << "word: " << *w << std::endl;
+    std::cout << "first: " << **first_p << " last " << **last_p << std::endl;
 
-    cout << "\n\n";
+    std::cout << "\n\n";
 }
 
 #if 0

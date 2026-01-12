@@ -68,7 +68,7 @@ void tts_file_xxml(LISP filename)
 
     if (ts.open(inname) == -1)
     {
-	cerr << "xxml: unable to open output from SGML parser" << endl;
+	std::cerr << "xxml: unable to open output from SGML parser" << std::endl;
 	festival_error();
     }
     ts.set_WhiteSpaceChars(" \t\r\n");
@@ -81,16 +81,16 @@ void tts_file_xxml(LISP filename)
 
     if (ts.peek() != get_c_string(car(car(element_defs))))
     {
-	cerr << "xxml parse error: " << get_c_string(filename) <<
+	std::cerr << "xxml parse error: " << get_c_string(filename) <<
 	    " Expected " << get_c_string(car(car(element_defs)))
-		<< " but found " << ts.peek() << endl;
+		<< " but found " << ts.peek() << std::endl;
 	festival_error();
     }
     while (ts.peek() != get_c_string(car(car(cdr(element_defs)))))
     {
 	if (ts.eof())
 	{
-	    cerr << "xxml parse error: unexpected end of file \n";
+	    std::cerr << "xxml parse error: unexpected end of file \n";
 	    festival_error();
 	}
 	line = (EST_String)ts.get_upto_eoln();
@@ -114,8 +114,8 @@ void tts_file_xxml(LISP filename)
 	}
 	else
 	{
-	    cerr << "xxml parse error: unexpected token found " 
-		<< line << endl;
+	    std::cerr << "xxml parse error: unexpected token found " 
+		<< line << std::endl;
 	    festival_error();
 	}
     }
@@ -175,7 +175,7 @@ static LISP xxml_get_attribute(const EST_String &remainder)
     }
     else
     {
-	cerr << "XXML: unknow attribute type " << remainder << endl;
+	std::cerr << "XXML: unknow attribute type " << remainder << std::endl;
 	festival_error();
     }
 

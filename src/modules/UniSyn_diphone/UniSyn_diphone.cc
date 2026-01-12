@@ -114,8 +114,8 @@ LISP us_diphone_init(LISP args)
 	d_index->grouped = true;
 	if (d_index->ts.open(d_index->index_file) != 0)
 	{
-	    cerr << "US DB: can't open grouped diphone file " 
-		<< d_index->index_file << endl;
+	    std::cerr << "US DB: can't open grouped diphone file " 
+		<< d_index->index_file << std::endl;
 	    festival_error();
 	}
 	// set up the character constant values for this stream
@@ -123,10 +123,10 @@ LISP us_diphone_init(LISP args)
     }
     else
     {
-	*cdebug << ":" << get_param_str("grouped",args,"") << ":" << endl
-	        << "index grouped:" << d_index->grouped << endl
-	        << "true:" << true << endl
-	        << "false:" << false << endl;
+	*cdebug << ":" << get_param_str("grouped",args,"") << ":" << std::endl
+	        << "index grouped:" << d_index->grouped << std::endl
+	        << "true:" << true << std::endl
+	        << "false:" << false << std::endl;
 	
 	d_index->coef_dir = get_param_str("coef_dir",args,"");
 	d_index->sig_dir = get_param_str("sig_dir",args,"");

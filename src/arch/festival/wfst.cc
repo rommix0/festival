@@ -85,7 +85,7 @@ static LISP add_wfst(const EST_String &name,EST_WFST *n)
 	    cons(cons(strintern(name),cons(lwfst,NIL)),wfst_loaded_list);
     else
     {
-	cwarn << "WFST: " << name << " recreated" << endl;
+	cwarn << "WFST: " << name << " recreated" << std::endl;
 	setcar(cdr(lpair),lwfst);
     }
     return lwfst;
@@ -108,7 +108,7 @@ EST_WFST *get_wfst(const EST_String &name,const EST_String &filename)
 	}
 	else
 	{
-	    cwarn << "WFST: no wfst named \"" << name << "\" loaded" << endl;
+	    cwarn << "WFST: no wfst named \"" << name << "\" loaded" << std::endl;
 	    return 0;
 	}
     }

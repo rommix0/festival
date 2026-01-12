@@ -79,7 +79,7 @@ static void search_file(const EST_String &filename, LISP tokens, LISP ofile)
 
     if (ts.open(filename) == -1)
     {
-	cerr << "Extract_tokens: can't open file \"" <<
+	std::cerr << "Extract_tokens: can't open file \"" <<
 	    filename << "\" for reading\n";
 	festival_error();
     }
@@ -90,8 +90,8 @@ static void search_file(const EST_String &filename, LISP tokens, LISP ofile)
 	ofd = stdout;
     else if ((ofd = fopen(get_c_string(ofile),"a")) == NULL)
     {
-	cerr << "extract_tokens: cannot open \"" << get_c_string(ofile)
-	    << "\" for appending" << endl;
+	std::cerr << "extract_tokens: cannot open \"" << get_c_string(ofile)
+	    << "\" for appending" << std::endl;
 	festival_error();
     }
 

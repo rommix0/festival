@@ -148,7 +148,7 @@ float EST_TargetCost::stress_cost() const
         // (because of backoff to a silence for example)
         if( csyl == 0 )
 	{
-            //cout << "SC: 1 returning 1\n";
+            //std::cout << "SC: 1 returning 1\n";
             return 1;
 	}
 
@@ -157,7 +157,7 @@ float EST_TargetCost::stress_cost() const
 
         if( cand_stress != targ_stress)
 	{
-            //cout << "SC: 2 returning 1\n";
+            //std::cout << "SC: 2 returning 1\n";
             return 1;
 	}
     }
@@ -172,7 +172,7 @@ float EST_TargetCost::stress_cost() const
         // (because of backoff to a silence for example)
         if( csyl == 0 )
 	{
-            //cout << "SC: 3 returning 1\n";
+            //std::cout << "SC: 3 returning 1\n";
             return 1;
 	}
 
@@ -180,12 +180,12 @@ float EST_TargetCost::stress_cost() const
         cand_stress = (csyl->I("stress") > 0) ? 1 : 0;
         if( cand_stress != targ_stress)
 	{
-            //cout << "SC: 4 returning 1\n";
+            //std::cout << "SC: 4 returning 1\n";
             return 1;
 	}
     }
   
-    //cout << "SC: 5 returning 0\n";
+    //std::cout << "SC: 5 returning 0\n";
     return 0;
 }
 
@@ -523,7 +523,7 @@ float EST_SingingTargetCost::pitch_cost() const
 
     if ( (targ_word && !cand_word) || (!targ_word && cand_word) )
     {
-        cout << "PITCH PENALTY WORD NON-WORD MISMATCH\n";		    
+        std::cout << "PITCH PENALTY WORD NON-WORD MISMATCH\n";		    
         score += 0.5;
     }
     else
@@ -543,14 +543,14 @@ float EST_SingingTargetCost::pitch_cost() const
 
             if ( ! threshold_equal(targ_pitch,cand_pitch,threshold))
             {
-                cout << "PP: " << targ_pitch << " " << cand_pitch << endl;
+                std::cout << "PP: " << targ_pitch << " " << cand_pitch << std::endl;
                 score += 0.5;
             }
         }
 
     if ( (next_targ_word && !next_cand_word) || (!next_targ_word && next_cand_word) )
     {
-        cout << "PITCH PENALTY NEXT WORD NON-WORD MISMATCH\n";		    
+        std::cout << "PITCH PENALTY NEXT WORD NON-WORD MISMATCH\n";		    
         score += 0.5;
     }
     else
@@ -565,13 +565,13 @@ float EST_SingingTargetCost::pitch_cost() const
 
             if ( ! threshold_equal(targ_pitch,cand_pitch,threshold))
             {
-                cout << "NP: "  << targ_pitch << " " << cand_pitch << endl;
+                std::cout << "NP: "  << targ_pitch << " " << cand_pitch << std::endl;
                 score += 0.5;
             }
         }
   
     if (score == 0.0)
-        cout << "NO PITCH PENALTY\n";
+        std::cout << "NO PITCH PENALTY\n";
 
     return score;
 }
@@ -666,8 +666,8 @@ float EST_SchemeTargetCost::operator()( const EST_Item* targ, const EST_Item* ca
    r = leval(l,NIL);
    if ((consp(r)) || (r == NIL) || !(numberp(r)))
      {
-       cerr << "Lisp function: " << tc << 
- 	" did not return float score" << endl;
+       std::cerr << "Lisp function: " << tc << 
+ 	" did not return float score" << std::endl;
        festival_error();
      }
    else

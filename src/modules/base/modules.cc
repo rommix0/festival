@@ -76,8 +76,8 @@ LISP FT_Initialize_Utt(LISP utt)
     else
     {
 	// error
-	cerr << "Unknown utterance type \"" << type << "\" for initialization "
-	    << endl;
+	std::cerr << "Unknown utterance type \"" << type << "\" for initialization "
+	    << std::endl;
 	festival_error();
     }
 
@@ -117,7 +117,7 @@ void create_wave(EST_Utterance &u)
 
     if (wave->load(get_c_string(lwave)) != format_ok)
     {
-	cerr << "Cannot load wavefile: " << get_c_string(lwave) << endl;
+	std::cerr << "Cannot load wavefile: " << get_c_string(lwave) << std::endl;
 	festival_error();
     }
 

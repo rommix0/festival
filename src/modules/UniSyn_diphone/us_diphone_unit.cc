@@ -155,10 +155,10 @@ void load_separate_diphone(int unit, bool keep_full,
 			+ diph_index->diphone[unit].S("filename")
 			+ diph_index->coef_ext) != format_ok)
     {
-	cerr << "US DB: failed to read coefs file from " <<
+	std::cerr << "US DB: failed to read coefs file from " <<
 	    diph_index->coef_dir + "/" 
 		+ diph_index->diphone[unit].S("filename")
-		    + diph_index->coef_ext << endl;
+		    + diph_index->coef_ext << std::endl;
 	EST_error("");
     }
 
@@ -206,10 +206,10 @@ void load_separate_diphone(int unit, bool keep_full,
 		      + diph_index->diphone[unit].f("filename")
 		      + diph_index->sig_ext) != format_ok)
     {
-	cerr << "US DB: failed to read signal file from " <<
+	std::cerr << "US DB: failed to read signal file from " <<
 	    diph_index->sig_dir + "/" 
 		+ diph_index->diphone[unit].f("filename")
-		    + diph_index->sig_ext << endl;
+		    + diph_index->sig_ext << std::endl;
 	EST_error("");
     }
     
@@ -249,10 +249,10 @@ void load_full_diphone(int unit)
 			+ diph_index->diphone[unit].f("filename")
 			+ diph_index->coef_ext) != format_ok)
     {
-	cerr << "US DB: failed to read coefs file from " <<
+	std::cerr << "US DB: failed to read coefs file from " <<
 	    diph_index->coef_dir + "/" 
 		+ diph_index->diphone[unit].f("filename")
-		    + diph_index->coef_ext << endl;
+		    + diph_index->coef_ext << std::endl;
 	EST_error("");
     }
     
@@ -268,10 +268,10 @@ void load_full_diphone(int unit)
 		      + diph_index->diphone[unit].f("filename")
 		      + diph_index->sig_ext) != format_ok)
     {
-	cerr << "US DB: failed to read signal file from " <<
+	std::cerr << "US DB: failed to read signal file from " <<
 	    diph_index->sig_dir + "/" 
 		+ diph_index->diphone[unit].f("filename")
-		    + diph_index->sig_ext << endl;
+		    + diph_index->sig_ext << std::endl;
 	EST_error("");
     }
     diph_index->diphone[unit].set_val("full_sig", est_val(full_sig));

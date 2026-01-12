@@ -121,14 +121,14 @@ static LISP utt_save(LISP utt, LISP fname, LISP ltype)
     {
 	if (u->save(filename,type) != write_ok)
 	{
-	    cerr << "utt.save: saving to \"" << filename << "\" failed" <<
-		endl;
+	    std::cerr << "utt.save: saving to \"" << filename << "\" failed" <<
+		std::endl;
 	    festival_error();
 	}
     }
     else
     {
-	cerr << "utt.save: unknown save format" << endl;
+	std::cerr << "utt.save: unknown save format" << std::endl;
 	festival_error();
     }
 
@@ -155,8 +155,8 @@ static LISP utt_save_relation(LISP utt, LISP rname, LISP fname,
 
     if (r->save(filename, a) != write_ok)
     {
-	cerr << "utt.save.relation: saving to \"" << filename << "\" failed" <<
-	    endl;
+	std::cerr << "utt.save.relation: saving to \"" << filename << "\" failed" <<
+	    std::endl;
 	festival_error();
     }
     return utt;
@@ -173,8 +173,8 @@ static LISP utt_load(LISP utt, LISP fname)
 
     if (u->load(filename) != 0)
     {
-	cerr << "utt.load: loading from \"" << filename << "\" failed" <<
-	    endl;
+	std::cerr << "utt.load: loading from \"" << filename << "\" failed" <<
+	    std::endl;
 	festival_error();
     }
 
@@ -197,8 +197,8 @@ static LISP utt_relation_load(LISP utt, LISP lrelname, LISP lfilename)
     
     if (rel->load(filename,"esps") != 0)
     {
-	cerr << "utt.load.relation: loading from \"" << filename << 
-	    "\" failed" << endl;
+	std::cerr << "utt.load.relation: loading from \"" << filename << 
+	    "\" failed" << std::endl;
 	festival_error();
     }
 
@@ -261,7 +261,7 @@ static LISP utt_relation_print(LISP utt, LISP l_name)
     EST_Utterance *u = utterance(utt);
     EST_String name = get_c_string(l_name);
 
-    cout << *u->relation(name);
+    std::cout << *u->relation(name);
     return NIL;
 }
 
@@ -620,7 +620,7 @@ static LISP item_insert(LISP li,LISP nli,LISP direction)
 	s = n->insert_below(s);
     else
     {
-	cerr << "item.insert: unknown direction \"" << dir << "\"" << endl;
+	std::cerr << "item.insert: unknown direction \"" << dir << "\"" << std::endl;
 	festival_error();
     }
 

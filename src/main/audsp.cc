@@ -145,9 +145,9 @@ void CQueue::display(void) const
     CQueue_Item *t;
     int i;
 
-    cerr << "Command_queue: " << length() << endl;
+    std::cerr << "Command_queue: " << length() << std::endl;
     for (i=0,t=head; t != 0; t=t->next,i++)
-	cerr << " " << i << ": " << t->c->file() << endl;
+	std::cerr << " " << i << ": " << t->c->file() << std::endl;
 }
 
 int CQueue::length(void) const
@@ -401,7 +401,7 @@ static void process_command(char *line)
 	command_queue.display();
     else if (comm != "")
     {
-	cerr << "audsp: unknown command \"" << comm << "\"\n";
+	std::cerr << "audsp: unknown command \"" << comm << "\"\n";
     }
 
     ts.close();
@@ -454,7 +454,7 @@ static int execute_command(Command *c)
     }
     else
     {
-	cerr << "auspd: fork failed, \"" << c->file() << "\"\n";
+	std::cerr << "auspd: fork failed, \"" << c->file() << "\"\n";
 	return -1;
     }
 }

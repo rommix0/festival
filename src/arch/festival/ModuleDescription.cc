@@ -139,12 +139,12 @@ int ModuleDescription::print(FILE *s, const ModuleDescription &desc)
   return fputs(ModuleDescription::to_string(desc), s);
 }
 
-ostream &print(ostream &s, const ModuleDescription &desc)
+std::ostream& print(std::ostream& s, const ModuleDescription &desc)
 {
   return s << ModuleDescription::to_string(desc);
 }
 
-ostream &operator << (ostream &s, const ModuleDescription &desc)
+std::ostream& operator << (std::ostream& s, const ModuleDescription &desc)
 {
   return print(s, desc);
 }

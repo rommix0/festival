@@ -74,7 +74,7 @@ static LISP tts_file_xml(LISP filename)
 
     if (!source)
     {
-	cerr << "xml: unable to open input file \"" << inname << "\"" << endl;
+	std::cerr << "xml: unable to open input file \"" << inname << "\"" << std::endl;
 	festival_error();
     }
     element_defs = siod_get_lval("xxml_elements",NULL);
@@ -83,7 +83,7 @@ static LISP tts_file_xml(LISP filename)
     ParserSetFlag(p, ReturnDefaultedAttributes, 1);
     if (ParserPush(p, source) == -1)
     {
-	cerr << "xml: parser error\n" << endl;
+	std::cerr << "xml: parser error\n" << std::endl;
 	festival_error();
     }
 
@@ -134,7 +134,7 @@ static LISP tts_file_xml(LISP filename)
 	}
 	else if (bit->type == XBIT_pi)
 	{
-	    cerr << "xml: ignoring pi " << bit->pi_chars << endl;
+	    std::cerr << "xml: ignoring pi " << bit->pi_chars << std::endl;
 	}
 	else if (bit->type == XBIT_error)
 	{

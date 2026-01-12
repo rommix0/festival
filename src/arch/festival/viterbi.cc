@@ -68,7 +68,7 @@ LISP Gen_Viterbi(LISP utt)
     {
 	ngram = get_ngram(f.S("ngramname"));
     if (ngram == NULL) {
-        cerr << "Gen_Viterbi: Error. Could not get ngram " << f.S("ngramname") << endl;
+        std::cerr << "Gen_Viterbi: Error. Could not get ngram " << f.S("ngramname") << std::endl;
         return utt;
     }
 	num_states = ngram->num_states();
@@ -121,7 +121,7 @@ static EST_VTCandidate *gv_candlist(EST_Item *s,EST_Features &f)
     else
 	w = get_wfst(f.S("wfstname"));
     if (n == NULL && w == NULL) {
-        cerr << "gv_candlist: Neither ngram nor wfst were provided" << endl;
+        std::cerr << "gv_candlist: Neither ngram nor wfst were provided" << std::endl;
         festival_error();
     }
     for (l=p; l != NIL; l=cdr(l))
@@ -157,7 +157,7 @@ static EST_VTPath *gv_npath(EST_VTPath *p,EST_VTCandidate *c,EST_Features &f)
     else
 	wfst = get_wfst(f.S("wfstname"));
     if (ngram == NULL && wfst == NULL) {
-        cerr << "gv_npath: Neither ngramname nor wfstname were provided" << endl;
+        std::cerr << "gv_npath: Neither ngramname nor wfstname were provided" << std::endl;
         return np;
     }
     np->c = c;

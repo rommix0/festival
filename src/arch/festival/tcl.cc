@@ -78,7 +78,7 @@ static LISP tcl_eval(LISP tcl_command)
     }
     if (Tcl_Eval(tcl_interpreter,cmd)!=TCL_OK) 
     {
-	cerr << tcl_interpreter->result << endl;
+	std::cerr << tcl_interpreter->result << std::endl;
 	festival_error();
     }
     return strintern(tcl_interpreter->result);

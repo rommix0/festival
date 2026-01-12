@@ -57,7 +57,7 @@ EST_Wave *get_utt_wave(EST_Utterance *u)
 
     if (((r = u->relation("Wave")) == 0) || (r->head() == 0))
     {
-	cerr << "no waveform in utterance" << endl;
+	std::cerr << "no waveform in utterance" << std::endl;
 	festival_error();
     }
 
@@ -94,8 +94,8 @@ static LISP wave_save(LISP lwave,LISP fname,LISP ftype,LISP stype)
     
     if (w->save_file(filename,filetype,sampletype,EST_NATIVE_BO) != write_ok)
     {
-	cerr << "utt.save.wave: failed to write wave to \"" << filename 
-	    << "\"" << endl;
+	std::cerr << "utt.save.wave: failed to write wave to \"" << filename 
+	    << "\"" << std::endl;
 	festival_error();
     }
     
@@ -131,7 +131,7 @@ static LISP wave_save_data_fp(LISP lwave, LISP lfp, LISP ftype, LISP stype)
 
     if (w->save_file_data(fp,filetype,sampletype,EST_NATIVE_BO) != write_ok)
     {
-	cerr << "utt.save.wave.fp: failed to write wave" << endl;
+	std::cerr << "utt.save.wave.fp: failed to write wave" << std::endl;
 	festival_error();
     }
 
@@ -169,7 +169,7 @@ static LISP wave_save_fp(LISP lwave, LISP lfp, LISP ftype, LISP stype)
 
     if (w->save_file(fp,filetype,sampletype,EST_NATIVE_BO) != write_ok)
     {
-	cerr << "utt.save.wave.data.fp: failed to write wave" << endl;
+	std::cerr << "utt.save.wave.data.fp: failed to write wave" << std::endl;
 	festival_error();
     }
 
@@ -230,7 +230,7 @@ static LISP wave_save_header_fp(LISP arglist)
     if (wave_io_save_header(fp, num_samples, num_channels,
                         sample_rate, stype, bo, ftype) != write_ok)
     {
-        cerr << "utt.save.wave.header: failed" << endl;
+        std::cerr << "utt.save.wave.header: failed" << std::endl;
 	    festival_error();
     }
 
@@ -255,7 +255,7 @@ static LISP wave_load(LISP fname,LISP ftype,LISP stype,LISP srate)
 	r = w->load(get_c_string(fname),get_c_string(ftype));
 
     if (r != format_ok)
-	cerr << "Cannot load wavefile: " << get_c_string(fname) << endl;
+	std::cerr << "Cannot load wavefile: " << get_c_string(fname) << std::endl;
     
     return siod(w);
 }
@@ -389,8 +389,8 @@ static LISP track_save(LISP ltrack,LISP fname,LISP ftype)
     
     if (t->save(filename, filetype) != write_ok)
     {
-	cerr << "track.save: failed to write track to \"" << filename 
-	    << "\"" << endl;
+	std::cerr << "track.save: failed to write track to \"" << filename 
+	    << "\"" << std::endl;
 	festival_error();
     }
     
@@ -413,7 +413,7 @@ static LISP track_load(LISP fname,LISP ftype,LISP ishift)
 		    is);
 
     if (r != format_ok)
-	cerr << "Cannot load track: " << get_c_string(fname) << endl;
+	std::cerr << "Cannot load track: " << get_c_string(fname) << std::endl;
     
     return siod(t);
 }
@@ -503,8 +503,8 @@ static LISP track_insert(LISP argv, LISP env)
 
     if (t1->num_channels() != t2->num_channels())
     {
-	cerr << "track.insert: different number of channels" << 
-	    t1->num_channels() << " != " << t2->num_channels() << endl;
+	std::cerr << "track.insert: different number of channels" << 
+	    t1->num_channels() << " != " << t2->num_channels() << std::endl;
 	festival_error();
     }
 
@@ -535,8 +535,8 @@ static LISP utt_save_f0(LISP utt, LISP fname)
 	EST_Track *f0 = track(u->relation("F0")->head()->f("f0"));
 	if (f0->save(filename,"esps") != write_ok)
 	{
-	    cerr << "utt.save.f0: failed to write f0 to \"" << 
-		filename << "\"" << endl;
+	    std::cerr << "utt.save.f0: failed to write f0 to \"" << 
+		filename << "\"" << std::endl;
 	    festival_error();
 	}
     }
@@ -544,8 +544,8 @@ static LISP utt_save_f0(LISP utt, LISP fname)
 	utt_save_f0_from_targets(u,filename);
     else
     {
-	cerr << "utt.save.f0: utterance doesn't contain F0 or Target stream"
-	    << endl;
+	std::cerr << "utt.save.f0: utterance doesn't contain F0 or Target stream"
+	    << std::endl;
 	festival_error();
     }
     return utt;
@@ -596,8 +596,8 @@ static void utt_save_f0_from_targets(EST_Utterance *u,EST_String &filename)
 
     if (f0.save(filename,"esps") != write_ok)
     {
-	cerr << "utt.save.f0: failed to write F0 to \"" << 
-	    filename << "\"" << endl;
+	std::cerr << "utt.save.f0: failed to write F0 to \"" << 
+	    filename << "\"" << std::endl;
 	festival_error();
     }
 
@@ -646,7 +646,7 @@ static LISP utt_send_wave_client(LISP utt)
     w = get_utt_wave(u);
     if (ft_server_socket == -1)
     {
-	cerr << "utt_send_wave_client: not in server mode" << endl;
+	std::cerr << "utt_send_wave_client: not in server mode" << std::endl;
 	festival_error();
     }
 	
@@ -661,7 +661,7 @@ static LISP utt_send_wave_client(LISP utt)
 #else
     if (write(ft_server_socket,"WV\n",3) != 3)
     {
-	cerr << "utt_send_wave_client: failed to acknowledge wave" << endl;
+	std::cerr << "utt_send_wave_client: failed to acknowledge wave" << std::endl;
 	festival_error();
     }
 #endif
@@ -685,7 +685,7 @@ static LISP utt_send_wave_asterisk(LISP utt)
     w = get_utt_wave(u);
     if (ft_server_socket == -1)
     {
-       cerr << "utt_send_wave_asterisk: not in server mode" << endl;
+       std::cerr << "utt_send_wave_asterisk: not in server mode" << std::endl;
        festival_error();
     }
 
@@ -703,7 +703,7 @@ static LISP utt_send_wave_asterisk(LISP utt)
 #else
     if (write(ft_server_socket,"WV\n",3) != 3)
     {
-	cerr << "utt_send_wave_client: failed to acknowledge wave" << endl;
+	std::cerr << "utt_send_wave_client: failed to acknowledge wave" << std::endl;
 	festival_error();
     }
 #endif
@@ -729,7 +729,7 @@ static LISP send_sexpr_to_client(LISP l)
 #else
     if (write(ft_server_socket,"LP\n",3) != 3)
     {
-	cerr << "utt_send_wave_client: failed to acknowledge wave" << endl;
+	std::cerr << "utt_send_wave_client: failed to acknowledge wave" << std::endl;
 	festival_error();
     }
 #endif

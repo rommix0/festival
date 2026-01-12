@@ -111,7 +111,7 @@ LISP FT_Donovan_Synthesize_Utt(LISP utt)
 
     if (nindex == 0)
     {
-	cerr << "Festival: no donovan diphones loaded\n";
+	std::cerr << "Festival: no donovan diphones loaded\n";
 	festival_error();
     }
 
@@ -307,7 +307,7 @@ void as_realloc(int nframes, int npp, ACOUSTIC *as)
     (void)npp;
     (void)as;
 
-    cerr << "Donovan diphones: as_realloc called unexpectedly\n";
+    std::cerr << "Donovan diphones: as_realloc called unexpectedly\n";
     festival_error();
 
 }

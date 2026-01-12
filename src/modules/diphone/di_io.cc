@@ -102,7 +102,7 @@ static void load_index(DIPHONE_DATABASE *database)
 
     if (ts.open(database->index_file) == -1)
     {
-	cerr << "Diphone: Can't open file " << database->index_file << endl;
+	std::cerr << "Diphone: Can't open file " << database->index_file << std::endl;
 	festival_error();
     }
 
@@ -125,7 +125,7 @@ static void load_index(DIPHONE_DATABASE *database)
 
     if (i == database->ndiphs)
     {
-	cerr << "Diphone: too many diphones in DB" << endl;
+	std::cerr << "Diphone: too many diphones in DB" << std::endl;
 	festival_error();
     }
 
@@ -164,15 +164,15 @@ static void load_lpc_file(DIPHONE_DATABASE *db,int diph,int mode)
 
 	if (lpc.load(lpc_file) != format_ok)
 	{
-	    cerr << "Diphone: failed to read lpc file " <<
-		lpc_file << endl;
+	    std::cerr << "Diphone: failed to read lpc file " <<
+		lpc_file << std::endl;
 	    festival_error();
 	}
 	if (lpc.num_channels() != db->lpc_order)
 	{
-	    cerr << "Diphone: lpc file " <<
+	    std::cerr << "Diphone: lpc file " <<
 		lpc_file << " has order " << lpc.num_channels() << 
-		    " while database has " << db->lpc_order << endl;
+		    " while database has " << db->lpc_order << std::endl;
 	    festival_error();
 	}
 	// Extract frames (pitch synchronously)
@@ -237,8 +237,8 @@ static void extract_lpc_frames(DIPHONE_DATABASE *db, int diph, EST_Track &lpc)
 	    }
 	    if (j==lpc.num_frames())
 	    {
-		cerr << "Diphone: lpc access, failed to find lpc coeffs" 
-		    << endl;
+		std::cerr << "Diphone: lpc access, failed to find lpc coeffs" 
+		    << std::endl;
 		festival_error();
 	    }
 	}
@@ -267,8 +267,8 @@ static void extract_lpc_frames(DIPHONE_DATABASE *db, int diph, EST_Track &lpc)
 	    }
 	    if (frame_num >= lpc.num_frames())
 	    {
-		cerr << "Diphone: LPC frame past end of file \"" << 
-		    db->indx[diph]->file << "\"" << endl;
+		std::cerr << "Diphone: LPC frame past end of file \"" << 
+		    db->indx[diph]->file << "\"" << std::endl;
 		memset(db->lpc[diph]->f[i],0,sizeof(float)*lpc.num_channels());
 	    }
 	    else  // Last one so just take it as is
@@ -375,8 +375,8 @@ static void load_signal_file(DIPHONE_DATABASE *db, int i, int mode)
 			    db->samp_freq, "short", EST_NATIVE_BO,
 			    1, offset, nsamples+2*zone) != format_ok)
 	    {
-		cerr << "Diphone: failed to read " << sig_type 
-		    << " format signal file " << signal_file << endl;
+		std::cerr << "Diphone: failed to read " << sig_type 
+		    << " format signal file " << signal_file << std::endl;
 		festival_error();
 	    }
 	    db->vox[i]->signal = walloc(short,w.num_samples());
@@ -393,7 +393,7 @@ static void load_signal_file(DIPHONE_DATABASE *db, int i, int mode)
 	{
 	    if (db->gfd == NULL)
 	    {
-		cerr << "Diphone: can no longer access the group file" << endl;
+		std::cerr << "Diphone: can no longer access the group file" << std::endl;
 		festival_error();
 	    }
 	    if (db->group_encoding == di_raw)
@@ -403,7 +403,7 @@ static void load_signal_file(DIPHONE_DATABASE *db, int i, int mode)
 		if (fread(db->vox[i]->signal,sizeof(short),
 		          db->vox[i]->nsamples,db->gfd) != db->vox[i]->nsamples)
 		{
-			cerr << "Diphone: Could not read samples" << endl;
+			std::cerr << "Diphone: Could not read samples" << std::endl;
 			festival_error();
 		}
 		if (db->swap)
@@ -417,7 +417,7 @@ static void load_signal_file(DIPHONE_DATABASE *db, int i, int mode)
 		fseek(db->gfd,db->gsignalbase+(db->offsets[i]),SEEK_SET);
 		if (fread(ulaw,sizeof(unsigned char),db->vox[i]->nsamples,db->gfd) != db->vox[i]->nsamples)
 		{
-			cerr << "Diphone: Could not read ulaw samples" << endl;
+			std::cerr << "Diphone: Could not read ulaw samples" << std::endl;
 			festival_error();
 		}
 		ulaw_to_short(ulaw,db->vox[i]->signal,db->vox[i]->nsamples);
@@ -431,7 +431,7 @@ static void load_signal_file(DIPHONE_DATABASE *db, int i, int mode)
 		fseek(db->gfd,db->gsignalbase+(db->offsets[i]),SEEK_SET);
 		if(fread(alaw,sizeof(unsigned char),db->vox[i]->nsamples,db->gfd) != db->vox[i]->nsamples)
 		{
-			cerr << "Diphone: Could not read ulaw samples" << endl;
+			std::cerr << "Diphone: Could not read ulaw samples" << std::endl;
 			festival_error();
 		}
 		alaw_to_short(alaw,db->vox[i]->signal,db->vox[i]->nsamples);
@@ -439,7 +439,7 @@ static void load_signal_file(DIPHONE_DATABASE *db, int i, int mode)
 	    }
 	    else
 	    {
-		cerr << "Diphone: unknown group type" << endl;
+		std::cerr << "Diphone: unknown group type" << std::endl;
 		festival_error();
 	    }
 	}
@@ -464,7 +464,7 @@ void load_pitch_file(DIPHONE_DATABASE *database, int i, int mode)
 	database->pitch_ext;
     if (pms.load(pitch_file) != format_ok)
     {
-	cerr << "Diphone: Can't open pitch file " << pitch_file << endl;
+	std::cerr << "Diphone: Can't open pitch file " << pitch_file << std::endl;
 	festival_error();
     }
     /* assumptions.. only those within the limits of the diphone  */
@@ -529,14 +529,14 @@ void load_pitch_file(DIPHONE_DATABASE *database, int i, int mode)
     if (database->pm[i]->rmark == 0)
     {
 	*cdebug << "Diphone: modifying edge pms for " 
-	    << database->indx[i]->diph << endl;
+	    << database->indx[i]->diph << std::endl;
 	database->pm[i]->rmark = 1;
 	database->pm[i]->lmark -= 1;
     }
     if (database->pm[i]->nmark <= 0)
     {
-	cerr << "Diphone: diphone " << database->indx[i]->diph << 
-          " has 0 pitchmarks" << endl;
+	std::cerr << "Diphone: diphone " << database->indx[i]->diph << 
+          " has 0 pitchmarks" << std::endl;
 	festival_error();
     }
 
@@ -560,7 +560,7 @@ void load_pitch_file(DIPHONE_DATABASE *database, int i, int mode)
 	database->pitch_ext;
     if((pfd=fopen(pitch_file,"rb")) == NULL) 
     {
-	cerr << "Diphone: Can't open pitch file " << pitch_file << endl;
+	std::cerr << "Diphone: Can't open pitch file " << pitch_file << std::endl;
 	festival_error();
     }
     /* assumptions.. only those within the limits of the diphone  */
@@ -625,14 +625,14 @@ void load_pitch_file(DIPHONE_DATABASE *database, int i, int mode)
     if (database->pm[i]->rmark == 0)
     {
 	*cdebug << "Diphone: modifying edge pms for " 
-	    << database->indx[i]->diph << endl;
+	    << database->indx[i]->diph << std::endl;
 	database->pm[i]->rmark = 1;
 	database->pm[i]->lmark -= 1;
     }
     if (database->pm[i]->nmark <= 0)
     {
-	cerr << "Diphone: diphone " << database->indx[i]->diph << 
-          " has 0 pitchmarks" << endl;
+	std::cerr << "Diphone: diphone " << database->indx[i]->diph << 
+          " has 0 pitchmarks" << std::endl;
 	festival_error();
     }
 
@@ -681,7 +681,7 @@ short *di_get_diph_signal(int diph,DIPHONE_DATABASE *db)
     }
     else
     {
-	cerr << "Diphone: unknown diphone signal access strategy" << endl;
+	std::cerr << "Diphone: unknown diphone signal access strategy" << std::endl;
 	festival_error();
     }
     return NULL;
@@ -718,12 +718,12 @@ short *di_get_diph_res_mark(int diph,int mark,int size,DIPHONE_DATABASE *db)
     if (pos_samp < 0)
     {
 	pos_samp = 0;
-	*cdebug << "DIPHONE: sig_band too short to the left" << endl;
+	*cdebug << "DIPHONE: sig_band too short to the left" << std::endl;
     }
     if (pos_samp+size >= db->vox[diph]->nsamples)
     {
 	pos_samp = db->vox[diph]->nsamples - size;
-	*cdebug << "DIPHONE: sig_band too short to the right" << endl;
+	*cdebug << "DIPHONE: sig_band too short to the right" << std::endl;
     }
 
     return &residual[pos_samp];
@@ -741,21 +741,21 @@ void di_load_grouped_db(const EST_Pathname &filename, DIPHONE_DATABASE *db,
 
     if ((db->gfd=fopen(filename,"rb")) == NULL)
     {
-	cerr << "Diphone: cannot open group file " <<
-	    filename << " for reading" << endl;
+	std::cerr << "Diphone: cannot open group file " <<
+	    filename << " for reading" << std::endl;
 	festival_error();
     }
 
     if (fread(&magic,sizeof(int),1,db->gfd) != 1)
     {
-        cerr << "Diphone: Could not read magic number" << endl;
+        std::cerr << "Diphone: Could not read magic number" << std::endl;
         festival_error();
     }
     if (magic == SWAPINT(DIPHONE_MAGIC))
 	db->swap = TRUE;
     else if (magic != DIPHONE_MAGIC)
     {
-	cerr << "Diphone: " << filename << " not a group file" << endl;
+	std::cerr << "Diphone: " << filename << " not a group file" << std::endl;
 	festival_error();
     }
 
@@ -769,7 +769,7 @@ void di_load_grouped_db(const EST_Pathname &filename, DIPHONE_DATABASE *db,
     db->nindex = db->ndiphs;  // we can trust that number this time
 
     if (fread(&strsize,sizeof(int),1,db->gfd) != 1) {  // number of chars in diph names
-        cerr << "Diphone: Could not read number of chars in diphone names" << endl;
+        std::cerr << "Diphone: Could not read number of chars in diphone names" << std::endl;
         festival_error();
     }
     if (db->swap)
@@ -777,7 +777,7 @@ void di_load_grouped_db(const EST_Pathname &filename, DIPHONE_DATABASE *db,
     diphnames = walloc(char,strsize);
     if (fread(diphnames,sizeof(char),strsize,db->gfd) != (unsigned int)strsize)
     {
-        cerr << "Diphone Could not read diphone names" << endl;
+        std::cerr << "Diphone Could not read diphone names" << std::endl;
         festival_error();
     }
     for (j=i=0;i<db->nindex;i++)
@@ -787,8 +787,8 @@ void di_load_grouped_db(const EST_Pathname &filename, DIPHONE_DATABASE *db,
 	for ( ; diphnames[j] != '\0'; j++) // skip to next diphname
 	    if (j > strsize)
 	    {
-		cerr << "Diphone: group file diphone name table corrupted"
-		    << endl;
+		std::cerr << "Diphone: group file diphone name table corrupted"
+		    << std::endl;
 		festival_error();
 	    }
 	j++;
@@ -819,13 +819,13 @@ static void di_group_load_signal(DIPHONE_DATABASE *db)
     samp_counts = walloc(unsigned short,db->nindex);
     if (fread(samp_counts,sizeof(unsigned short),db->nindex,db->gfd) != (unsigned int)db->nindex)
     {
-        cerr << "Diphone: fread error" << endl;
+        std::cerr << "Diphone: fread error" << std::endl;
         festival_error();
     }
     if (db->swap) swap_bytes_ushort(samp_counts,db->nindex);
     if (fread(&totsamples,sizeof(int),1,db->gfd) != 1)
     {
-        cerr << "Diphone: fread error" << endl;
+        std::cerr << "Diphone: fread error" << std::endl;
         festival_error();
     }
     if (db->swap)
@@ -837,7 +837,7 @@ static void di_group_load_signal(DIPHONE_DATABASE *db)
 	    db->allsignal = walloc(short,totsamples);
 	    if (fread(db->allsignal,sizeof(short),totsamples,db->gfd) != (unsigned int)totsamples)
         {
-            cerr << "Diphone: fread error" << endl;
+            std::cerr << "Diphone: fread error" << std::endl;
             festival_error();
         }
 	    if (db->swap)
@@ -848,7 +848,7 @@ static void di_group_load_signal(DIPHONE_DATABASE *db)
 	    db->allualawsignal = walloc(unsigned char,totsamples);
 	    if(fread(db->allualawsignal,sizeof(unsigned char),totsamples,db->gfd) != (unsigned int)totsamples)
         {
-            cerr << "Diphone: fread error" << endl;
+            std::cerr << "Diphone: fread error" << std::endl;
             festival_error();
         }
 	}
@@ -857,7 +857,7 @@ static void di_group_load_signal(DIPHONE_DATABASE *db)
 	    db->allualawsignal = walloc(unsigned char,totsamples);
 	    if(fread(db->allualawsignal,sizeof(unsigned char),totsamples,db->gfd) != (unsigned int)totsamples)
             {
-                cerr << "Diphone: fread error" << endl;
+                std::cerr << "Diphone: fread error" << std::endl;
                 festival_error();
             }
 	}
@@ -890,7 +890,7 @@ static void di_group_load_signal(DIPHONE_DATABASE *db)
 	    }
 	    else
 	    {
-		cerr << "Diphone: unknown group type to unpack" << endl;
+		std::cerr << "Diphone: unknown group type to unpack" << std::endl;
 		festival_error();
 	    }
 	}
@@ -922,13 +922,13 @@ static void di_group_load_lpc_params(DIPHONE_DATABASE *db)
     frame_counts = walloc(unsigned short, db->nindex);
     if (fread(frame_counts,sizeof(unsigned short),db->nindex,db->gfd) != (unsigned int)db->nindex)
     {
-        cerr << "Diphone: read error" << endl;
+        std::cerr << "Diphone: read error" << std::endl;
         festival_error();
     }
     if (db->swap) swap_bytes_ushort(frame_counts,db->nindex);
     if (fread(&totframes,sizeof(int),1,db->gfd) != 1)
     {
-        cerr << "Diphone: read error" << endl;
+        std::cerr << "Diphone: read error" << std::endl;
         festival_error();
     }
     if (db->swap) totframes = SWAPINT(totframes);
@@ -938,7 +938,7 @@ static void di_group_load_lpc_params(DIPHONE_DATABASE *db)
 	if (fread(db->allframes,sizeof(float),
 	          totframes*db->lpc_order,db->gfd) != (unsigned int)totframes*db->lpc_order )
 	{
-		cerr << "Diphone: read error" << endl;
+		std::cerr << "Diphone: read error" << std::endl;
 		festival_error();
 	}
 	if (db->swap) 
@@ -950,7 +950,7 @@ static void di_group_load_lpc_params(DIPHONE_DATABASE *db)
 	if (fread(db->allframesshort,sizeof(short),
 	          totframes*db->lpc_order,db->gfd) != (unsigned int)totframes*db->lpc_order)
 	{
-		cerr << "Diphone: read error" << endl;
+		std::cerr << "Diphone: read error" << std::endl;
 		festival_error();
 	}
 	if (db->swap)
@@ -987,7 +987,7 @@ static void di_group_load_lpc_params(DIPHONE_DATABASE *db)
 	}
 	else
 	{
-	    cerr << "Diphone: unknown group type to unpack" << endl;
+	    std::cerr << "Diphone: unknown group type to unpack" << std::endl;
 	    festival_error();
 	}
 	frame_offset += frame_counts[i];
@@ -1006,7 +1006,7 @@ static void di_group_load_pm(DIPHONE_DATABASE *db)
     if (fread(pm_info,sizeof(unsigned short),db->nindex*3,db->gfd) != 
 	(unsigned int)(db->nindex*3))
     {
-	cerr << "DIPHONE: short group file, can't read pm\n";
+	std::cerr << "DIPHONE: short group file, can't read pm\n";
 	festival_error();
     }
     if (db->swap)
@@ -1020,7 +1020,7 @@ static void di_group_load_pm(DIPHONE_DATABASE *db)
 	db->pm[i]->rmark = pm_info[(i*3)+2];
 	if (fread(db->pm[i]->mark,sizeof(unsigned short),db->pm[i]->nmark,db->gfd) != (unsigned int) db->pm[i]->nmark)
 	{
-		cerr << "DIPHONE: short group file, can't read pm\n";
+		std::cerr << "DIPHONE: short group file, can't read pm\n";
 		festival_error();
 	}
 	if (db->swap)
@@ -1073,8 +1073,8 @@ void di_save_grouped_db(const EST_Pathname &filename, DIPHONE_DATABASE *db)
 
     if ((fd=fopen(filename,"wb")) == NULL)
     {
-	cerr << "Diphone: cannot open group file " <<
-	    filename << " for saving" << endl;
+	std::cerr << "Diphone: cannot open group file " <<
+	    filename << " for saving" << std::endl;
 	festival_error();
     }
     
@@ -1125,7 +1125,7 @@ void di_save_grouped_db(const EST_Pathname &filename, DIPHONE_DATABASE *db)
 	}
 	else
 	{
-	    cerr << "Diphone: unknown group type for dumping" << endl;
+	    std::cerr << "Diphone: unknown group type for dumping" << std::endl;
 	    festival_error();
 	}
 	
@@ -1164,7 +1164,7 @@ void di_save_grouped_db(const EST_Pathname &filename, DIPHONE_DATABASE *db)
 	    }
 	    else
 	    {
-		cerr << "Diphone: unknown group type for dumping" << endl;
+		std::cerr << "Diphone: unknown group type for dumping" << std::endl;
 		festival_error();
 	    }
 	}

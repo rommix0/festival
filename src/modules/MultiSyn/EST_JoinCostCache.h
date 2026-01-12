@@ -74,7 +74,7 @@ public:
 
   unsigned int id() const {return _id;}
   
-  ostream& write( ostream &os ) const;
+  std::ostream& write( std::ostream& os ) const;
   unsigned char val( unsigned int a, unsigned int b ) const;
   bool setval( unsigned int a, unsigned int b, unsigned char v );
 

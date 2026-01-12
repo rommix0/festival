@@ -56,9 +56,9 @@ void vowel_tilt_to_abs_tilt(EST_Utterance &u)
 	    s = s->as_relation("Syllable");
 	    pos = t->F("tilt:position");
 	    t->set("position", pos);
-	    //	    cout << "pos: " << t->fF("position") << " rel:" <<
+	    //	    std::cout << "pos: " << t->fF("position") << " rel:" <<
 	    //t->fF("rel_pos") << " vowel start:" << s->fF("vowel_start") 
-	    //<< endl;
+	    //<< std::endl;
 	}
     }
 }

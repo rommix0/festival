@@ -63,8 +63,8 @@ static EST_Val ff_segment_duration(EST_Item *s)
     EST_Item *n = as(s,"Segment");
     if (n == 0)
     {
-	cerr << "Asked for segment duration of item not in Segment relation."
-	    << endl;
+	std::cerr << "Asked for segment duration of item not in Segment relation."
+	    << std::endl;
 	festival_error();
     }
     if (iprev(n) == 0)
@@ -78,8 +78,8 @@ static EST_Val ff_syllable_duration(EST_Item *s)
     EST_Item *n = as(s,"SylStructure");
     if (n == 0)
     {
-	cerr << "Asked for syllable duration of item not in SylStructure relation."
-	     << endl;
+	std::cerr << "Asked for syllable duration of item not in SylStructure relation."
+	     << std::endl;
 	festival_error();
     }
     else
@@ -108,8 +108,8 @@ static EST_Val ff_word_duration(EST_Item *s)
     EST_Item *n = as(s,"SylStructure");
     if (n == 0)
     {
-	cerr << "Asked for word duration of item not in SylStructure relation."
-	    << endl;
+	std::cerr << "Asked for word duration of item not in SylStructure relation."
+	    << std::endl;
 	festival_error();
     }
     else

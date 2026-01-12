@@ -56,7 +56,7 @@ LISP lisp_parameter_get(const EST_String parameter_name)
 
   CATCH_ERRORS()
     {
-      cerr << "error getting parameter " << parameter_name << "\n";
+      std::cerr << "error getting parameter " << parameter_name << "\n";
       siod_reset_prompt();
       gc_unprotect(&sexp);
       return NIL;
@@ -76,7 +76,7 @@ int int_parameter_get(const EST_String parameter, int def)
 	return def;
     if (!FLONUMP(lval))
     {
-	cerr << "non numeric value for parameter " << parameter << "\n";
+	std::cerr << "non numeric value for parameter " << parameter << "\n";
 	return 0;
     }
       
@@ -91,7 +91,7 @@ float float_parameter_get(const EST_String parameter, float def)
 	return def;
     if (!FLONUMP(lval))
     {
-	cerr << "non numeric value for parameter " << parameter << "\n";
+	std::cerr << "non numeric value for parameter " << parameter << "\n";
 	return 0.0;
     }
       
@@ -113,7 +113,7 @@ EST_String string_parameter_get(const EST_String parameter, EST_String def)
     return def;
   if (!SYMBOLP(lval) && !STRINGP(lval))
     {
-      cerr << "non string value for parameter " << parameter << "\n";
+      std::cerr << "non string value for parameter " << parameter << "\n";
       return 0;
     }
       

@@ -295,7 +295,7 @@ int read_diphone_index(const EST_String &filename,
     
     if (ts.open(filename) != 0)
     {
-	cerr << "US DB: can't open index file " << filename << endl;
+	std::cerr << "US DB: can't open index file " << filename << std::endl;
 	return misc_read_error;
     }
     // set up the character constant values for this stream
@@ -324,7 +324,7 @@ int read_diphone_index(const EST_String &filename,
 	    di.dihash.add_item(di.diphone[i].f("name"),i);
 	}
 	di.index_offset = ts.tell();
-	// cout << "index offset = " << di.index_offset << endl;
+	// std::cout << "index offset = " << di.index_offset << std::endl;
     }
     else
     {
@@ -348,8 +348,8 @@ int read_diphone_index(const EST_String &filename,
 		if ((di.diphone[i].F("start")>=di.diphone[i].F("middle"))||
 		    (di.diphone[i].F("middle") >= di.diphone[i].F("end")))
 		{
-		    cerr << "US DB: diphone index for " << n << 
-			" start middle end not in order, ignored " << endl;
+		    std::cerr << "US DB: diphone index for " << n << 
+			" start middle end not in order, ignored " << std::endl;
 		    i--;
 		    n_num_entries--;
 		}
@@ -362,13 +362,13 @@ int read_diphone_index(const EST_String &filename,
 	    if (di.diphone[i].S("filename").contains("&", 0))
 	    {
 		pointer = di.diphone[i].S("filename").after("&", 0);
-//		cout << "pointer: = " << pointer << endl;
+//		std::cout << "pointer: = " << pointer << std::endl;
 		if ((ref = find_diphone_index_simple(pointer,di)) == -1)
 		{
-		    cerr << "US DB: Illegal diphone pointer in index file: " 
+		    std::cerr << "US DB: Illegal diphone pointer in index file: " 
 			<< i << " " 
 			<< di.diphone[i].S("name") << " -> " << 
-			    di.diphone[i].S("filename") << endl;
+			    di.diphone[i].S("filename") << std::endl;
 		    EST_error("");
 		}
 		di.diphone[i].set("filename",
@@ -493,8 +493,8 @@ int find_diphone_index(const EST_Item &d)
 
     if ((index=find_diphone_index_simple(di_alt,*diph_index)) != -1)
     {
-//	cout << "UniSyn: using alternate diphone " << di_alt << " for " <<
-//	    diname << endl;
+//	std::cout << "UniSyn: using alternate diphone " << di_alt << " for " <<
+//	    diname << std::endl;
 	return index;
     }
     
@@ -508,20 +508,20 @@ int find_diphone_index(const EST_Item &d)
 	index = find_diphone_index_simple(default_diphone,*diph_index);
 	if (index == -1)
 	{
-	    cerr << "US DB: can't find diphone " << d.f("name") 
+	    std::cerr << "US DB: can't find diphone " << d.f("name") 
 		<< " and even default diphone (" << default_diphone 
-		    << ") doesn't exist" << endl;
+		    << ") doesn't exist" << std::endl;
 	    EST_error("");
 	}
 	else
-	    cerr << "UniSyn: using default diphone " << default_diphone << 
-		" for " << diname << endl;
+	    std::cerr << "UniSyn: using default diphone " << default_diphone << 
+		" for " << diname << std::endl;
 	return index;
     }
     else
     {
-	cerr << "US DB: can't find diphone " << d.f("name") << 
-	    " nor alternatives" << endl;
+	std::cerr << "US DB: can't find diphone " << d.f("name") << 
+	    " nor alternatives" << std::endl;
 	EST_error("");
     }
     return -1;
@@ -595,8 +595,8 @@ void us_add_diphonedb(USDiphIndex *db)
     }
     else
     {	// already one of this name
-	cerr << "US_db: warning redefining diphone database "
-	    << db->name << endl;
+	std::cerr << "US_db: warning redefining diphone database "
+	    << db->name << std::endl;
 	setcar(cdr(lpair),siod(db));
     }
     

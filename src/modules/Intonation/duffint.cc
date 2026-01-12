@@ -98,8 +98,8 @@ LISP FT_Int_Targets_Relation_Utt(LISP utt, LISP relname)
     float end_time = pm->end();
 
     n_frames = (int)(ceil)(end_time/pp);
-    cout << "n_frames: " << n_frames << endl;
-    cout << "end_time: " << end_time << endl;
+    std::cout << "n_frames: " << n_frames << std::endl;
+    std::cout << "end_time: " << end_time << std::endl;
 
     EST_Track *f0 = new EST_Track;
     f0->resize(n_frames, 1);

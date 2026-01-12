@@ -82,7 +82,7 @@ LISP FT_Classic_Phrasify_Utt(LISP utt)
     LISP phrase_method = ft_get_param("Phrase_Method");
 
     *cdebug << "Phrasify module\n";
-    *cdebug << "Using method: " << get_c_string(phrase_method) << endl;
+    *cdebug << "Using method: " << get_c_string(phrase_method) << std::endl;
     if (u->relation_present("Phrase"))
 	return utt;               // already specified
     else if (phrase_method == NIL)
@@ -97,8 +97,8 @@ LISP FT_Classic_Phrasify_Utt(LISP utt)
 	phrasing_by_fa(*u);
     else
     {
-	cerr << "PHRASIFY: unknown phrase method \"" <<
-	    get_c_string(phrase_method) << endl;
+	std::cerr << "PHRASIFY: unknown phrase method \"" <<
+	    get_c_string(phrase_method) << std::endl;
 	festival_error();
     }
 
@@ -162,8 +162,8 @@ static void pbyp_get_params(LISP params)
     bb_pos_filename = get_param_str("pos_ngram_filename",params,"");
     if ((bb_pos_ngram = get_ngram(bb_pos_name,bb_pos_filename)) == 0)
     {
-	cerr << "PHRASIFY: no ngram called \"" <<
-	    bb_pos_name << "\" defined." << endl;
+	std::cerr << "PHRASIFY: no ngram called \"" <<
+	    bb_pos_name << "\" defined." << std::endl;
 	festival_error();
     }
 
@@ -174,18 +174,18 @@ static void pbyp_get_params(LISP params)
     bb_name = get_param_str("break_ngram_name",params,"");
     bb_break_filename = get_param_str("break_ngram_filename",params,"");
 
-    *cdebug << "File: "<<bb_break_filename<<endl;
+    *cdebug << "File: "<<bb_break_filename<< std::endl;
 
     if ((bb_ngram = get_ngram(bb_name,bb_break_filename)) == 0)
     {
-	cerr << "PHRASIFY: no ngram called \"" <<
-	    bb_name << "\" defined." << endl;
+	std::cerr << "PHRASIFY: no ngram called \"" <<
+	    bb_name << "\" defined." << std::endl;
 	festival_error();
     }
     bb_tags = get_param_lisp("break_tags",params,NIL);
     phrase_type_tree = get_param_lisp("phrase_type_tree",params,NIL);
 
-    *cdebug << "Tree: "<<phrase_type_tree << endl;
+    *cdebug << "Tree: "<<phrase_type_tree << std::endl;
     bb_unigrams = get_param_lisp("break_unigrams", params, NIL);
 
     bb_track_name = get_param_str("break_track_name",params,"");
@@ -197,8 +197,8 @@ static void pbyp_get_params(LISP params)
 	if (bb_track->load(bb_track_name) != format_ok)
 	{
 	    delete bb_track;
-	    cerr << "PHRASE: failed to load FA track " << 
-		bb_track_name << endl;
+	    std::cerr << "PHRASE: failed to load FA track " << 
+		bb_track_name << std::endl;
 	    festival_error();
 	} 
     }
@@ -278,7 +278,7 @@ static void phrasing_by_cart_viterbi(EST_Utterance &u)
   int num_states;
   EST_String pbreak;
 
-  *cdebug << "Inside phrasing_by_cart_viterbi"<<endl;
+  *cdebug << "Inside phrasing_by_cart_viterbi"<< std::endl;
 
     pbyp_get_params(siod_get_lval("phr_break_params",NULL));
     gc_protect(&bb_tags);
@@ -288,11 +288,11 @@ static void phrasing_by_cart_viterbi(EST_Utterance &u)
     BB_word = bb_ngram->get_vocab_word("BB");
 
 
-    *cdebug << "States: "<<bb_ngram->num_states()<<endl;
-    *cdebug << "Order: "<<bb_ngram->order()<<endl;
-    *cdebug << "B word: "<<B_word<<endl;
-    *cdebug << "BB word: "<<BB_word<<endl;
-    *cdebug << "NB word: "<<NB_word<<endl;
+    *cdebug << "States: "<<bb_ngram->num_states()<< std::endl;
+    *cdebug << "Order: "<<bb_ngram->order()<< std::endl;
+    *cdebug << "B word: "<<B_word<< std::endl;
+    *cdebug << "BB word: "<<BB_word<< std::endl;
+    *cdebug << "NB word: "<<NB_word<< std::endl;
 
     num_states = bb_ngram->num_states();
     EST_Viterbi_Decoder v(cart_bb_candlist,bb_npath,num_states);
@@ -300,7 +300,7 @@ static void phrasing_by_cart_viterbi(EST_Utterance &u)
     v.initialise(u.relation("Word"));
     v.search();
     int x = v.result("pbreak_index");
-    *cdebug << "Viterbi result ended in "<<x<<endl;
+    *cdebug << "Viterbi result ended in "<<x<< std::endl;
 
     // Given predicted break, go through and add phrases 
     u.create_relation("Phrase");
@@ -315,7 +315,7 @@ static void phrasing_by_cart_viterbi(EST_Utterance &u)
 	{
 	    EST_Val npbreak = wagon_predict(w,phrase_type_tree);
 	    w->set("pbreak",npbreak.string());  // may reset to BB
-	    *cdebug << "Reset: " << npbreak << endl; ;
+	    *cdebug << "Reset: " << npbreak << std::endl; ;
 	}
 	pbreak = (EST_String)w->f("pbreak");
 	if (pbreak == "B")
@@ -347,8 +347,8 @@ static EST_VTCandidate *cart_bb_candlist(EST_Item *s, EST_Features &f)
   tree = siod_get_lval("phrase_cart_tree", "no phrase cart tree");
 
   answer = wagon_pd(s, car(tree));
-  //*cdebug << get_c_string(answer) <<endl;
-  //*cdebug << endl;
+  //*cdebug << get_c_string(answer) << std::endl;
+  //*cdebug << std::endl;
   
   if (inext(s) == 0)  // end of utterances so force a break
     {   
@@ -383,7 +383,7 @@ static EST_VTCandidate *cart_bb_candlist(EST_Item *s, EST_Features &f)
       if (prob == 1) prob = 0.9999999;
       // Divide by unigram probability to get "Reverse" score      
 
-      //*cdebug << "Prob: "<<log(prob)<<endl;
+      //*cdebug << "Prob: "<<log(prob)<< std::endl;
       c->score = log(prob) - log(divisor);
       s->set("phrase_score", c->score);
       c->next = all_c;
@@ -396,7 +396,7 @@ static EST_VTCandidate *cart_bb_candlist(EST_Item *s, EST_Features &f)
 
 static void phrasing_by_cart_probmodels_combined(EST_Utterance &u)
 {
-  *cdebug << "Using Phrasing Method: prob_cart_combined"<<endl;
+  *cdebug << "Using Phrasing Method: prob_cart_combined"<< std::endl;
   
   // Simply return the cart viterbi!
   phrasing_by_cart_viterbi(u);
@@ -459,8 +459,8 @@ static EST_VTCandidate *bb_candlist(EST_Item *s,EST_Features &f)
     }
     else
     {
-	cerr << "PHRASIFY: can't deal with ngram of size " <<
-	    bb_pos_ngram->order() << endl;
+	std::cerr << "PHRASIFY: can't deal with ngram of size " <<
+	    bb_pos_ngram->order() << std::endl;
 	festival_error();
     }
     double prob=1.0;
@@ -589,7 +589,7 @@ static EST_VTPath *bb_npath(EST_VTPath *p,EST_VTCandidate *c,EST_Features &f)
     lang_prob = (1.0 * c->score) + gscale_p;
     lang_prob = c->score;
 
-    //*cdebug << "Addition: "<<(lang_prob+lprob)<<endl;
+    //*cdebug << "Addition: "<<(lang_prob+lprob)<< std::endl;
 
 //    np->set_feature(lscorename,lang_prob+lprob);
     if (p==0)
@@ -640,7 +640,7 @@ static double find_b_prob(EST_VTPath *p,int n,int *state)
       prob *= gscale_s;
 
     *state = bb_ngram->find_next_state_id(oldstate,n);
-    //*cdebug << "oldstate: "<<oldstate<<" newstate: "<<*state<<" for word "<<n<<endl;
+    //*cdebug << "oldstate: "<<oldstate<<" newstate: "<<*state<<" for word "<<n<< std::endl;
 
     //return 0;
     return prob;

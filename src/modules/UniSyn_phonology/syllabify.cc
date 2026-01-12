@@ -238,7 +238,7 @@ int syllabify_word(EST_Item *w, EST_Relation &phone,
     EST_Item *first_onset, *first_coda = 0;
     EST_String v;
 
-//    cout << "phones: " << phone << endl;
+//    std::cout << "phones: " << phone << std::endl;
 
     int count = nucleus_count(phone);
 
@@ -249,7 +249,7 @@ int syllabify_word(EST_Item *w, EST_Relation &phone,
 
     for (prev_syl = 0, l = phone.head(); l; l = inext(l))
     {
-//	cout << "type " << l->S("name") << ": " << l->S("df.type") << endl;
+//	std::cout << "type " << l->S("name") << ": " << l->S("df.type") << std::endl;
 	if (l->S("df.syllabic") == "+")
 //	if (ph_is_vowel(l->name()))
 	{ 
@@ -262,8 +262,8 @@ int syllabify_word(EST_Item *w, EST_Relation &phone,
 	    this_syl->set("stress_num", l->I("stress_num"));
 
 	    // note: it must be in this order
-//	    cout << "this struct: " << *this_syl << endl;
-//	    cout << "this struct: " << *this_struct << endl;
+//	    std::cout << "this struct: " << *this_syl << std::endl;
+//	    std::cout << "this struct: " << *this_struct << std::endl;
 	    make_nucleus(this_struct, l, flat);
     
 	    first_onset = make_onset(this_struct, l, flat);
@@ -287,12 +287,12 @@ void fix_lex_string(LISP lpos, EST_StrList &s)
 
     for (a = car(lpos); a != NIL; a = cdr(a))
     {
-//	cout << "1:\n";
+//	std::cout << "1:\n";
 //	lprint(a);
 //	for (b = car(a); b != NIL; b = cdr(b))
 //	 {
 	b = car(a);
-//	cout << "0:\n";
+//	std::cout << "0:\n";
 //	lprint(b);
 	for (c = car(b); c != NIL; c = cdr(c))
 	{
@@ -302,7 +302,7 @@ void fix_lex_string(LISP lpos, EST_StrList &s)
 	    s.append(p);
 	}
     }
-//    cout << "def list: " << s << endl;
+//    std::cout << "def list: " << s << std::endl;
 }
 
 //Adds phoneme name to syllable as a string
@@ -460,7 +460,7 @@ static bool ph_is_s(EST_String c1)
 {
     if (p.contains(RXint))
 	p = p.before(RXint);
-//    cout << "p = " << p << endl;
+//    std::cout << "p = " << p << std::endl;
     return (ph_is_vowel(p));
 }
 
@@ -484,15 +484,15 @@ static int vowel_count(EST_Relation &phone)
     
     if (nucleus_count(*word.relation("Phone")) < 1)
     {
-	cerr << "Error: Pronunciation for " << 
+	std::cerr << "Error: Pronunciation for " << 
 	    *(word.relation("Word")->head()) << " does not contain vowel\n";
 	festival_error();
     }
 
     for (prev_syl = 0, l = word.relation("Phone")->head(); l; l = inext(l))
     {
-	cout << "syl: " << l->S("name") << ": " << l->S("df.syllabic", 1) 
-	    << endl;
+	std::cout << "syl: " << l->S("name") << ": " << l->S("df.syllabic", 1) 
+	    << std::endl;
 	if (l->S("df.syllabic") == "+")
 	{   
 	    this_syl = word.relation("Syllable")->append();
@@ -551,7 +551,7 @@ static int vowel_count(EST_Relation &phone)
     //    parse_lex_string(word, car(lpos));
     EST_String def, lex_phone;
     
-    //    cout << "DEF\n";
+    //    std::cout << "DEF\n";
     lprint(lpos);
     
     
@@ -573,9 +573,9 @@ static int vowel_count(EST_Relation &phone)
     
     syllabify_word(word);
     
-    //    cout << "before MT: " << *w << " F:" << w->f << endl;
-    //    cout << "before MT: " << *(word.relation("Syllable")->head()->Info()) 
-    //	<< " F:" << word.relation("Syllable")->head()->Info()->f << endl;
+    //    std::cout << "before MT: " << *w << " F:" << w->f << std::endl;
+    //    std::cout << "before MT: " << *(word.relation("Syllable")->head()->Info()) 
+    //	<< " F:" << word.relation("Syllable")->head()->Info()->f << std::endl;
     
     subword_metrical_tree(word);
     
@@ -588,14 +588,14 @@ static int vowel_count(EST_Relation &phone)
     if (siod_get_lval("mettree_debug", NULL) != NIL)
 	word.save("word.utt", "est");
     //    u.save("before.utt", "est");
-    //    cout << "before merge: " << *w << " F:" << w->f << endl;
-    //    cout << "before syl: " << *(word.relation("Syllable")->head()->Info()) 
-    //	<< " F:" << word.relation("Syllable")->head()->Info()->f << endl;
+    //    std::cout << "before merge: " << *w << " F:" << w->f << std::endl;
+    //    std::cout << "before syl: " << *(word.relation("Syllable")->head()->Info()) 
+    //	<< " F:" << word.relation("Syllable")->head()->Info()->f << std::endl;
     
     utterance_merge(u, word, w, "MetricalTree");
-    //    cout << "after merge: " << *w << " F:" << w->f << endl;
-    //    cout << "after syl: " << *(word.relation("Syllable")->head()->Info()) 
-    //	<< " F:" << word.relation("Syllable")->head()->Info()->f << endl;
+    //    std::cout << "after merge: " << *w << " F:" << w->f << std::endl;
+    //    std::cout << "after syl: " << *(word.relation("Syllable")->head()->Info()) 
+    //	<< " F:" << word.relation("Syllable")->head()->Info()->f << std::endl;
     
     //    u.save("after.utt", "est");
 }
@@ -607,32 +607,32 @@ static int vowel_count(EST_Relation &phone)
     EST_Item *s;
     EST_Item *new_leaf;
     
-    //    cout << endl<< endl << *(word.relation("Word")->head()->Info()) << endl;
+    //    std::cout << std::endl<< std::endl << *(word.relation("Word")->head()->Info()) << std::endl;
     
-    //    cout << "head: " << word.relation("Syllable")->head() << endl;
-    //    cout << "head: " << *(word.relation("Syllable")->head()->Info()) << endl;
-    //    cout << "pre foot iteration:" << *(s->Info()) << " stress: " << s->Info()->f("stress_num") << endl << endl;
+    //    std::cout << "head: " << word.relation("Syllable")->head() << std::endl;
+    //    std::cout << "head: " << *(word.relation("Syllable")->head()->Info()) << std::endl;
+    //    std::cout << "pre foot iteration:" << *(s->Info()) << " stress: " << s->Info()->f("stress_num") << std::endl << std::endl;
     
     // absorb initial unstressed syllables
     for (s = word.relation("Syllable")->head(); 
 	 s && (s->f("stress_num") == 0); s = inext(s))
     {
-	//	cout << "**1 syl:" << *s << endl;
+	//	std::cout << "**1 syl:" << *s << std::endl;
 	new_leaf = word.relation("MetricalTree")->append(s);
 	new_leaf->set("MetricalValue", "w");
     }
     
-    //    cout << "utt to now 1c: " << word << endl;
+    //    std::cout << "utt to now 1c: " << word << std::endl;
     // In a multi-syllable word
     
     if (inext(word.relation("Syllable")->head()))
     {
 	//s = word.relation("Syllable")->head(); 
-	//	cout << "**2 syl:" << *s << endl;
+	//	std::cout << "**2 syl:" << *s << std::endl;
 	for (; s;)
 	{	
-	    cout << "**3 syl:" << *s << endl;
-	    cout << "foot iteration\n" << *s << endl << endl;
+	    std::cout << "**3 syl:" << *s << std::endl;
+	    std::cout << "foot iteration\n" << *s << std::endl << std::endl;
 	    new_leaf = word.relation("MetricalTree")->append(s);
 	    new_leaf->set("MetricalValue", "s");
 	    //	    s = make_foot(new_leaf, inext(s));
@@ -641,12 +641,12 @@ static int vowel_count(EST_Relation &phone)
     
     else if (s)			// For single syllable words
     {	
-	//	cout << "adding single node\n" << *s << endl << endl;
+	//	std::cout << "adding single node\n" << *s << std::endl << std::endl;
 	new_leaf = word.relation("MetricalTree")->append(s);
-	//	cout << "added node\n" << *s << endl << endl;
+	//	std::cout << "added node\n" << *s << std::endl << std::endl;
     }
     
-    //    cout << "utt to now 2: " << word << endl;
+    //    std::cout << "utt to now 2: " << word << std::endl;
     
     if (siod_get_lval("mettree_debug", NULL) != NIL)    
 	word.save("sub_word.utt", "est");

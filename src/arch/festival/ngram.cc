@@ -87,7 +87,7 @@ static LISP add_ngram(const EST_String &name,EST_Ngrammar *n)
 	    cons(cons(strintern(name),cons(ng,NIL)),ngram_loaded_list);
     else
     {
-	cwarn << "Ngrammar: " << name << " recreated" << endl;
+	cwarn << "Ngrammar: " << name << " recreated" << std::endl;
 	setcar(cdr(lpair),ng);
     }
 
@@ -111,7 +111,7 @@ EST_Ngrammar *get_ngram(const EST_String &name,const EST_String &filename)
 	}
 	else
 	{
-	    cwarn << "Ngrammar: no ngram named \"" << name << "\"" << endl;
+	    cwarn << "Ngrammar: no ngram named \"" << name << "\"" << std::endl;
 	    return 0;
 	}
     }

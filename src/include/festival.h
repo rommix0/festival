@@ -58,8 +58,8 @@ struct ModuleDescription;
 
 /* An iostream for outputing debug messages, switchable    */
 /* to /dev/null or cerr                                    */
-extern ostream *cdebug;
-#define cwarn cout
+extern std::ostream *cdebug;
+#define cwarn std::cout
 extern "C" FILE* stddebug;
 extern int ft_server_socket;
 extern const char *festival_version;

@@ -80,7 +80,7 @@ void create_phraseinput(EST_Utterance &u)
 	}
 	else  // no explicit phrase marker
 	{
-	    cerr << "PhrInfo: malformed input form." << endl;
+	    std::cerr << "PhrInfo: malformed input form." << std::endl;
 	    festival_error();
 	}
     }

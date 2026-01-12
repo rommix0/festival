@@ -132,8 +132,8 @@ static void festival_client_main(int argc, char **argv)
 	output_type = al.val("--otype");
 	if (!output_type.matches(RXalphanum))
 	{
-	    cerr << "festival_client: invalid output type \"" 
-		<< output_type << "\"" << endl;
+	    std::cerr << "festival_client: invalid output type \"" 
+		<< output_type << "\"" << std::endl;
 	    exit(-1);
 	}
     }
@@ -168,7 +168,7 @@ static void festival_client_main(int argc, char **argv)
 		if (SOCKET_ERROR == bytes_written || bytes_written < passwdlen)
 		{
 			GetLastError();  // at least get the error
-			cerr << "festival_client:  can't send password to server\n";
+			std::cerr << "festival_client:  can't send password to server\n";
 		}
 		delete [] buffer;
 	}
@@ -181,8 +181,8 @@ static void festival_client_main(int argc, char **argv)
 	FILE *pfd = fopen(al.val("--prolog"),"rb");
 	if (pfd == NULL)
 	{
-	    cerr << "festival_client: can't open prolog file \"" 
-		<< al.val("--prolog") << "\"" << endl;
+	    std::cerr << "festival_client: can't open prolog file \"" 
+		<< al.val("--prolog") << "\"" << std::endl;
 	    exit(-1);
 	}
 	copy_to_server(pfd,serverfd);
@@ -199,7 +199,7 @@ static void festival_client_main(int argc, char **argv)
 	{
 	    if ((infd=fopen(files.nth(0),"rb")) == NULL)
 	    {
-		cerr << "festival_client: can't open \"" <<
+		std::cerr << "festival_client: can't open \"" <<
 		    files.nth(0) << "\"\n";
 		exit(-1);
 	    }
@@ -223,7 +223,7 @@ static void ttw_file(SERVER_FD serverfd, const EST_String &file)
     
     if ((fd=fopen(tmpfile,"wb")) == NULL)
     {
-	cerr << "festival_client: can't open tmpfile \"" <<
+	std::cerr << "festival_client: can't open tmpfile \"" <<
 	    tmpfile << "\"\n";
 	exit(-1);
     }
@@ -246,7 +246,7 @@ static void ttw_file(SERVER_FD serverfd, const EST_String &file)
 	tfd = stdin;
     else if ((tfd=fopen(file,"rb")) == NULL)
     {
-	cerr << "festival_client: can't open text file \"" <<
+	std::cerr << "festival_client: can't open text file \"" <<
 	    file << "\"\n";
 	exit(-1);
     }
@@ -267,7 +267,7 @@ static void ttw_file(SERVER_FD serverfd, const EST_String &file)
     // Now send the file to the server
     if ((fd=fopen(tmpfile,"rb")) == NULL)
     {
-	cerr << "festival_client: tmpfile \"" <<
+	std::cerr << "festival_client: tmpfile \"" <<
 	    tmpfile << "\" mysteriously disappeared\n";
 	exit(-1);
     }
@@ -294,7 +294,7 @@ static void copy_to_server(FILE *fdin,SERVER_FD serverfd)
 	{
 		if (SOCKET_ERROR == n)
 			GetLastError();
-		cerr << "festival_client: couldn't copy to server\n";
+		std::cerr << "festival_client: couldn't copy to server\n";
 	}
 #else
 	putc(c,serverfd);
@@ -316,7 +316,7 @@ static void copy_to_server(FILE *fdin,SERVER_FD serverfd)
 				if (SOCKET_ERROR == bytes_read)
 				{
 					GetLastError();
-					cerr << "festival_client: error reading from server\n";
+					std::cerr << "festival_client: error reading from server\n";
 				}
 				else n+= bytes_read;
 			}
@@ -334,7 +334,7 @@ static void copy_to_server(FILE *fdin,SERVER_FD serverfd)
 		}
 		else if (streq(ack,"ER\n"))
 		{
-		    cerr << "festival server error: reset to top level\n";
+		    std::cerr << "festival server error: reset to top level\n";
 		    break;
 		}
 	    } while (!streq(ack,"OK\n"));
@@ -439,13 +439,13 @@ static void client_accept_waveform(SERVER_FD fd)
 	sprintf(command,"FILE=\"%s\"; %s",(const char *)tmpfile2,
 		(const char *)aucommand);
 	if (system(command) != 0)
-            cerr << "festival_client: aucommand failed"
-	    << endl;
+            std::cerr << "festival_client: aucommand failed"
+	    << std::endl;
 	unlink(tmpfile2);
     }
     else if (output_filename == "")
-	cerr << "festival_client: ignoring received waveform, no output file"
-	    << endl;
+	std::cerr << "festival_client: ignoring received waveform, no output file"
+	    << std::endl;
     else
 	sig.save(output_filename,output_type);
     unlink(tmpfile);
@@ -469,7 +469,7 @@ static void client_accept_s_expr(SERVER_FD fd)
     {
 	if (( tf = fopen(tmpfile,"rb")) == NULL)
 	{
-	    cerr << "festival_client: lost an s_expr tmp file" << endl;
+	    std::cerr << "festival_client: lost an s_expr tmp file" << std::endl;
 	}
 	else
 	{

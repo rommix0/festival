@@ -154,13 +154,13 @@ void DiphoneVoiceModule::addTCoefficients( EST_Relation *segs, const EST_Track& 
         tstep = (t5 - t0)/4;
     
 
-        //cout << "Processing phone: " << seg->name() << endl;
+        //std::cout << "Processing phone: " << seg->name() << std::endl;
     
         f = new EST_FVector(num_coefs);
         CHECK_PTR(f);
         coefs.copy_frame_out(coefs.index(t0), *f);
         seg->features().set_val( ll_str, est_val(f) );
-        //cout << " ll: " << t0 << endl;
+        //std::cout << " ll: " << t0 << std::endl;
         //f->est_save("-","est_ascii");
 
 
@@ -168,7 +168,7 @@ void DiphoneVoiceModule::addTCoefficients( EST_Relation *segs, const EST_Track& 
         CHECK_PTR(f);
         coefs.copy_frame_out(coefs.index(t0 + tstep), *f);
         seg->features().set_val( l_str, est_val(f) );    
-        //cout << " l: " << t0 + tstep << endl;
+        //std::cout << " l: " << t0 + tstep << std::endl;
         //f->est_save("-","est_ascii");
 
 
@@ -176,14 +176,14 @@ void DiphoneVoiceModule::addTCoefficients( EST_Relation *segs, const EST_Track& 
         CHECK_PTR(f);
         coefs.copy_frame_out(coefs.index(t0 + 2.0*tstep), *f);
         seg->features().set_val( r_str, est_val(f) );    
-        //cout << " r: " << t0 + 2.0*tstep << endl;
+        //std::cout << " r: " << t0 + 2.0*tstep << std::endl;
         //f->est_save("-","est_ascii");
 
         f = new EST_FVector(num_coefs);
         CHECK_PTR(f);
         coefs.copy_frame_out(coefs.index(t0 + 3.0*tstep), *f);
         seg->features().set_val( rr_str, est_val(f) );    
-        //cout << " rr: " << t0 + 3.0*tstep << endl;
+        //std::cout << " rr: " << t0 + 3.0*tstep << std::endl;
         //f->est_save("-","est_ascii");
 
     }

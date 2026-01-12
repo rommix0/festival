@@ -91,9 +91,9 @@ EST_Item *syl_nucleus(EST_Item *syl_struct)
 
     if ((t = named_daughter(syl_struct, "sylval", "Rhyme")) != 0)
     {
-//	cout << "rhyme: " << *t << endl;
+//	std::cout << "rhyme: " << *t << std::endl;
 	t = named_daughter(t, "sylval", "Nucleus");
-//	cout << "nucleus: " << *t << endl;
+//	std::cout << "nucleus: " << *t << std::endl;
 	return daughter1(t);
     }
 
@@ -108,8 +108,8 @@ EST_Item *nth(EST_Relation &r, int n)
 	if (n == i)
 	    return s;
 
-    cerr << "Couldn't find item " << n << " in relation " << r.name() 
-	<< " of length " << 	r.length() << endl;
+    std::cerr << "Couldn't find item " << n << " in relation " << r.name() 
+	<< " of length " << 	r.length() << std::endl;
     festival_error();
     return 0;
 }
@@ -124,8 +124,8 @@ EST_Item *nth_leaf(EST_Item *r, int n)
 	if (n == i)
 	    return p;
 
-    cerr << "Couldn't find leaf " << n << " in relation " 
-	<< r->relation()->name() <<endl;
+    std::cerr << "Couldn't find leaf " << n << " in relation " 
+	<< r->relation()->name() << std::endl;
     // remove this as we want to catch errors for now.
 //    festival_error();
     return 0;
@@ -141,8 +141,8 @@ EST_Val usf_duration(EST_Item *s)
 EST_Val usf_start(EST_Item *s)
 {
     s = s->as_relation("Segment");
-    //cout << "in usf_start\n";
-    //cout << *s << endl;
+    //std::cout << "in usf_start\n";
+    //std::cout << *s << std::endl;
     /*    EST_Relation *r = s->relation();
     if (r->f.S("timing_style") != "segment")
 	EST_warning("Attempted to use start() feature function "
@@ -158,16 +158,16 @@ EST_Val usf_tilt_phrase_position(EST_Item *s)
 
     if ((t = s->as_relation(rel_name)) == 0)
 	{
-	    cerr << "item: " << *s << endl;
+	    std::cerr << "item: " << *s << std::endl;
 	    EST_error("No relation %s for item\n", (const char *) rel_name);
 	}
 
     a = parent(t);
 
-    cout << "us features phrase pos\n";
-    //cout << "dereferencing syllable: " << *a << endl;
-    cout << "start: " << a->F("start") << endl;
-    cout << "end: " << a->F("end") << endl;
+    std::cout << "us features phrase pos\n";
+    //std::cout << "dereferencing syllable: " << *a << std::endl;
+    std::cout << "start: " << a->F("start") << std::endl;
+    std::cout << "end: " << a->F("end") << std::endl;
 
     if (s->S("name") == "phrase_start")
         return a->F("start");
@@ -185,11 +185,11 @@ EST_Val usf_tilt_event_position(EST_Item *s)
 
     a = parent(t);
 
-    cout << "us features tilt pos\n";
-    cout << "dereferencing syllable: " << *a << endl;
-    cout << "vowel_start: " << a->F("vowel_start") << endl;
-   cout << "start: " << a->F("start") << endl;
-    cout << "end: " << a->F("end") << endl;
+    std::cout << "us features tilt pos\n";
+    std::cout << "dereferencing syllable: " << *a << std::endl;
+    std::cout << "vowel_start: " << a->F("vowel_start") << std::endl;
+   std::cout << "start: " << a->F("start") << std::endl;
+    std::cout << "end: " << a->F("end") << std::endl;
     
     return a->F("vowel_start") + s->F("rel_pos",0.0);
 }
@@ -225,8 +225,8 @@ EST_Val usf_leaf_start(EST_Item *s)
 	EST_error("No relation %s for item\n", (const char *) rel_name);
 
     a = first_leaf_in_tree(t);
-    //    cout << "this is the first node of the tree\n";
-    //cout << *a << endl;
+    //    std::cout << "this is the first node of the tree\n";
+    //std::cout << *a << std::endl;
     return a->F("start");
 }
 

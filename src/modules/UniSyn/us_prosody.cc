@@ -144,8 +144,8 @@ void f0_to_pitchmarks_orig(EST_Track &fz, EST_Track &pm, int num_channels,
     float max = 0.0, prev_pm = 0.0, val;
     float fz_end;
 
-//    cout << "fz end: " << fz.end() << endl;
-//    cout << "fz n fg: " << fz.num_frames() << endl;
+//    std::cout << "fz end: " << fz.end() << std::endl;
+//    std::cout << "fz n fg: " << fz.num_frames() << std::endl;
 
     // Its impossible to guess the length of the pitchmark array before 
     // hand. Here we find the upper limit and resize at the end
@@ -164,9 +164,9 @@ void f0_to_pitchmarks_orig(EST_Track &fz, EST_Track &pm, int num_channels,
     fz_end = fz.end();
     pm.resize(int(max * (Gof(fz_end, target_end))) + 10, num_channels);
 
-//    cout << "fz end: " << fz.end() << endl;
-//    cout << "fz n fg: " << fz.num_frames() << endl;
-//    cout << "pmn fg: " << pm.num_frames() << endl;
+//    std::cout << "fz end: " << fz.end() << std::endl;
+//    std::cout << "fz n fg: " << fz.num_frames() << std::endl;
+//    std::cout << "pmn fg: " << pm.num_frames() << std::endl;
 
     for (i = 0; prev_pm < fz_end; ++i)
     {
@@ -210,9 +210,9 @@ void stretch_f0_time(EST_Track &f0, float stretch,
 {
     for (int i = 0 ; i < f0.num_frames(); ++i)
     {
-//	cout << i << " o t:" << f0.t(i) << endl;
+//	std::cout << i << " o t:" << f0.t(i) << std::endl;
 	f0.t(i) = ((f0.t(i) - s_last_time) * stretch) + t_last_time;
-//	cout << i << " m t:" << f0.t(i) << endl;
+//	std::cout << i << " m t:" << f0.t(i) << std::endl;
     }
 }
 
@@ -285,8 +285,8 @@ void targets_to_pitchmarks(EST_Relation &targ, EST_Track &pitchmarks,
 	    continue;
 	else if (time < prev_time)
 	{
-	    cerr << "UniSyn: warning target in wrong order at " << prev_time;
-	    cerr << " ignored" << endl;
+	    std::cerr << "UniSyn: warning target in wrong order at " << prev_time;
+	    std::cerr << " ignored" << std::endl;
 	    continue;
 	}
 	m = (f0 - prev_f0) / (time - prev_time);
@@ -393,7 +393,7 @@ void warp_f0(EST_Track &source_f0, EST_Relation &source_seg,
 
     str.resize(target_seg.length(), 1);
 
-    cout << "tag: " << target_seg << endl;
+    std::cout << "tag: " << target_seg << std::endl;
 
     for (t = target_seg.head(); t; t = inext(t))
     {
@@ -404,7 +404,7 @@ void warp_f0(EST_Track &source_f0, EST_Relation &source_seg,
 	frame_end = source_f0.index(s->f("end"));
 	if ((frame_end - frame_start) < 1)
 	{
-	    cout << "Warning no frames for: " << *t << endl;
+	    std::cout << "Warning no frames for: " << *t << std::endl;
 	    continue;
 	}
 	target_f0.sub_track(part, frame_start, (frame_end - frame_start + 1),
@@ -416,10 +416,10 @@ void warp_f0(EST_Track &source_f0, EST_Relation &source_seg,
 	str.a(i) = stretch;
 	str.t(i++) = t->F("end");
 
-	cout << "\nstretch: " << stretch << endl;
-	cout << "source: " << *s << endl;
-	cout << "target: " << *t << endl;
-	cout << "frames: " << frame_start << " " << frame_end << endl;
+	std::cout << "\nstretch: " << stretch << std::endl;
+	std::cout << "source: " << *s << std::endl;
+	std::cout << "target: " << *t << std::endl;
+	std::cout << "frames: " << frame_start << " " << frame_end << std::endl;
 
 	stretch_f0_time(part, stretch, s_last_time, t_last_time);
 
@@ -428,7 +428,7 @@ void warp_f0(EST_Track &source_f0, EST_Relation &source_seg,
 	frame_start = frame_end + 1;
 	t_last_time = part.end();
 	s_last_time = source_f0.t(frame_end);
-	cout << "last time = " << s_last_time << " " << t_last_time << endl;
+	std::cout << "last time = " << s_last_time << " " << t_last_time << std::endl;
     }
     target_f0.resize(frame_end, 1);
     target_f0.a(target_f0.num_frames() - 1) = 100;
@@ -442,16 +442,16 @@ void warp_pitchmarks(EST_Utterance &utt, EST_Track *source_pm,
 
     target_pm = new EST_Track;
 
-    cout << "tag: "<< target_seg << endl;
+    std::cout << "tag: "<< target_seg << std::endl;
 
     add_end_silences(target_seg);
 
 
-    cout << "tag 2: "<< target_seg << endl;
+    std::cout << "tag 2: "<< target_seg << std::endl;
 
     pitchmarks_to_f0(*source_pm, source_f0, 0.01);
 
-    cout << "tag 3: "<< target_seg << endl;
+    std::cout << "tag 3: "<< target_seg << std::endl;
 
     warp_f0(source_f0, source_seg, target_f0, target_seg);
 

@@ -44,7 +44,7 @@
 #include "festivalP.h"
 
 #ifdef NO_SPOOLER
-void audsp_play_wave(EST_Wave *w) { cerr << "no spooler available\n"; }
+void audsp_play_wave(EST_Wave *w) { std::cerr << "no spooler available\n"; }
 LISP l_audio_mode(LISP mode) { return NIL; }
 #else
 
@@ -81,7 +81,7 @@ static void audsp_send(const char *c)
     pid = waitpid((pid_t)audsp_pid,&statusp,WNOHANG);
     if (pid != 0)
     {
-	cerr << "Audio spooler has died unexpectedly" << endl;
+	std::cerr << "Audio spooler has died unexpectedly" << std::endl;
 	audsp_mode = FALSE;
 	festival_error();
     }
@@ -89,19 +89,19 @@ static void audsp_send(const char *c)
     if ((unsigned int)write(audfds[0],c,strlen(c)) !=
         (unsigned int)strlen(c))
     {
-	cerr << "Audio spooler has died unexpectedly" << endl;
+	std::cerr << "Audio spooler has died unexpectedly" << std::endl;
 	audsp_mode = FALSE;
 	festival_error();
     }
     if (write(audfds[0],"\n",1) != 1)
     {
-	cerr << "Audio spooler has died unexpectedly" << endl;
+	std::cerr << "Audio spooler has died unexpectedly" << std::endl;
 	audsp_mode = FALSE;
 	festival_error();
     }
     if (read(audfds[1],reply,3) != 3)  /* confirmation */
     {
-	cerr << "Audio spooler has died unexpectedly" << endl;
+	std::cerr << "Audio spooler has died unexpectedly" << std::endl;
 	audsp_mode = FALSE;
 	festival_error();
     }
@@ -115,7 +115,7 @@ LISP l_audio_mode(LISP mode)
     
     if (mode == NIL)
     {
-	cerr << "audio_mode: nil is not a valid mode\n";
+	std::cerr << "audio_mode: nil is not a valid mode\n";
 	festival_error();
     }
     else if (streq("async",get_c_string(mode)))
@@ -157,7 +157,7 @@ LISP l_audio_mode(LISP mode)
 	    audsp_send("shutup");
 	else
 	{
-	    cerr << "audio_mode: not in async mode, can't shutup\n";
+	    std::cerr << "audio_mode: not in async mode, can't shutup\n";
 	    festival_error();
 	}
     }
@@ -172,13 +172,13 @@ LISP l_audio_mode(LISP mode)
 	    audsp_send("query");
 	else
 	{
-	    cerr << "audio_mode: not in async mode, can't query\n";
+	    std::cerr << "audio_mode: not in async mode, can't query\n";
 	    festival_error();
 	}
     }
     else
     {
-	cerr << "audio_mode: unknown mode \"" << get_c_string(mode) <<
+	std::cerr << "audio_mode: unknown mode \"" << get_c_string(mode) <<
 	    "\"\n";
 	festival_error();
     }
@@ -206,8 +206,8 @@ static int *pipe_open(const char *command)
 
     if (start_sub_process(fds,argc,argv) != 0)
     {
-	cerr << "pipe_open: failed to start subprocess: \n" << endl;
-	cerr << "pipe_open: \"" << command << "\"\n";
+	std::cerr << "pipe_open: failed to start subprocess: \n" << std::endl;
+	std::cerr << "pipe_open: \"" << command << "\"\n";
 	festival_error();
     }
 
@@ -226,7 +226,7 @@ static int start_sub_process(int *fds, int argc, char **argv)
     if ((pipe(in) != 0) ||
 	(pipe(out) != 0))
     {
-	cerr << "pipe_open: failed to open pipes\n";
+	std::cerr << "pipe_open: failed to open pipes\n";
 	festival_error();
     }
 
@@ -238,10 +238,10 @@ static int start_sub_process(int *fds, int argc, char **argv)
 	close(out[0]);
 	dup2(out[1],1);        /* reassign stdout to the pipe */
 	execvp(argv[0],argv);
-	cerr << "pipe_open: failed to start " << argv[0] << endl;
+	std::cerr << "pipe_open: failed to start " << argv[0] << std::endl;
 	exit(-1);      /* should only get here on failure */
       case -1:
-	cerr << "pipe_open: fork failed\n";
+	std::cerr << "pipe_open: fork failed\n";
 	festival_error();
       default:             /* parent */
 	close(in[0]);          /* Close unused sides of the pipes */

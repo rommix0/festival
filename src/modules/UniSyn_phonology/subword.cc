@@ -70,7 +70,7 @@ void subword_list(EST_Item *w, EST_Relation &syllable,
 
     for (s = syllable.head(); s ; s = inext(s))
     {
-	cout << "appending syl\n";
+	std::cout << "appending syl\n";
 	n->append_daughter(s);
     }
 }
@@ -138,13 +138,13 @@ EST_Item *make_foot(EST_Item *w, EST_Item *met_node, EST_Item *next_syl_node)
 		new_parent = met_node->insert_parent();
 	    else
 	    {
-		//		cout << "making met node word node in foot\n";
-		//		cout << "foot root:" << *w << endl;
+		//		std::cout << "making met node word node in foot\n";
+		//		std::cout << "foot root:" << *w << std::endl;
 		new_parent = met_node->insert_parent();
 //		new_parent = met_node->insert_above(w);
 		merge_item(new_parent, w);
-		//		cout << "foot root:" << *w << endl;
-		//		cout << "foot root:" << *new_parent << endl;
+		//		std::cout << "foot root:" << *w << std::endl;
+		//		std::cout << "foot root:" << *new_parent << std::endl;
 	    }
 	    
 	}
@@ -169,14 +169,14 @@ static void make_super_foot(EST_Item *w, EST_Item *met_node,
 	new_parent = met_node->insert_parent();
     else
     {
-	//	cout << "inserted word as root in super foot:" << *w << endl;
+	//	std::cout << "inserted word as root in super foot:" << *w << std::endl;
 	new_parent = met_node->insert_parent();
 	
 	// KTH this crashes in linux
 	merge_item(new_parent, w);
-	//	cout << "after inserted word as root in super foot:" << *w << endl;
-	//	cout << "after inserted word as root in super foot:" << 
-	//	*new_parent << endl;
+	//	std::cout << "after inserted word as root in super foot:" << *w << std::endl;
+	//	std::cout << "after inserted word as root in super foot:" << 
+	//	*new_parent << std::endl;
 	//	w = new_parent->as_relation("Word");
     }
     
@@ -195,7 +195,7 @@ static void all_stress(EST_Relation &syllable, EST_Relation &mettree)
 	if (s->I("stress_num",0) > stress_num)
 	    stress_num = s->I("stress_num");
     
-    //    cout << "max stress num:" << stress_num << endl;
+    //    std::cout << "max stress num:" << stress_num << std::endl;
     
     for (; stress_num > 0; --stress_num)
     {
@@ -205,7 +205,7 @@ static void all_stress(EST_Relation &syllable, EST_Relation &mettree)
 	
 	if (s == 0)
 	{
-	    cerr << "No main stress found in definition of lexical entry\n";
+	    std::cerr << "No main stress found in definition of lexical entry\n";
 	    festival_error();
 	}
 	

@@ -261,20 +261,20 @@ void Lexicon::binlex_init(void)
     {
 	if (bl_filename == "")
 	{
-	    cerr << "Lexicon: no compile file given" << endl;
+	    std::cerr << "Lexicon: no compile file given" << std::endl;
 	    festival_error();
 	}
 	binlexfp = fopen(bl_filename,"rb");
 	if (binlexfp == NULL)
 	{
-	    cerr << "Lexicon: compile file \"" << bl_filename << 
-		"\" not found or unreadble " << endl;
+	    std::cerr << "Lexicon: compile file \"" << bl_filename << 
+		"\" not found or unreadble " << std::endl;
 	    festival_error();
 	}
 	if (fread(magic_number,sizeof(char),4,binlexfp) != 4)
 	{
-	    cerr << "Lexicon: no magic number in \"" << bl_filename << 
-		"\" " << endl;
+	    std::cerr << "Lexicon: no magic number in \"" << bl_filename << 
+		"\" " << std::endl;
 	    festival_error();
 	}
 	magic_number[4] = '\0';
@@ -290,8 +290,8 @@ void Lexicon::binlex_init(void)
 	}
 	else
 	{
-	    cerr << "Lexicon: compile file \"" << bl_filename << 
-		"\" not a compiled lexicon " << endl;
+	    std::cerr << "Lexicon: compile file \"" << bl_filename << 
+		"\" not a compiled lexicon " << std::endl;
 	    festival_error();
 	}
 	blstart = ftell(binlexfp);
@@ -308,8 +308,8 @@ LISP Lexicon::lookup_lts(const EST_String &word,LISP features)
     if ((lts_method == "") ||
 	(lts_method == "Error"))
     {
-	cerr << "LEXICON: Word " << word << " (plus features) not found in lexicon "
-	    << endl;
+	std::cerr << "LEXICON: Word " << word << " (plus features) not found in lexicon "
+	    << std::endl;
 	festival_error();
     }
     else if (lts_method == "lts_rules")
@@ -470,7 +470,7 @@ static void check_current_lex(void)
 
     if (current_lex == NULL)
     {
-	cerr << "No lexicon" << endl;
+	std::cerr << "No lexicon" << std::endl;
 	festival_error();
     }
 }
@@ -493,7 +493,7 @@ static void lex_add_lexicon(const EST_String &name, Lexicon *l)
     }
     else
     {
-	cwarn << "lexicon " << name << " recreated" << endl;
+	cwarn << "lexicon " << name << " recreated" << std::endl;
 	setcar(cdr(lpair),siod(l));
     }
 
@@ -549,7 +549,7 @@ static LISP lex_set_lts_ruleset(LISP rulesetname)
 
     if (rulesetname == NIL)
     {
-	cerr << "LEXICON: no ruleset name given\n";
+	std::cerr << "LEXICON: no ruleset name given\n";
 	festival_error();
     }
     else
@@ -631,7 +631,7 @@ LISP lex_select_lex(LISP lexname)
     lpair = siod_assoc_str(name,lexicon_list);
     if (current_lex == NULL)
     {
-	cerr << "lexicon: no current lexicon -- shouldn't happen\n";
+	std::cerr << "lexicon: no current lexicon -- shouldn't happen\n";
 	festival_error();
     }
     else
@@ -639,7 +639,7 @@ LISP lex_select_lex(LISP lexname)
 
     if (lpair == NIL)
     {
-	cerr << "lexicon " << name << " not defined" << endl;
+	std::cerr << "lexicon " << name << " not defined" << std::endl;
 	festival_error();
     }
     else

@@ -91,7 +91,7 @@ LISP lexicon_compile(LISP finname, LISP foutname)
 
     if ((fin=fopen(get_c_string(finname),"rb")) == NULL)
     {
-	cerr << "Lexicon compile: unable to open " << get_c_string(finname) 
+	std::cerr << "Lexicon compile: unable to open " << get_c_string(finname) 
 	    << " for reading\n";
 	festival_error();
     }
@@ -103,7 +103,7 @@ LISP lexicon_compile(LISP finname, LISP foutname)
     {
 	e = new LIST_ent_struct;
 	*cdebug << "Processing entry " << get_c_string(car(entry)) <<
-	    endl;
+	    std::endl;
 	entry = check_and_fix(entry);
 	e->word = get_c_string(car(entry));
 	e->pos = wstrdup(siod_sprint(car(cdr(entry))));
@@ -122,7 +122,7 @@ LISP lexicon_compile(LISP finname, LISP foutname)
 
     if ((fout=fopen(get_c_string(foutname),"wb")) == NULL)
     {
-	cerr << "Lexicon compile: unable to open " << get_c_string(foutname) 
+	std::cerr << "Lexicon compile: unable to open " << get_c_string(foutname) 
 	    << " for writing\n";
 	// fclose(fin); ---> The file is already closed. SaiKrishna Rallabandi 20 June 2018. Based on https://github.com/festvox/festival/issues/9
 	festival_error();
@@ -154,23 +154,23 @@ static LISP check_and_fix(LISP entry)
 
     if (siod_llength(entry) < 2)
     {
-	cerr << "Lexicon compile: entry: ";
+	std::cerr << "Lexicon compile: entry: ";
 	lprint(entry);
-	cerr << "has too few fields\n";
+	std::cerr << "has too few fields\n";
 	festival_error();
     }
     else if (CONSP(car(entry)))
     {
-	cerr << "Lexicon compile: entry: ";
+	std::cerr << "Lexicon compile: entry: ";
 	lprint(entry);
-	cerr << "has non-atomic head word\n";
+	std::cerr << "has non-atomic head word\n";
 	festival_error();
     }
     // else if (CONSP(car(cdr(entry))))    // The lookup code allows for this so why not allow it here.
     // {
-    //  cerr << "Lexicon compile: entry: ";
+    //  std::cerr << "Lexicon compile: entry: ";
     //  lprint(entry);
-    //  cerr << "has non-atomic pos field\n";
+    //  std::cerr << "has non-atomic pos field\n";
     //  festival_error();
     // }
 
@@ -204,13 +204,13 @@ static void check_sylphones(const char *name,LISP syls)
     {
 	if (siod_llength(car(s)) != 2)
 	{
-	    cerr << "Malformed lexical entry: \"" << name << 
+	    std::cerr << "Malformed lexical entry: \"" << name << 
 		"\" syllable malformed\n";
 	    festival_error();
 	}
 	if (!siod_atomic_list(car(car(s))))
 	{
-	    cerr << "Malformed lexical entry: \"" << name << 
+	    std::cerr << "Malformed lexical entry: \"" << name << 
 		"\" syllable phone list malformed\n";
 	    festival_error();
 	}

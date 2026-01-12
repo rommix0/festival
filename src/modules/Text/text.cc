@@ -119,8 +119,8 @@ LISP tts_file(LISP filename,LISP mode)
 	t_mode = siod_assoc_str(get_c_string(mode),user_text_modes);
 	if (t_mode == NIL)
 	{
-	    cerr << "tts_file: can't find mode description \"" 
-		<< get_c_string(mode) << "\" using raw mode instead" << endl;
+	    std::cerr << "tts_file: can't find mode description \"" 
+		<< get_c_string(mode) << "\" using raw mode instead" << std::endl;
 	    tts_file_raw(filename);  // so read it as simple text file 
 	}
 	else
@@ -142,7 +142,7 @@ void tts_file_raw(LISP filename)
     stream = fopen_c(get_c_string(filename), "rb");
     if (ts.open(stream->storage_as.c_file.f, FALSE) == -1)
       {
-	cerr << "tts_file: can't open file \"" << filename << "\"\n";
+	std::cerr << "tts_file: can't open file \"" << filename << "\"\n";
 	festival_error();
       }
     ts.set_SingleCharSymbols(EST_Token_Default_SingleCharSymbols);

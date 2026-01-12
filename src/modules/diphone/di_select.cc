@@ -71,7 +71,7 @@ void di_frame_select(DIPHONE_DATABASE *database, DIPHONE_SPN *ps, DIPHONE_ACOUST
 	    ps->pm_req[++j] += 1;
 	else
 	{
-	   *cdebug << "Diphone: some sort of pitch error" << endl;
+	   *cdebug << "Diphone: some sort of pitch error" << std::endl;
 	    ps->pm_req[++j] += 1;
        }
     }

@@ -92,7 +92,7 @@ LISP lisp_get_url(LISP url,LISP filename)
 	    (us.get() != "/") ||
 	    (us.get() != "/"))
 	{
-	    cerr << "url_get: malformed url" << endl;
+	    std::cerr << "url_get: malformed url" << std::endl;
 	    festival_error();
 	}
 	host = us.get().string();  // upto next /
@@ -108,7 +108,7 @@ LISP lisp_get_url(LISP url,LISP filename)
 	wwwserver = festival_socket_client(host,atoi(port));
 	if (wwwserver < 0)
 	{
-	    cerr << "get_url: can't access server\n";
+	    std::cerr << "get_url: can't access server\n";
 	    festival_error();
 	}
 	fout = fdopen(wwwserver,"wb");
@@ -117,7 +117,7 @@ LISP lisp_get_url(LISP url,LISP filename)
 
 	if ((fd=fopen(get_c_string(filename),"wb")) == NULL)
 	{
-	    cerr << "get_url: can't open outputfile \"" << 
+	    std::cerr << "get_url: can't open outputfile \"" << 
 		get_c_string(filename) << "\"\n";
 	    festival_error();
 	}
@@ -137,19 +137,19 @@ LISP lisp_get_url(LISP url,LISP filename)
 	us.get();
 	if (us.get() != ":")
 	{
-	    cerr << "url_get: malformed url" << endl;
+	    std::cerr << "url_get: malformed url" << std::endl;
 	    festival_error();
 	}
 	file = us.get_upto_eoln();
 	if ((fin = fopen(file,"rb")) == NULL)
 	{
-	    cerr << "get_url: unable to access file url \"" << 
+	    std::cerr << "get_url: unable to access file url \"" << 
 		get_c_string(url) << "\"\n";
 	    festival_error();
 	}
 	if ((fd=fopen(get_c_string(filename),"wb")) == NULL)
 	{
-	    cerr << "get_url: can't open outputfile \"" << 
+	    std::cerr << "get_url: can't open outputfile \"" << 
 		get_c_string(filename) << "\"\n";
 	    fclose(fin);
 	    festival_error();
@@ -164,7 +164,7 @@ LISP lisp_get_url(LISP url,LISP filename)
     }
     else
     {
-	cerr << "get_url: unrecognizable url \"" << 
+	std::cerr << "get_url: unrecognizable url \"" << 
 	    get_c_string(url) << "\"\n";
 	festival_error();
     }	

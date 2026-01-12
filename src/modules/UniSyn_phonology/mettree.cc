@@ -145,7 +145,7 @@ void insert_schwa(EST_Item *n)
 
     if ((p = prev_match(n)) == 0)
     {
-	cout << "Couldn't insert dummy schwa after " << *n << endl;
+	std::cout << "Couldn't insert dummy schwa after " << *n << std::endl;
 	return;
     }
 
@@ -166,8 +166,8 @@ void insert_schwa(EST_Item *n)
 
     s->set("df", phone_def.A("ax"));
 
-//    cout << "end 1:" << s->f("end") << endl;
-//    cout << "end 2:" << p->f("end") << endl;
+//    std::cout << "end 1:" << s->f("end") << std::endl;
+//    std::cout << "end 2:" << p->f("end") << std::endl;
 }
 
 void add_initial_silence(EST_Relation &lexical, EST_Relation &surface, 
@@ -240,11 +240,11 @@ static void add_trans_phrase_phrase(EST_Utterance &utt)
 		    }
 
 	    exist = false;
-	    //	    cout << "\nroot node: " <<*s << endl;
+	    //	    std::cout << "\nroot node: " <<*s << std::endl;
 
 	    if (first_accent)
 		{
-		    cout << "first accent: " << *first_accent << endl;
+		    std::cout << "first accent: " << *first_accent << std::endl;
 		    a = iprev(first_accent);
 
 		    if (a->S("name","") != "phrase_start")
@@ -269,11 +269,11 @@ static void add_trans_phrase_phrase(EST_Utterance &utt)
 	    t = utt.relation("IntonationPhrase")->append(s);
 	    t->append_daughter(a);
 	    exist = false;
-	    //cout << "appended phrase end\n";
+	    //std::cout << "appended phrase end\n";
 
 	    if (last_accent)
 		{
-		    cout << "last accent: " << *last_accent << endl;
+		    std::cout << "last accent: " << *last_accent << std::endl;
 		    a = inext(last_accent);
 		    if (a->S("name","") != "phrase_end")
 			a = last_accent->insert_after();
@@ -291,7 +291,7 @@ static void add_trans_phrase_phrase(EST_Utterance &utt)
 
 	    // add this as daughter to root node
 	    t->append_daughter(a);
-	    //cout << "appended phrase start\n";
+	    //std::cout << "appended phrase start\n";
 	    first_accent = 0; // trigger for first time operation of loop
 	}
 
@@ -338,12 +338,12 @@ void add_single_phrase(EST_Utterance &utt, EST_Item *t)
     }
 
 /*    if (s)
-	 cout << "joining syllable " << *s << endl;
+	 std::cout << "joining syllable " << *s << std::endl;
     else
-	 cout << "No legal syllable " << endl;
-     cout << "to " << *t << endl;
+	 std::cout << "No legal syllable " << std::endl;
+     std::cout << "to " << *t << std::endl;
 
-     cout << "d = " << d << endl;
+     std::cout << "d = " << d << std::endl;
 */
 
     if (!s->in_relation("IntonationSyllable"))
@@ -372,7 +372,7 @@ void add_times(EST_Relation &lexical, EST_Relation &surface,
     prev_end = 0.0;
     last_end = 0.0;
 
-//    cout << "surface: " << surface << endl;
+//    std::cout << "surface: " << surface << std::endl;
 
     for (s = lexical.head(); s; s = inext(s))
     {
@@ -403,14 +403,14 @@ void add_times(EST_Relation &lexical, EST_Relation &surface,
     {
 	if (!s->f_present("end"))
 	{
-//	    cout << "missing end feature for " << *s << endl;
+//	    std::cout << "missing end feature for " << *s << std::endl;
 	    for (i = 1, p = s; p; p = inext(p), ++i)
 		if (p->f_present("end"))
 		    break;
 	    inc = (p->F("end") - prev_end) / ((float) i);
-//	    cout << "inc is : " << inc << endl;
+//	    std::cout << "inc is : " << inc << std::endl;
 
-//	    cout << "stop phone is " << *p << endl;
+//	    std::cout << "stop phone is " << *p << std::endl;
 
 	    for (i = 1; s !=p ; s = inext(s), ++i)
 	    {
@@ -425,9 +425,9 @@ void add_times(EST_Relation &lexical, EST_Relation &surface,
 
 static void met_error(EST_Item *s)
 {
-    cerr << "Illegally named daughters of metrical node\n"
-	 << "daughter1 : " << *daughter1(s) << endl
-	 << "daughter2 : " << *daughter2(s) << endl;
+    std::cerr << "Illegally named daughters of metrical node\n"
+	 << "daughter1 : " << *daughter1(s) << std::endl
+	 << "daughter2 : " << *daughter2(s) << std::endl;
     EST_error("");
 }
 
@@ -480,7 +480,7 @@ void binaryize_tree(EST_Item *t)
     // nodes with single children should be merged
     if (daughter2(t) == 0)
     {
-//	cout << "Single daughter: " << *t << endl;
+//	std::cout << "Single daughter: " << *t << std::endl;
 	EST_Item *d = daughter1(t);
 	move_sub_tree(d, t);
     }
@@ -643,20 +643,20 @@ static void stress_factor1(EST_Item *s, int max_depth)
 	else
 	    val += "0";
     
-    //    cout << "\nSyllable " << s << " has value " << val << endl;
+    //    std::cout << "\nSyllable " << s << " has value " << val << std::endl;
     
     if (val.length() < max_depth)
 	for (pad = "", i = 0; i < (max_depth - val.length()); ++i)
 	    pad += "2";
     
     val += pad;
-    //    cout << "Syllable " << s << " has padded value " << val << endl;
+    //    std::cout << "Syllable " << s << " has padded value " << val << std::endl;
     
     str = strdup(val);
     max = pow(3.0, (float)max_depth) - 1.0;
     n = strtol(str, (char **)NULL, 3);
-    //    cout << "decimal value: " << n;
-    //    cout << " normalised: " << (float)n/max << endl;
+    //    std::cout << "decimal value: " << n;
+    //    std::cout << " normalised: " << (float)n/max << std::endl;
     s->set("StressFactor1", ((float)n/max));
 }
 
@@ -685,13 +685,13 @@ static void phrase_factor(EST_Item &syl, const EST_String &met_name)
     EST_String val, pad;
     int num_nodes = 1;
     
-    //    cout << "Terminal Syl = " << syl << " f:" << syl.f << endl;
+    //    std::cout << "Terminal Syl = " << syl << " f:" << syl.f << std::endl;
     
     p = find_apex(syl.as_relation(met_name), num_nodes);
-    //    cout << "up nodes: " << num_nodes;
-    //    cout << "Apex = " << *p << endl;
+    //    std::cout << "up nodes: " << num_nodes;
+    //    std::cout << "Apex = " << *p << std::endl;
     find_leaf(daughter2(p), num_nodes);
-    //    cout << " downp nodes: " << num_nodes << endl;
+    //    std::cout << " downp nodes: " << num_nodes << std::endl;
     
     syl.set("PhraseIndex", num_nodes);
 }
@@ -770,7 +770,7 @@ void stress_factor2(EST_Utterance &u, const EST_String &base_stream,
     for (s = u.relation(base_stream)->head(); s; s = inext(s))
 	sv = Lof(s->I("StressVal"), sv);
     
-    cout << "Max Stress: " << sv << endl;
+    std::cout << "Max Stress: " << sv << std::endl;
     
     for (s = u.relation(base_stream)->head(); s; s = inext(s))
     {
@@ -799,8 +799,8 @@ void phrase_factor(EST_Utterance &u, const EST_String &base_stream,
     {
 	s->set("PhraseFactor",
 		(float)s->I("PhraseIndex")/max_pf);
-	//	cout << *s << " pf = " << 
-	//	    s->F("PhraseFactor") << endl;
+	//	std::cout << *s << " pf = " << 
+	//	    s->F("PhraseFactor") << std::endl;
     }
     
 }
@@ -834,13 +834,13 @@ static void add_intonation(EST_Utterance &u, const EST_String &base_stream,
 {
     EST_Item *e, *s;
     
-    cout << "Threshold = " << threshold << endl;
+    std::cout << "Threshold = " << threshold << std::endl;
     
     for (s = u.relation(base_stream)->head(); s; s = inext(s))
     {
 	if (s->F("StressFactor") > threshold)
 	{
-	    //	    cout << *s <<" **stress factor:" << s->F("StressFactor") << endl;
+	    //	    std::cout << *s <<" **stress factor:" << s->F("StressFactor") << std::endl;
 	    e = u.relation("IntSyl")->append();
 	    e->insert_below(s);
 	    e->set_name("Accent");
@@ -860,10 +860,10 @@ void add_monotone_targets(EST_Utterance &u, float start_f0,
     
     end = u.relation("Segment")->tail()->f("end");
     
-    cout << "Phone ends\n";
-    cout << *u.relation("Segment");
+    std::cout << "Phone ends\n";
+    std::cout << *u.relation("Segment");
     
-    cout << "last position is :" << end << endl;
+    std::cout << "last position is :" << end << std::endl;
     
     u.create_relation("Target");
     
@@ -899,8 +899,8 @@ static void mettree_add_words(EST_Utterance &u)
     {
 	word.clear_relations();
 	
-	cout << "N:";
-	cout << w->f("name") << " " << w->f("pos", "") << endl;
+	std::cout << "N:";
+	std::cout << w->f("name") << " " << w->f("pos", "") << std::endl;
 	lex_to_phones(w->f("name"), w->f("pos", "0"), 
 		      *word.relation("Segment"));
 	
@@ -934,7 +934,7 @@ static void percolate(EST_Item *start)
     
     for (n = start; n; n = parent(n))
     {
-	//	cout << "altering sister\n";
+	//	std::cout << "altering sister\n";
 	if (iprev(n) != 0)
 	    iprev(n)->set("MetricalValue", "w");
 	else if (inext(n) != 0)
@@ -965,24 +965,24 @@ void footing(EST_Item *n1)
     
     if (p1 == 0)
     {
-	cerr << "Error: Empty 3rd node after " << *n1 << " in footing\n";
+	std::cerr << "Error: Empty 3rd node after " << *n1 << " in footing\n";
 	return;
     }
     if (n2 == 0)
     {
-	cerr << "Error: Empty 3rd node after " << *n1 << " in footing\n";
+	std::cerr << "Error: Empty 3rd node after " << *n1 << " in footing\n";
 	return;
     }
     if (n3 == 0)
     {
-	cerr << "Error: Empty 3rd node after " << *n1 << " in footing\n";
+	std::cerr << "Error: Empty 3rd node after " << *n1 << " in footing\n";
 	return;
     }
     
-    cout << "n1: " << *n1 << endl << endl;
-    cout << "n2: " << *n2 << endl << endl;
-    cout << "n3: " << *n3 << endl << endl;
-    cout << "p1: " << *p1 << endl << endl;
+    std::cout << "n1: " << *n1 << std::endl << std::endl;
+    std::cout << "n2: " << *n2 << std::endl << std::endl;
+    std::cout << "n3: " << *n3 << std::endl << std::endl;
+    std::cout << "p1: " << *p1 << std::endl << std::endl;
     
     p3 = n1->insert_parent();
     n1 = daughter1(p3);
@@ -1027,27 +1027,27 @@ LISP FT_metrical_data(LISP lf_word, LISP lf_seg, LISP lf_int)
    
    if (u->relation("Word")->load(wordfile) != format_ok)
    {
-   cerr << "Couldn't load file " << get_c_string(lf_word) << endl;
+   std::cerr << "Couldn't load file " << get_c_string(lf_word) << std::endl;
    festival_error();
    }
    
    if ((segfile != "dummy") &&(u->relation("Segment")->
    load(get_c_string(lf_seg)) != format_ok))
    {
-   cerr << "Couldn't load file " << get_c_string(lf_seg) << endl;
+   std::cerr << "Couldn't load file " << get_c_string(lf_seg) << std::endl;
    festival_error();
    }
    
    if (lf_int != NIL)
    if (u->relation("Intonation")->load(get_c_string(lf_int)) != format_ok)
    {
-   cerr << "Couldn't load file " << get_c_string(lf_int) << endl;
+   std::cerr << "Couldn't load file " << get_c_string(lf_int) << std::endl;
    festival_error();
    }
    
    u->f.set("fileroot", basename(wordfile, "*"));
    
-   //    cout << "Words: " << *u->relation("Word");
+   //    std::cout << "Words: " << *u->relation("Word");
    
    if (segfile != "dummy")
    phonemic_trans(*u->relation("Segment"));
@@ -1069,7 +1069,7 @@ LISP FT_metrical_data(LISP lf_word, LISP lf_seg, LISP lf_int)
    gc_protect(&lutt);
    lutt = siod_make_utt(u);
    
-   cout << *u->relation("Word") << endl;
+   std::cout << *u->relation("Word") << std::endl;
    
    FT_POS_Utt(lutt);
    FT_Phrasify_Utt(lutt);
@@ -1128,7 +1128,7 @@ LISP FT_metrical_data(LISP lf_word, LISP lf_seg, LISP lf_int)
    }
    }
    
-   //    cout <<"Surface 1:" << *u->relation("SurfacePhone") << endl;
+   //    std::cout <<"Surface 1:" << *u->relation("SurfacePhone") << std::endl;
    
    for (i = 0, w = u->relation("Word")->head(); w != 0; w = inext(w), ++i)
    {
@@ -1143,13 +1143,13 @@ LISP FT_metrical_data(LISP lf_word, LISP lf_seg, LISP lf_int)
    trans_to_phones(w, *u->relation("Segment"), 
    *word.relation("SurfacePhone"));
    
-   //	cout << "lex phones: " << *word.relation("LexicalPhone") << endl;
-   //	cout << "sur phones: " << *word.relation("SurfacePhone") << endl;
+   //	std::cout << "lex phones: " << *word.relation("LexicalPhone") << std::endl;
+   //	std::cout << "sur phones: " << *word.relation("SurfacePhone") << std::endl;
    
    if (siod_get_lval("mettree_phones_debug", NULL) != NIL)
    {
-   cout << "phones for word" << *w << endl;
-   cout << *word.relation("SurfacePhone") << endl;
+   std::cout << "phones for word" << *w << std::endl;
+   std::cout << *word.relation("SurfacePhone") << std::endl;
    }
    
    nw = word.relation("Word")->append();
@@ -1177,9 +1177,9 @@ LISP FT_metrical_data(LISP lf_word, LISP lf_seg, LISP lf_int)
    *word.relation("SurfaceSylStructure"),
    *word.relation("SurfaceSyllable")) < 1)
    {
-   cerr << "Pronuciation for \"" << w->S("name") 
+   std::cerr << "Pronuciation for \"" << w->S("name") 
    << "\" doesn't contain a vowel: " << 
-   *word.relation("SurfacePhone") << endl;
+   *word.relation("SurfacePhone") << std::endl;
    //	    festival_error();
    }
    
@@ -1204,13 +1204,13 @@ LISP FT_metrical_data(LISP lf_word, LISP lf_seg, LISP lf_int)
    
    //    u->save("test.utt");
    
-   //    cout <<"Surface 2:" << *u->relation("SurfacePhone") << endl;
+   //    std::cout <<"Surface 2:" << *u->relation("SurfacePhone") << std::endl;
    
    add_initial_silence(*u->relation("LexicalPhone"), 
    *u->relation("SurfacePhone"), 
    *u->relation("Match"));
    
-   //    cout <<"Surface 3:" << *u->relation("SurfacePhone") << endl;
+   //    std::cout <<"Surface 3:" << *u->relation("SurfacePhone") << std::endl;
    
    add_times(*u->relation("LexicalPhone"), *u->relation("SurfacePhone"), 
    *u->relation("Match"));
@@ -1268,18 +1268,18 @@ LISP FT_metrical_data(LISP lf_word, LISP lf_seg, LISP lf_int)
    //    add_feature_function(*u->relation("LexicalSyllable"),"dur", duration_time);
    
    
-   //    cout << "ADDED Features to phone\n\n";
-   //    cout << *(u->relation("LexicalPhone")) << endl << endl;
+   //    std::cout << "ADDED Features to phone\n\n";
+   //    std::cout << *(u->relation("LexicalPhone")) << std::endl << std::endl;
    
-   //    cout << "ADDED Features\n\n";
-   //    cout << *(u->relation("LexicalSyllable"));
+   //    std::cout << "ADDED Features\n\n";
+   //    std::cout << *(u->relation("LexicalSyllable"));
    
-   //    cout << "\nfinished\n\n";
+   //    std::cout << "\nfinished\n\n";
    
    //    if (lf_int != NIL)
    //	add_trans_intonation(*u);
    
-   //    cout <<"Lexical 3:" << *u->relation("LexicalPhone") << endl;
+   //    std::cout <<"Lexical 3:" << *u->relation("LexicalPhone") << std::endl;
    
    //    end_to_dur(*u->relation("SurfacePhone"));
    //    end_to_dur(*u->relation("LexicalPhone"));
@@ -1287,7 +1287,7 @@ LISP FT_metrical_data(LISP lf_word, LISP lf_seg, LISP lf_int)
    
    
    
-   //    cout <<"Lexical 3:" << *u->relation("LexicalPhone") << endl;
+   //    std::cout <<"Lexical 3:" << *u->relation("LexicalPhone") << std::endl;
    
    //    clear_feature(*u->relation("SurfacePhone"), "end");
    //    clear_feature(*u->relation("LexicalPhone"), "end");

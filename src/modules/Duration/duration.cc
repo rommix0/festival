@@ -60,8 +60,8 @@ LISP FT_Duration_Ave_Utt(LISP utt)
 	stretch = dur_get_stretch_at_seg(s);
 	if (ldur == NIL)
 	{
-	    cerr << "Phoneme: " << s->name() << " have no default duration "
-		<< endl;
+	    std::cerr << "Phoneme: " << s->name() << " have no default duration "
+		<< std::endl;
 	    dur = 0.100;
 	}
 	else
@@ -112,8 +112,8 @@ LISP FT_Duration_Tree_Utt(LISP utt)
 	stretch = dur_get_stretch_at_seg(s);
 	if (pdur == 0.0)
 	{
-	    cerr << "Phoneme: " << s->name() << " tree predicted 0.0 changing it"
-		<< endl;
+	    std::cerr << "Phoneme: " << s->name() << " tree predicted 0.0 changing it"
+		<< std::endl;
 	    dur = 0.050;
 	}
 	else
@@ -151,7 +151,7 @@ LISP FT_Duration_Tree_ZScores_Utt(LISP utt)
 	stretch = dur_get_stretch_at_seg(s);
 	if (ph_info == NIL)
 	{
-	    cerr << "Phoneme: " << s->name() << " has no duration info\n";
+	    std::cerr << "Phoneme: " << s->name() << " has no duration info\n";
             ave = 0.080;
             std = 0.020;
 	}
@@ -162,8 +162,8 @@ LISP FT_Duration_Tree_ZScores_Utt(LISP utt)
         }
 	if ((pdur > 3) || (pdur < -3))
 	{
-            //	    cerr << "Duration tree extreme for " << s->name() << 
-            //		" " << pdur << endl;
+            //	    std::cerr << "Duration tree extreme for " << s->name() << 
+            //		" " << pdur << std::endl;
 	    pdur = ((pdur < 0) ? -3 : 3);
 	}
 	s->set("dur_factor",pdur);

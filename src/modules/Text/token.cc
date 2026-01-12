@@ -87,7 +87,7 @@ LISP FT_Welsh_Token_Utt(LISP utt)
 LISP FT_Spanish_Token_Utt(LISP utt)
 {
     (void)utt;
-    cerr << "TOKEN: Spanish tokenization not yet supported\n";
+    std::cerr << "TOKEN: Spanish tokenization not yet supported\n";
     festival_error();
 
     // never happens
@@ -139,7 +139,7 @@ LISP FT_English_Token_Utt(LISP utt)
     LISP words,w,eou_tree,l;
     EST_Item *new_word;
 
-    *cdebug << "Token module (English)" << endl;
+    *cdebug << "Token module (English)" << std::endl;
 
     eou_tree = siod_get_lval("eou_tree","No end of utterance tree");
     user_token_to_word_func = siod_get_lval("token_to_words",NULL);
@@ -474,7 +474,7 @@ static LISP say_num_as_ordinal(const EST_String &num)
     {
 	// I don't think I've forgotten anything 
 	*cdebug << "Token: can't make ordinal from \"" << lastword 
-	    << "\"" << endl;
+	    << "\"" << std::endl;
 	CAR(last) = strintern(EST_String(lastword)+"th");
     }
 

@@ -88,16 +88,16 @@ TCData *EST_FlatTargetCost::flatpack(EST_Item *seg) const
 
     // This segment features
 
-    //cout << "SEG: " << seg->S("name") << " is vowel: " 
-    //    << ph_is_vowel(seg->S("name")) << endl;
+    //std::cout << "SEG: " << seg->S("name") << " is vowel: " 
+    //    << ph_is_vowel(seg->S("name")) << std::endl;
 
     if(ph_is_vowel(seg->S("name")))
         (*f)[VOWEL]=1;
     else
         (*f)[VOWEL]=0;
 
-    //cout << "SEG: " << seg->S("name") << " is sil: " 
-    //     << ph_is_silence(seg->S("name")) << endl;
+    //std::cout << "SEG: " << seg->S("name") << " is sil: " 
+    //     << ph_is_silence(seg->S("name")) << std::endl;
 
     if(ph_is_silence(seg->S("name")))
         (*f)[SIL]=1;
@@ -134,30 +134,30 @@ TCData *EST_FlatTargetCost::flatpack(EST_Item *seg) const
     {
         (*f)[SYL]=simple_id(syl->S("id"));
         (*f)[SYL_STRESS]=syl->I("stress");
-        //cout << "syl id: " <<  simple_id(syl->S("id"))
-        //<< " stress: " << syl->I("stress") << endl;
+        //std::cout << "syl id: " <<  simple_id(syl->S("id"))
+        //<< " stress: " << syl->I("stress") << std::endl;
     }
     else 
     {
         (*f)[SYL]=0;
         (*f)[SYL_STRESS]=0;
-        //cout << "no syl present " << endl;
+        //std::cout << "no syl present " << std::endl;
 
     }
 
 
     // Next segment features
 
-    //cout << "NSEG: " << seg->next()->S("name") << " is sil: " 
-    //    << ph_is_silence(seg->next()->S("name")) << endl;
+    //std::cout << "NSEG: " << seg->next()->S("name") << " is sil: " 
+    //    << ph_is_silence(seg->next()->S("name")) << std::endl;
 
     if(ph_is_silence(inext(seg)->S("name")))
         (*f)[N_SIL]=1;
     else
         (*f)[N_SIL]=0;
 
-    //cout << "NSEG: " << seg->next()->S("name") << " is vowel: " 
-    //   << ph_is_vowel(seg->next()->S("name")) << endl;
+    //std::cout << "NSEG: " << seg->next()->S("name") << " is vowel: " 
+    //   << ph_is_vowel(seg->next()->S("name")) << std::endl;
 
     if(ph_is_vowel(inext(seg)->S("name")))
         (*f)[N_VOWEL]=1;
@@ -169,26 +169,26 @@ TCData *EST_FlatTargetCost::flatpack(EST_Item *seg) const
     {
         (*f)[NSYL]=simple_id(nsyl->S("id"));
         (*f)[NSYL_STRESS]=nsyl->I("stress");
-        //cout << "nsyl stress: " << nsyl->I("stress") << endl;
+        //std::cout << "nsyl stress: " << nsyl->I("stress") << std::endl;
     }
     else
     {
         (*f)[NSYL]=0;
         (*f)[NSYL_STRESS]=0;
-        //cout << "no nsyl: " << endl;
+        //std::cout << "no nsyl: " << std::endl;
     }
 
     if(inext(inext(seg)))
     {
-        //cout << "RC: " << seg->next()->next()->S("name")
+        //std::cout << "RC: " << seg->next()->next()->S("name")
         //<< " " << simple_phone(seg->next()->next()->S("name"))
-        //	   << endl;
+        //	   << std::endl;
         (*f)[RC]=simple_phone(inext(inext(seg))->S("name"));
         (*f)[NNBAD_DUR]=inext(inext(seg))->f_present("bad_dur");
     }
     else
     {
-        //cout << "NO RC\n";
+        //std::cout << "NO RC\n";
         (*f)[RC]=0;
         (*f)[NNBAD_DUR]=0;
     }

@@ -52,7 +52,7 @@ float dur_get_stretch(void)
 	stretch = get_c_float(lstretch);
     if (stretch < 0.1)
     {
-	cerr << "Duration_Stretch: is too small (" << stretch <<
+	std::cerr << "Duration_Stretch: is too small (" << stretch <<
 	    ") ingnoring it\n";
 	stretch = 1.0;
     }

@@ -141,7 +141,7 @@ static LISP clunits_select(LISP utt)
 	v.search();
 	if (!v.result("unit_id"))
 	{
-	    cerr << "CLUNIT: failed to find path\n";
+	    std::cerr << "CLUNIT: failed to find path\n";
 	    return utt;
 	}
 	v.copy_feature(static_unit_this_move);
@@ -228,7 +228,7 @@ static void cl_parse_diphone_times(EST_Relation &diphone_stream,
 	pm = track(u->f("coefs"));
 	if (pm == 0)
 	{
-	    cerr << "CLUNIT: couldn't get pitchmarks for " << u->name() << endl;
+	    std::cerr << "CLUNIT: couldn't get pitchmarks for " << u->name() << std::endl;
 	    festival_error();
 	}
 	
@@ -449,8 +449,8 @@ static EST_VTCandidate *TS_candlist(EST_Item *s,EST_Features &f)
     }
     if (pd == NIL)
     {
-	cerr << "CLUNITS: no predicted class for " << 
-	    s->S("clunit_name") << endl;
+	std::cerr << "CLUNITS: no predicted class for " << 
+	    s->S("clunit_name") << std::endl;
 	festival_error();
     }
     group = car(pd);
@@ -463,8 +463,8 @@ static EST_VTCandidate *TS_candlist(EST_Item *s,EST_Features &f)
 	u = cldb->get_unit(name);
 	if (u == 0)
 	{
-	    cerr << "CLUNITS: failed to find unit " << name <<
-		" in index" << endl;
+	    std::cerr << "CLUNITS: failed to find unit " << name <<
+		" in index" << std::endl;
 	    festival_error();
 	}
 	cldb->load_join_coefs(u);

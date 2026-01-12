@@ -68,7 +68,7 @@ void di_psola_tm(DIPHONE_DATABASE *db, DIPHONE_ACOUSTIC *as, DIPHONE_OUTPUT *out
     (void)as;
     (void)output;
     
-    cerr << "Diphone: di_psola is not available in this installation" << endl;
+    std::cerr << "Diphone: di_psola is not available in this installation" << std::endl;
     festival_error();
 }
 #endif    

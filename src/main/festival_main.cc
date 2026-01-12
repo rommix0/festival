@@ -233,7 +233,7 @@ static void festival_script_mode(int argc, char **argv)
 
     if (argc < 2)
     {   
-	cerr << "festival: script_mode has no file to interpret" << endl;
+	std::cerr << "festival: script_mode has no file to interpret" << std::endl;
 	return;
     }
 
