@@ -1,0 +1,5 @@
+run 'festival' from this directory, not from src/main
+
+/src/main/festival
+
+Festival is now fully portable.
