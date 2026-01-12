@@ -1,3 +1,28 @@
+```
+# make the speech_tools project first before
+# making this one
+
+# it's recommended to use rommix0's version
+# as the awful "using namespace std;" keywords
+# are no longer an issue.
+# https://github.com/rommix0/speech_tools
+
+# to install on Cygwin running under Windows 10/11
+# simply just configure with appropriate flags,
+# and make it
+
+CXXFLAGS="-std=gnu++0x" CFLAGS="-std=c11" ./configure
+make
+
+
+TO RUN FESTIVAL AFTER BUILDING:
+	+ get inside the festival directory (not src/main)
+	+ type in "/src/main/festival" to load it
+	+ the program is now portable. no more stupid static directory assignments
+
+```
+
+========================================================================
 
               The Festival Speech Synthesis System
                    version 2.5.1 July 2020

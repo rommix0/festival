@@ -1,0 +1,14 @@
+# make the speech_tools project first before
+# making this one
+
+# it's recommended to use rommix0's version
+# as the awful "using namespace std;" keywords
+# are no longer an issue.
+# https://github.com/rommix0/speech_tools
+
+# to install on Cygwin running under Windows 10/11
+# simply just configure with appropriate flags,
+# and make it
+
+CXXFLAGS="-std=gnu++0x" CFLAGS="-std=c11" ./configure
+make
