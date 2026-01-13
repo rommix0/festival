@@ -13,13 +13,6 @@
 
 CXXFLAGS="-std=gnu++0x" CFLAGS="-std=c11" ./configure
 make
-
-
-TO RUN FESTIVAL AFTER BUILDING:
-	+ get inside the festival directory (not src/main)
-	+ type in "src/main/festival" to load it
-	+ the program is now portable. no more static directory
-
 ```
 
 ========================================================================
